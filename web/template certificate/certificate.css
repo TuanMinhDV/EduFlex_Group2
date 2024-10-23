@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Pinyon+Script|Rochester');
+
+body {
+  padding: 20px 0;
+  background: #FFFFFF;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.pm-certificate-container {
+  width: 700px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border: 1px solid #ccc;
+  font-family: 'Open Sans', sans-serif;
+  padding: 30px;
+  color: #333;
+}
+
+.cursive {
+  font-family: 'Pinyon Script', cursive;
+}
+
+.sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.underline {
+  border-bottom: 1px solid #777;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.pm-empty-space {
+  height: 40px;
+  width: 100%;
+}
+
+.pm-certificate-border {
+  padding: 0;
+}
+
+.pm-certificate-block {
+  width: 650px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.pm-certificate-title h2 {
+  font-size: 34px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.pm-certificate-body {
+  padding: 20px;
+}
+
+.pm-name-text {
+  font-size: 20px;
+}
+
+.pm-earned-text {
+  font-size: 20px;
+}
+
+.pm-credits-text {
+  font-size: 15px;
+}
+
+.pm-course-title {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.pm-certified {
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.pm-certificate-footer {
+  margin-top: 20px;
+}
+.pm-certificate-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.pm-certified {
+  font-size: 12px;
+  margin: 5px 0;
+}
+.pm-certificate-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px; /* Đặt chiều cao */
+}
+.pm-earned {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px; /* Đặt chiều cao */
+}
+.pm-earned {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60px; /* Đặt chiều cao */
+}
+
+.pm-earned-text {
+  font-size: 20px;
+}
+
+.pm-credits-text {
+  font-size: 15px;
+}

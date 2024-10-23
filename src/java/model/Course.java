@@ -1,0 +1,170 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package model;
+
+public class Course {
+
+    private int course_id;
+    private String course_name;
+    private String description;
+    private String image;
+    private float price;
+    private float discount;
+    private int sold;
+    private String created_date;
+    private String updated_date;
+    private int instructor_id;
+    private String instructor_name;
+    private double rate_course;
+    private int chapter_num;
+    private int lesson_num;
+
+    public Course() {
+    }
+
+    public Course(int course_id, String course_name, String description, String image, float price, float discount, int sold, String created_date, String updated_date, int instructor_id, String instructor_name, double rate_course, int chapter_num, int lesson_num) {
+        this.course_id = course_id;
+        this.course_name = course_name;
+        this.description = description;
+        this.image = image;
+        this.price = price;
+        this.discount = discount;
+        this.sold = sold;
+        this.created_date = created_date;
+        this.updated_date = updated_date;
+        this.instructor_id = instructor_id;
+        this.instructor_name = instructor_name;
+        this.rate_course = rate_course;
+        this.chapter_num = chapter_num;
+        this.lesson_num = lesson_num;
+    }
+    public Course(int course_id, String course_name, String description, String image, float price, float discount, int sold, String created_date, String updated_date, int instructor_id) {
+        this.course_id = course_id;
+        this.course_name = course_name;
+        this.description = description;
+        this.image = image;
+        this.price = price;
+        this.discount = discount;
+        this.sold = sold;
+        this.created_date = created_date;
+        this.updated_date = updated_date;
+        this.instructor_id = instructor_id;
+    }
+
+    public int getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(int course_id) {
+        this.course_id = course_id;
+    }
+
+    public String getCourse_name() {
+        return course_name;
+    }
+
+    public void setCourse_name(String course_name) {
+        this.course_name = course_name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(float discount) {
+        this.discount = discount;
+    }
+
+    public int getSold() {
+        return sold;
+    }
+
+    public void setSold(int sold) {
+        this.sold = sold;
+    }
+
+    public String getCreated_date() {
+        return created_date;
+    }
+
+    public void setCreated_date(String created_date) {
+        this.created_date = created_date;
+    }
+
+    public String getUpdated_date() {
+        return updated_date;
+    }
+
+    public void setUpdated_date(String updated_date) {
+        this.updated_date = updated_date;
+    }
+
+    public int getInstructor_id() {
+        return instructor_id;
+    }
+
+    public void setInstructor_id(int instructor_id) {
+        this.instructor_id = instructor_id;
+    }
+
+    public String getInstructor_name() {
+        return instructor_name;
+    }
+
+    public void setInstructor_name(String instructor_name) {
+        this.instructor_name = instructor_name;
+    }
+
+    public double getRate_course() {
+        return rate_course;
+    }
+
+    public void setRate_course(double rate_course) {
+        this.rate_course = rate_course;
+    }
+
+    public int getChapter_num() {
+        return chapter_num;
+    }
+
+    public void setChapter_num(int chapter_num) {
+        this.chapter_num = chapter_num;
+    }
+
+    public int getLesson_num() {
+        return lesson_num;
+    }
+
+    public void setLesson_num(int lesson_num) {
+        this.lesson_num = lesson_num;
+    }
+
+
+   
+}

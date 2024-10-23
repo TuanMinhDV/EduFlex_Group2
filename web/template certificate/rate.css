@@ -1,0 +1,25 @@
+.rate{
+  
+
+}
+.rate .star{
+  font-family: Wingdings;
+  font-size: 50px;
+  color: #ccc;
+  display: inline-block;
+  
+  
+}
+.rate .star:first-child:before{
+  color: transparent;
+ 
+}
+.rate .star::before{
+  font-family: Wingdings;
+  font-size: 50px;
+  content: "\2605";
+}
+.result{
+  margin-top: 30px;
+  font-size: 30px;
+}
