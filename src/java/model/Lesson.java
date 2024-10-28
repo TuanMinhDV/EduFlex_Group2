@@ -12,6 +12,28 @@ public class Lesson {
     private String document;
     private String description;
     private int chapter_id;
+    private int isDisable;
+
+    public int getIsDisable() {
+        return isDisable;
+    }
+
+    public void setIsDisable(int isDisable) {
+        this.isDisable = isDisable;
+    }
+
+    public Lesson(int lesson_id, int lesson_no, String lesson_name, String video, String document, String description, int chapter_id, int isDisable) {
+        this.lesson_id = lesson_id;
+        this.lesson_no = lesson_no;
+        this.lesson_name = lesson_name;
+        this.video = video;
+        this.document = document;
+        this.description = description;
+        this.chapter_id = chapter_id;
+        this.isDisable = isDisable;
+    }
+   
+    
 
     public Lesson() {
     }

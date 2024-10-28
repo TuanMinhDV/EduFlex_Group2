@@ -8,6 +8,24 @@ public class Quiz {
     private int quiz_id;
     private String name;
     private int chapter_id;
+    private int isDisable;
+
+    public int getIsDisable() {
+        return isDisable;
+    }
+
+    public void setIsDisable(int isDisable) {
+        this.isDisable = isDisable;
+    }
+
+    public Quiz(int quiz_id, String name, int chapter_id, int isDisable) {
+        this.quiz_id = quiz_id;
+        this.name = name;
+        this.chapter_id = chapter_id;
+        this.isDisable = isDisable;
+    }
+    
+    
 
     public Quiz() {
     }
