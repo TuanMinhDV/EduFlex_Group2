@@ -19,17 +19,13 @@ import model.Order;
 import model.OrderDetail;
 import model.OrderCourse;
 
-/**
- *
- * @author hayha
- */
 public class RegistrationDAO extends DBContext {
 
     public List<OrderCourse> getAll() {
         PreparedStatement ps;
         ResultSet rs;
         List<OrderCourse> list = new ArrayList<>();
-        String sql = "select * from subject ";
+        String sql = "SELECT * FROM Course ";
         try {
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -40,8 +36,8 @@ public class RegistrationDAO extends DBContext {
                     imageData = rs.getBytes("image");
                     base64Image = new String(Base64.getEncoder().encode(imageData));
                 }
-                OrderCourse sub = new OrderCourse(rs.getInt("subject_id"),
-                        rs.getString("subject_name"),
+                OrderCourse sub = new OrderCourse(rs.getInt("course_id"),
+                        rs.getString("course_name"),
                         base64Image,
                         rs.getDouble("price"));
                 list.add(sub);
@@ -52,13 +48,13 @@ public class RegistrationDAO extends DBContext {
         return list;
     }
 
-    public OrderCourse getSubjectbyId(int subject_id) {
-        String sql = "select * from Subject where subject_id = ?";
+    public OrderCourse getCoursebyId(int course_id) {
+        String sql = "SELECT * FROM Course WHERE course_id = ?";
         PreparedStatement ps;
         ResultSet rs;
         try {
             ps = connection.prepareStatement(sql);
-            ps.setInt(1, subject_id);
+            ps.setInt(1, course_id);
             rs = ps.executeQuery();
             if (rs.next()) {
                 byte[] imageData = null;
@@ -67,8 +63,8 @@ public class RegistrationDAO extends DBContext {
                     imageData = rs.getBytes("image");
                     base64Image = new String(Base64.getEncoder().encode(imageData));
                 }
-                OrderCourse sub = new OrderCourse(rs.getInt("subject_id"),
-                        rs.getString("subject_name"),
+                OrderCourse sub = new OrderCourse(rs.getInt("course_id"),
+                        rs.getString("course_name"),
                         base64Image,
                         rs.getDouble("price"));
                 sub.setDiscount(rs.getDouble("discount"));

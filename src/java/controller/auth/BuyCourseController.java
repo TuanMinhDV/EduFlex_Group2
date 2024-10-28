@@ -13,8 +13,8 @@ import model.Cart;
 import model.CartItem;
 import model.OrderCourse;
 
-@WebServlet(name = "BuySubjectController", urlPatterns = {"/buysubject"})
-public class BuySubjectController extends BaseRequiredAuthorizationController {
+@WebServlet(name = "BuyCourseController", urlPatterns = {"/buycourse"})
+public class BuyCourseController extends BaseRequiredAuthorizationController {
 
     @Override
     protected void doAuthGet(HttpServletRequest request, HttpServletResponse response, Account acc) throws ServletException, IOException {
@@ -30,14 +30,14 @@ public class BuySubjectController extends BaseRequiredAuthorizationController {
             } else {
                 cart = new Cart();
             }
-            String tsubject_id = request.getParameter("subject_id");
-            int subject_id;
+            String tcourse_id = request.getParameter("course_id");
+            int course_id;
 
             try {
-                subject_id = Integer.parseInt(tsubject_id);
+                course_id = Integer.parseInt(tcourse_id);
 
                 RegistrationDAO reg = new RegistrationDAO();
-                OrderCourse od = reg.getSubjectbyId(subject_id);
+                OrderCourse od = reg.getCoursebyId(course_id);
                 int category_id = od.getCategory_id();
                 double discount = od.getDiscount();
                 double price = od.getPrice() * (1 - discount / 100);
@@ -63,8 +63,8 @@ public class BuySubjectController extends BaseRequiredAuthorizationController {
             List<CartItem> list = cart.getItems();
             session.setAttribute("cart", cart);
             session.setAttribute("size", list.size());
-            //request.getRequestDispatcher("subjectlist").forward(request, response);
-            response.sendRedirect("home");
+            //request.getRequestDispatcher("courselist").forward(request, response);
+            response.sendRedirect("cart.jsp");
         }
     }
 

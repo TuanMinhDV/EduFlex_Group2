@@ -17,6 +17,8 @@ public class Course {
     private String updated_date;
     private int instructor_id;
     private String instructor_name;
+    private int category_id;
+    private String category_name;
     private double rate_course;
     private int chapter_num;
     private int lesson_num;
@@ -61,7 +63,7 @@ public class Course {
         this.updated_date = updated_date;
         this.instructor_id = instructor_id;
     }
-
+  
     public Course(int course_id, String course_name, String description, String image, float price, float discount, int sold, String created_date, String updated_date, int instructor_id, String instructor_name, double rate_course, int chapter_num, int lesson_num, int isDisable) {
         this.course_id = course_id;
         this.course_name = course_name;
@@ -79,9 +81,24 @@ public class Course {
         this.lesson_num = lesson_num;
         this.isDisable = isDisable;
     }
-    
-    
 
+
+   public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+  
     public int getCourse_id() {
         return course_id;
     }

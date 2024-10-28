@@ -19,8 +19,8 @@ import model.Account;
 import model.Course;
 //import model.Subject;
 
-@WebServlet(name = "SubjectDetailController", urlPatterns = "/subjectdetail")
-public class SubjectDetailController extends HttpServlet {
+@WebServlet(name = "CourseDetailController", urlPatterns = "/coursedetail")
+public class CourseDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,7 +34,7 @@ public class SubjectDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -60,32 +60,28 @@ public class SubjectDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-//        SubjectDAO s = new SubjectDAO();
         CourseDAO c = new CourseDAO();
         String course_id_raw = request.getParameter("course_id");
-        String category_id_raw = request.getParameter("category_id");
         int active;
         HttpSession session = request.getSession();
-        Account account = (Account)session.getAttribute("account");
+        Account account = (Account) session.getAttribute("account");
 
         try {
-//            int subject_id = Integer.parseInt(subject_id_raw);
-//            int category_id = Integer.parseInt(category_id_raw);
-//            if(account != null){
-//                 active = s.getSubjectActive(subject_id,account.getAccount_id());
-//            } else {
-//                active = 0;
-//        }
-//            List<Course> listC = c.getCourseBySubjectId(subject_id);
-//            List<Subject> listRS = s.getRelatedSubjectByCategoryID(subject_id, category_id);
-//            Subject subject = s.getSubject(subject_id);
-//            request.setAttribute("active", active);
-//            request.setAttribute("subject", subject);
+            int course_id = Integer.parseInt(course_id_raw);
+            //int category_id = Integer.parseInt(category_id_raw);
+            if (account != null) {
+                active = c.getCourseActive(course_id, account.getAccount_id());
+            } else {
+                active = 0;
+            }
+            Course course = c.getCourseByCourseId(course_id);
+            request.setAttribute("active", active);
+            request.setAttribute("course", course);
+            // Danh sách dề xuất
 //            request.setAttribute("listRS", listRS);
 //            request.setAttribute("listC", listC);
 //            request.setAttribute("category_id", category_id);
-            request.getRequestDispatcher("subject_detail.jsp").forward(request, response);
+            request.getRequestDispatcher("course_detail.jsp").forward(request, response);
         } catch (Exception e) {
         }
     }
