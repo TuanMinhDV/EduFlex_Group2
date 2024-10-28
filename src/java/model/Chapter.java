@@ -9,6 +9,25 @@ public class Chapter {
     private int chapter_no;
     private String chapter_name;
     private int course_id;
+    private int isDisable;
+
+    public int getIsDisable() {
+        return isDisable;
+    }
+
+    public void setIsDisable(int isDisable) {
+        this.isDisable = isDisable;
+    }
+
+    public Chapter(int chapter_id, int chapter_no, String chapter_name, int course_id, int isDisable) {
+        this.chapter_id = chapter_id;
+        this.chapter_no = chapter_no;
+        this.chapter_name = chapter_name;
+        this.course_id = course_id;
+        this.isDisable = isDisable;
+    }
+    
+    
 
     public Chapter() {
     }
