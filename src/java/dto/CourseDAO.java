@@ -18,6 +18,50 @@ import model.Course;
 
 public class CourseDAO extends DBContext {
 
+    // Lay tat ca cac Course
+    public List<Course> getAllCourse() {
+        List<Course> list = new ArrayList<>();
+        String query = "SELECT\n"
+                + "Course.*,\n"
+                + "Account.fullname,\n"
+                + "ROUND(\n"
+                + "(SELECT AVG(avg_rate) \n"
+                + "FROM\n"
+                + "(SELECT Course.course_id, AVG(Learner_Course.rate) AS avg_rate\n"
+                + "FROM Learner_Course\n"
+                + "INNER JOIN Course ON Learner_Course.course_id = Course.course_id\n"
+                + "GROUP BY Course.course_id) AS course_rate\n"
+                + "WHERE course_rate.course_id IN (SELECT Course.course_id\n"
+                + "FROM Course\n"
+                + "WHERE Course.subject_id = Subject.subject_id)), 1) AS subject_rate\n"
+                + "FROM Subject\n"
+                + "INNER JOIN Account ON Subject.lecturer_id = Account.account_id";
+        try {
+            PreparedStatement st = connection.prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                byte[] imageByte = rs.getBytes("image");
+                String image = new String(Base64.getEncoder().encode(imageByte));
+                Course s = new Course();
+                s.setCourse_id(rs.getInt("course_id"));
+                s.setCourse_name(rs.getString("course_name"));
+                s.setDescription(rs.getString("description"));
+                s.setImage(image);
+                s.setPrice(rs.getFloat("price"));
+                s.setDiscount(rs.getFloat("discount"));
+                s.setSold(rs.getInt("sold"));
+                s.setCreated_date(rs.getString("created_date"));
+                s.setUpdated_date(rs.getString("updated_date"));
+                //s.setCategory_id(rs.getInt("category_id"));
+                s.setInstructor_id(rs.getInt("instructor_id"));
+                s.setInstructor_name(rs.getString("fullname"));
+                s.setRate_course(rs.getDouble("course_rate"));
+                list.add(s);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
     // get course of lecturer and search ajax
     public List<Course> getCourseBankByLecturer(int lecturer_id, String txt) {
         List<Course> list = new ArrayList<>();
@@ -42,6 +86,30 @@ public class CourseDAO extends DBContext {
         }
 
         return list;
+    }
+
+    public int getCourseActive(int course_id, int account_id) {
+        String sql = "SELECT Learner_Course.active\n"
+                + "  FROM [Learner_Course], Account, Course\n"
+                + "  where Learner_Course.learner_id = Account.account_id\n"
+                + "  and Course.course_id = Learner_Course.course_id\n"
+                + "  and Course.course_id = ?\n"
+                + "  and Account.account_id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, course_id);
+            st.setInt(2, account_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("active");
+            }
+
+        } catch (SQLException e) {
+
+        }
+
+        return 0;
     }
 
     public List<Course> getTop5Course() {
@@ -309,8 +377,7 @@ public class CourseDAO extends DBContext {
                 + "      ,[price]\n"
                 + "      ,[discount]\n"
                 + "      ,[sold]\n"
-                + "      ,[category_id]\n"
-                + "      ,[lecturer_id]\n"
+                + "      ,[instructor_id]\n"
                 + "  FROM [Course]"
                 + "  WHERE course_id = ?";
 

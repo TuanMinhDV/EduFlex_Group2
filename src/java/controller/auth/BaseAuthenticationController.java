@@ -30,7 +30,7 @@ public abstract class BaseAuthenticationController extends HttpServlet {
             Account acc = (Account) request.getSession().getAttribute("account");
             doPost(request, response, acc);
         } else {
-            response.sendRedirect("Login.jsp");
+            response.sendRedirect("login.jsp");
         }
     }
 
@@ -40,7 +40,7 @@ public abstract class BaseAuthenticationController extends HttpServlet {
             Account acc = (Account) request.getSession().getAttribute("account");
             doGet(request, response, acc);
         } else {
-            response.sendRedirect("Login.jsp");
+            response.sendRedirect("login.jsp");
         }
     }
 
