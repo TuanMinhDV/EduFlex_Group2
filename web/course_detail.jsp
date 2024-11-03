@@ -48,7 +48,7 @@
                     <h1 class="display-3 font-weight-bold text-white">📖${course.course_name}</h1>
                     <p class="text-white mb-4">💡${course.description}</p>
                     <c:set var="active" value="${requestScope.active}"/>
-                    <c:set var="sid" value="${course.course_id}"/>
+                    <c:set var="cid" value="${course.course_id}"/>
                     <c:if test="${active == 1}">
                         <a href="login.jsp" class="disabled btn btn-secondary mt-1 py-3 px-5">Enrolled Course</a>
                     </c:if>
@@ -56,7 +56,7 @@
                         <a href="buycourse?&course_id=${course.course_id}" class="btn btn-secondary mt-1 py-3 px-5">Enroll</a>
                     </c:if>
 
-                    <c:if test="${cookie.course.course_id == sid}">
+                    <c:if test="${cookie.course.course_id == cid}">
                         <a href="" class="disabled btn btn-secondary mt-1 py-3 px-5"> Course Already in Cart </a>
                     </c:if>
 

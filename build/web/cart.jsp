@@ -58,22 +58,22 @@
                                             <div class="media align-items-center">
 
                                                 <img 
-                                                    <c:if test="${item.orderSubject.image eq null}">
-                                                        src="data:image/jpeg;base64,${item.orderSubject.image}"
+                                                    <c:if test="${item.orderCourse.image eq null}">
+                                                        src="data:image/jpeg;base64,${item.orderCourse.image}"
                                                     </c:if>
-                                                    <c:if test="${item.orderSubject.image ne null}">
-                                                        src="data:image/jpeg;base64,${item.orderSubject.image}"
+                                                    <c:if test="${item.orderCourse.image ne null}">
+                                                        src="data:image/jpeg;base64,${item.orderCourse.image}"
                                                     </c:if> 
                                                     class="d-block ui-w-40 ui-bordered mr-4" alt="Subject Image">
 
                                                 <div class="media-body">
-                                                    <a href="subjectdetail?category_id=${item.orderSubject.category_id}&subject_id=${item.orderSubject.subject_id}" class="d-block text-dark">${item.orderSubject.subject_name}</a>
+                                                    <a href="coursedetail?course_id=${item.orderCourse.course_id}" class="d-block text-dark">${item.orderCourse.course_name}</a>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="text-right font-weight-semibold align-middle p-4">${item.orderSubject.price*(1-item.orderSubject.discount/100)}</td>
+                                        <td class="text-right font-weight-semibold align-middle p-4">${item.orderCourse.price*(1-item.orderCourse.discount/100)}</td>
                                         <td class="text-center align-middle px-0">
-                                            <a href="/EduFlex_Demo3/removeitem?subject_id=${item.orderSubject.subject_id}" class="shop-tooltip close float-none text-danger">×</a>
+                                            <a href="/EduFlex_Demo3_1_1/removeitem?course_id=${item.orderCourse.course_id}" class="shop-tooltip close float-none text-danger">×</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -89,7 +89,7 @@
                         <div class="d-flex">
                             <c:set var="totalMoney" value="0" />
                             <c:forEach var="item" items="${cart.items}">
-                                <c:set var="totalMoney" value="${totalMoney + item.orderSubject.price*(1-item.orderSubject.discount/100)}" />
+                                <c:set var="totalMoney" value="${totalMoney + item.orderCourse.price*(1-item.orderCourse.discount/100)}" />
                             </c:forEach>
                             <div class="text-right mt-4 mr-5">                         
                                 <label class="text-muted font-weight-normal m-0">Total money</label>

@@ -127,7 +127,7 @@ public class RegisterController extends HttpServlet {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
             request.setAttribute("otp", otp);
-            request.getRequestDispatcher("VerifyRegister.jsp").forward(request, response);
+            request.getRequestDispatcher("verifyregister.jsp").forward(request, response);
         } else {
             request.setAttribute("mess", "Confirm password is incorrect");
             request.getRequestDispatcher("register.jsp").forward(request, response);

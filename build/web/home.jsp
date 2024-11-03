@@ -134,25 +134,26 @@
                 <!-- Courses area start -->
                 <div class="game-section" >
                     <h2 class="line-title" style="font-family: Roboto, sans-serif; font-size: 20px; margin-left: 15% ">Season Discount</h2>
-
                     <div class="courses-area section-padding40 fix">
                         <div class="container">
-
                             <div class="courses-actives">
-                                <!-- Single -->
                             <jsp:useBean id="k" class="dto.SliderDAO" scope="request"/>
                             <c:forEach items="${k.allSliderDiscount}" var="m">
                                 <div class="properties pb-20">
                                     <div class="properties__card">
                                         <div class="properties__img overlay1">
-                                            <a href="#"><img src="data:image/jpeg;base64,${m.image}" alt=""></a>
+                                            <a href="#" onclick="window.location.href = 'sliderdetail?id=${m.id}'">
+                                                <img src="data:image/jpeg;base64,${m.image}" alt="">
+                                            </a>
                                         </div>
                                         <div class="properties__caption">
                                             <c:set var="endTime" value="${fn:substring(m.endtime, 0, 19)}" />
                                             <c:set var="currentDateTime" value="${java.time.LocalDateTime.now()}" />
 
-                                            <%-- Chuyển đổi chuỗi thành đối tượng LocalDateTime --%>
+                                            <%-- Chuyển đổi chuỗi(string) thành đối tượng LocalDateTime --%>
                                             <c:set var="endTimeDateTime" value="${java.time.LocalDateTime.parse(endTime)}" />
+                                                
+                                            <!--Lưu ý: do chưa sửa dữ liệu trong data base nên việc hiển thị ko thành công-->
 
                                             <c:choose>
                                                 <%-- So sánh thời gian --%>
@@ -169,24 +170,23 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                            <!-- Single -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="courses-area section-padding40 fix">
+<div class="courses-area section-padding40 fix">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-7 col-lg-8">
                             <div class="section-tittle text-center mb-55">
-                                <h2>Best Rating Subject</h2>
+                                <h2>Best Rating Course</h2>
                             </div>
                         </div>
                     </div>
                     <div class="courses-actives">
                         <!-- Single -->
                         <jsp:useBean id="s" class="dto.CourseDAO" scope="request"/>
-                        <c:forEach var="i" items="${s.top5Course}">
+                        <c:forEach var="i" items="${s.top5MostRatedCourses}">
                             <div class="properties pb-20 subject_card">
                                 <div class="properties__card">
                                     <div class="properties__img overlay1">
@@ -219,7 +219,7 @@
                                                 <span>$${i.price}</span>
                                             </div>
                                         </div>
-                                        <a href="subjectdetail?category_id=${i.category_id}&subject_id=${i.course_id}" class="border-btn border-btn2">Find out more</a>
+                                        <a href="coursedetail?course_id=${i.course_id}" class="border-btn border-btn2">Find out more</a>
                                     </div>
                                 </div>
                             </div>
@@ -228,6 +228,7 @@
                     </div>
                 </div>
             </div>
+            
             <!-- Courses area End -->
 
             <!--? About Area-1 Start -->

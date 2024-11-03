@@ -62,6 +62,7 @@ public class CourseDAO extends DBContext {
         }
         return list;
     }
+
     // get course of lecturer and search ajax
     public List<Course> getCourseBankByLecturer(int lecturer_id, String txt) {
         List<Course> list = new ArrayList<>();
@@ -142,21 +143,24 @@ public class CourseDAO extends DBContext {
 
     public List<Course> getTop5MostRatedCourses() {
         List<Course> list = new ArrayList<>();
-        String query = "SELECT TOP 5\n"
-                + "Course.*,\n"
-                + "Account.fullname,\n"
-                + "ROUND(\n"
-                + "(SELECT AVG(avg_rate) \n"
+        String query = "WITH CourseRatings AS (\n"
+                + "    SELECT\n"
+                + "        c.course_id,\n"
+                + "        AVG(lc.rate) AS course_rate\n"
+                + "    FROM\n"
+                + "        Course c\n"
+                + "        LEFT JOIN Learner_Course lc ON c.course_id = lc.course_id\n"
+                + "    GROUP BY\n"
+                + "        c.course_id\n"
+                + ")\n"
+                + "SELECT \n"
+                + "    c.*,\n"
+                + "    a.fullname,\n"
+                + "    COALESCE(cr.course_rate, 0) AS course_rate \n"
                 + "FROM\n"
-                + "(SELECT Course.course_id, AVG(Learner_Course.rate) AS avg_rate\n"
-                + "FROM Learner_Course\n"
-                + "INNER JOIN Course ON Learner_Course.course_id = Course.course_id\n"
-                + "GROUP BY Course.course_id) AS course_rate\n"
-                + "WHERE course_rate.course_id IN (SELECT Course.course_id\n"
-                + "FROM Course\n"
-                + "WHERE Course.course_id = Course.course_id)), 1) AS course_rate\n"
-                + "FROM Course INNER JOIN Account ON Course.instructor_id = Account.account_id\n"
-                + "order by course_rate desc";
+                + "    Course c\n"
+                + "INNER JOIN Account a ON c.instructor_id = a.account_id\n"
+                + "LEFT JOIN CourseRatings cr ON c.course_id = cr.course_id;";
         try {
             PreparedStatement st = connection.prepareStatement(query);
             ResultSet rs = st.executeQuery();

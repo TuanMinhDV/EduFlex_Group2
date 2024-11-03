@@ -37,12 +37,12 @@ public class BuyCourseController extends BaseRequiredAuthorizationController {
                 course_id = Integer.parseInt(tcourse_id);
 
                 RegistrationDAO reg = new RegistrationDAO();
-                OrderCourse od = reg.getCoursebyId(course_id);
-                int category_id = od.getCategory_id();
-                double discount = od.getDiscount();
-                double price = od.getPrice() * (1 - discount / 100);
-                CartItem t = new CartItem(od, price);
-                t.setCategory_id(category_id);
+                OrderCourse orderCourse = reg.getCoursebyId(course_id);
+                //int category_id = orderCourse.getCategory_id();
+                double discount = orderCourse.getDiscount();
+                double price = orderCourse.getPrice() * (1 - discount / 100);
+                CartItem t = new CartItem(orderCourse, price);
+                //t.setCategory_id(category_id);
 
                 for (CartItem existingItem : cart.getItems()) {
                     if (existingItem.getOrderCourse().getCourse_id() == t.getOrderCourse().getCourse_id()) {
@@ -57,7 +57,6 @@ public class BuyCourseController extends BaseRequiredAuthorizationController {
             }
             if (productExisted) {
                 request.setAttribute("productExistsMessage", "Subject already in the cart!");
-
             }
 
             List<CartItem> list = cart.getItems();
