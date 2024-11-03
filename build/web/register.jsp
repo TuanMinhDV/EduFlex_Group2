@@ -90,7 +90,7 @@
                     </div>
 
                     <!-- Forget Password -->
-                    <a href="Login.jsp" class="registration">LOGIN</a>
+                    <a href="login.jsp" class="registration">LOGIN</a>
                 </div>
             </form>
             <!-- /end login form -->
