@@ -7,6 +7,7 @@ public class CartItem {
     private Course course;
     private int category_id;
     private double discount;
+    private int learnerId;
 
     public CartItem(OrderCourse orderCourse, double price, Course course, int category_id, double discount) {
         this.orderCourse = orderCourse;
@@ -24,6 +25,12 @@ public class CartItem {
         this.price = price;
     }
 
+    public CartItem(OrderCourse orderCourse,double price, int learnerId) {
+        this.orderCourse = orderCourse;
+        this.price = price;
+        this.learnerId = learnerId;
+    }
+    
     public CartItem(OrderCourse orderCourse, double price) {
         this.orderCourse = orderCourse;
         this.price = price;
@@ -33,6 +40,14 @@ public class CartItem {
         this.price = price;
         this.course = course;
         this.category_id = category_id;
+    }
+
+    public int getLearnerId() {
+        return learnerId;
+    }
+
+    public void setLearnerId(int learnerId) {
+        this.learnerId = learnerId;
     }
 
     public OrderCourse getOrderCourse() {
@@ -73,6 +88,11 @@ public class CartItem {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    @Override
+    public String toString() {
+        return "CartItem{" + "orderCourse=" + orderCourse + ", price=" + price + ", course=" + course + ", category_id=" + category_id + ", discount=" + discount + ", learnerId=" + learnerId + '}';
     }
 
 

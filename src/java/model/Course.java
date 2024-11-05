@@ -211,6 +211,27 @@ public class Course {
         this.lesson_num = lesson_num;
     }
 
+    @Override
+    public String toString() {
+        return "Course{" + "course_id=" + course_id + 
+                "\n course_name=" + course_name + 
+                "\n description=" + description + 
+                "\n image=" + image + 
+                "\n price=" + price + 
+                "\n discount=" + discount + 
+                "\n sold=" + sold + 
+                "\n created_date=" + created_date + 
+                "\n updated_date=" + updated_date + 
+                "\n instructor_id=" + instructor_id + 
+                "\n instructor_name=" + instructor_name + 
+                "\n category_id=" + category_id + 
+                "\n category_name=" + category_name + 
+                "\n rate_course=" + rate_course + 
+                "\n chapter_num=" + chapter_num + 
+                "\n lesson_num=" + lesson_num + 
+                "\n isDisable=" + isDisable + '}';
+    }
+
 
    
 }

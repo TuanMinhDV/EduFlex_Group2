@@ -21,38 +21,40 @@ public class CourseDAO extends DBContext {
     // Lay tat ca cac Course
     public List<Course> getAllCourse() {
         List<Course> list = new ArrayList<>();
-        String query = "SELECT\n"
-                + "Course.*,\n"
-                + "Account.fullname,\n"
-                + "ROUND(\n"
-                + "(SELECT AVG(avg_rate) \n"
+        String query = "WITH CourseRatings AS (\n"
+                + "    SELECT\n"
+                + "        c.course_id,\n"
+                + "        AVG(lc.rate) AS course_rate\n"
+                + "    FROM\n"
+                + "        Course c\n"
+                + "        LEFT JOIN Learner_Course lc ON c.course_id = lc.course_id\n"
+                + "    GROUP BY\n"
+                + "        c.course_id\n"
+                + ")\n"
+                + "SELECT \n"
+                + "    c.*,\n"
+                + "    a.fullname,\n"
+                + "    COALESCE(cr.course_rate, 0) AS course_rate \n"
                 + "FROM\n"
-                + "(SELECT Course.course_id, AVG(Learner_Course.rate) AS avg_rate\n"
-                + "FROM Learner_Course\n"
-                + "INNER JOIN Course ON Learner_Course.course_id = Course.course_id\n"
-                + "GROUP BY Course.course_id) AS course_rate\n"
-                + "WHERE course_rate.course_id IN (SELECT Course.course_id\n"
-                + "FROM Course\n"
-                + "WHERE Course.subject_id = Subject.subject_id)), 1) AS subject_rate\n"
-                + "FROM Subject\n"
-                + "INNER JOIN Account ON Subject.lecturer_id = Account.account_id";
+                + "    Course c\n"
+                + "INNER JOIN Account a ON c.instructor_id = a.account_id\n"
+                + "LEFT JOIN CourseRatings cr ON c.course_id = cr.course_id;";
         try {
             PreparedStatement st = connection.prepareStatement(query);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                byte[] imageByte = rs.getBytes("image");
-                String image = new String(Base64.getEncoder().encode(imageByte));
+                byte[] imageData = rs.getBytes("image");
+                String base64Image = new String(Base64.getEncoder().encode(imageData));
                 Course s = new Course();
                 s.setCourse_id(rs.getInt("course_id"));
                 s.setCourse_name(rs.getString("course_name"));
                 s.setDescription(rs.getString("description"));
-                s.setImage(image);
+                s.setImage(base64Image);
                 s.setPrice(rs.getFloat("price"));
                 s.setDiscount(rs.getFloat("discount"));
                 s.setSold(rs.getInt("sold"));
                 s.setCreated_date(rs.getString("created_date"));
                 s.setUpdated_date(rs.getString("updated_date"));
-                //s.setCategory_id(rs.getInt("category_id"));
                 s.setInstructor_id(rs.getInt("instructor_id"));
                 s.setInstructor_name(rs.getString("fullname"));
                 s.setRate_course(rs.getDouble("course_rate"));
@@ -149,18 +151,19 @@ public class CourseDAO extends DBContext {
                 + "        AVG(lc.rate) AS course_rate\n"
                 + "    FROM\n"
                 + "        Course c\n"
-                + "        LEFT JOIN Learner_Course lc ON c.course_id = lc.course_id\n"
+                + "    LEFT JOIN Learner_Course lc ON c.course_id = lc.course_id\n"
                 + "    GROUP BY\n"
                 + "        c.course_id\n"
                 + ")\n"
-                + "SELECT \n"
+                + "SELECT TOP 5 \n"
                 + "    c.*,\n"
                 + "    a.fullname,\n"
                 + "    COALESCE(cr.course_rate, 0) AS course_rate \n"
                 + "FROM\n"
                 + "    Course c\n"
                 + "INNER JOIN Account a ON c.instructor_id = a.account_id\n"
-                + "LEFT JOIN CourseRatings cr ON c.course_id = cr.course_id;";
+                + "LEFT JOIN CourseRatings cr ON c.course_id = cr.course_id\n"
+                + "ORDER BY cr.course_rate DESC;";
         try {
             PreparedStatement st = connection.prepareStatement(query);
             ResultSet rs = st.executeQuery();
@@ -351,8 +354,7 @@ public class CourseDAO extends DBContext {
 
     public List<Category> getAllCategory() {
         List<Category> list = new ArrayList<>();
-        String sql = "SELECT *\n"
-                + "  FROM [OnlineLearning].[dbo].[Category]";
+        String sql = "SELECT * FROM [Category]";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -412,15 +414,11 @@ public class CourseDAO extends DBContext {
 
     public static void main(String[] args) {
         CourseDAO s = new CourseDAO();
-//        System.out.println(
-//                s.updateCourseWithCourseIDByLecturer("Course Test", "huhuhufsdf", null, 10, 1000, 1, 6)
-//        );
-        List<Course> lists1 = s.getTop5Course();
-//        List<Course> lists = s.getTop5MostRatedCourses();
-//        List<Course> lists2 = s.getTop4NewestCourse();
+
+        List<Course> lists1 = s.getAllCourse();
+
         System.out.println(lists1);
-//        System.out.println(lists);
-//        System.out.println(lists2);
+
 
     }
 

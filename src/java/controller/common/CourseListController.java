@@ -64,7 +64,7 @@ public class CourseListController extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         CourseDAO s = new CourseDAO();
-        List<Course> listS = s.getAllCourse();
+        List<Course> listCE = s.getAllCourse();
         List<Category> listCY = s.getAllCategory();
         String[] listPrice = {
             "On Sale",
@@ -72,12 +72,11 @@ public class CourseListController extends HttpServlet {
             "$100 - $500",
             "Above $500"
         };
-        int flag = 1;
-        request.setAttribute("flag", flag);
+        
         request.setAttribute("listCY", listCY);
         request.setAttribute("listPrice", listPrice);
-        request.setAttribute("listS", listS);
-        request.getRequestDispatcher("courselist.jsp").forward(request, response);
+        request.setAttribute("listCE", listCE);
+        request.getRequestDispatcher("courselisthome.jsp").forward(request, response);
     }
 
     /**

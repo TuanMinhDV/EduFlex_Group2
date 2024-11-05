@@ -1,11 +1,10 @@
-
 package model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Cart {
+
     private List<CartItem> items;
 
     public Cart() {
@@ -20,40 +19,55 @@ public class Cart {
         return items;
     }
 
+    public List<CartItem> getItemsByAccId(int accId) {
+        List<CartItem> filteredItems = new ArrayList<>();
+        for (CartItem item : items) {
+            if (item.getLearnerId() == accId) {
+                filteredItems.add(item);
+            }
+        }
+        return filteredItems;
+    }
+
     public void setItems(List<CartItem> items) {
         this.items = items;
     }
-    private CartItem getItemsBySubjectId(int subject_id){
+
+    private CartItem getItemsBySubjectId(int subject_id) {
         for (CartItem i : items) {
-            if(i.getOrderCourse().getCourse_id()==subject_id)
+            if (i.getOrderCourse().getCourse_id() == subject_id) {
                 return i;
+            }
         }
         return null;
-        
+
     }
-    public void addItem(CartItem t){
-        if(getItemsBySubjectId(t.getOrderCourse().getCourse_id())!=null){
-            CartItem m =getItemsBySubjectId(t.getOrderCourse().getCourse_id());
-        }else{
+
+    public void addItem(CartItem t) {
+        if (getItemsBySubjectId(t.getOrderCourse().getCourse_id()) != null) {
+            CartItem m = getItemsBySubjectId(t.getOrderCourse().getCourse_id());
+        } else {
             items.add(t);
         }
     }
-    public void removeItem(int subject_id){
-        if(getItemsBySubjectId(subject_id)!=null){
+
+    public void removeItem(int subject_id) {
+        if (getItemsBySubjectId(subject_id) != null) {
             items.remove(getItemsBySubjectId(subject_id));
         }
     }
-    public double getTotalMoney(){
+
+    public double getTotalMoney() {
         double t = 0;
         for (CartItem i : items) {
-            t+=i.getPrice();
+            t += i.getPrice();
         }
-            return t;  
+        return t;
     }
-     public void clearCart() {
+
+    public void clearCart() {
         items.clear();
     }
- 
 
 //    public static void main(String[] args) {
 //        Cart cart = new Cart();
