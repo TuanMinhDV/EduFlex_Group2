@@ -34,7 +34,7 @@ public class BuyCourseController extends BaseRequiredAuthorizationController {
             } else {
                 cart = new Cart();
             }
-          
+
             String tcourse_id = request.getParameter("course_id");
             int course_id = Integer.parseInt(tcourse_id);
 
@@ -52,7 +52,7 @@ public class BuyCourseController extends BaseRequiredAuthorizationController {
                         productExisted = true;
                         break;
                     }
-                    
+
                 }
                 for (CartItem itemDB : cartdao.loadCart(accountId)) {
                     if (itemDB.getCourse().getCourse_id() == course_id) {
@@ -64,10 +64,10 @@ public class BuyCourseController extends BaseRequiredAuthorizationController {
                     cart.addItem(t);
                     cartdao.addCartItem(t);
                 }
+                if (productExisted) {
+                    request.setAttribute("productExistsMessage", "Subject already in the cart!");
+                }
             } catch (NumberFormatException e) {
-            }
-            if (productExisted) {
-                request.setAttribute("productExistsMessage", "Subject already in the cart!");
             }
 
             List<CartItem> list = cart.getItemsByAccId(accountId);

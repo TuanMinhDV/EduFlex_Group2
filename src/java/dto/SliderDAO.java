@@ -109,11 +109,11 @@ public class SliderDAO extends DBContext {
 
     public Slider getSliderByID(String id) {
 
-        String sql = "select s.id, s.image, s.title, s.status, s.link, s.marketer_id, s.type, s.endtime, s.description, a.fullname from Slider s\n"
-                + "join Account a on s.marketer_id = a.account_id\n"
-                + "where a.role_id = 4\n"
-                + "and s.status = 1\n"
-                + "and s.id = ?";
+        String sql = "SELECT s.id, s.image, s.title, s.status, s.link, s.marketer_id, s.type, s.endtime, s.description, a.fullname from Slider s\n"
+                + "JOIN Account a on s.marketer_id = a.account_id\n"
+                + "WHERE a.role_id = 4\n"
+                + "AND s.status = 1\n"
+                + "AND s.id = ?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -599,10 +599,7 @@ public class SliderDAO extends DBContext {
         List<Learner_Course> ls1 = dao.getAllMyCourse("2");
         Slider s2 = dao.getSliderByID("1");
         List<Slider> ls3 = dao.getAllSliderDiscount();
-//        System.out.println(s2);
-        System.out.println(ls3);
-//        for (Learner_Course learner_course : ls1) {
-//            System.out.println(learner_course);
-//        }
+
+        System.out.println(s2);
     }
 }

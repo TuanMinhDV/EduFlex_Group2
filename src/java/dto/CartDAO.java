@@ -56,6 +56,20 @@ public class CartDAO extends DBContext {
         } catch (SQLException e) {
         }
     }
+    
+    public void deleteCartItem(CartItem cartitem){
+        String sql = "DELETE FROM [CartItem] "
+                + "WHERE account_id = ? "
+                + "AND course_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, cartitem.getLearnerId());
+            ps.setInt(2, cartitem.getOrderCourse().getCourse_id());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
 
     public static void main(String[] args) {
         CartDAO s = new CartDAO();

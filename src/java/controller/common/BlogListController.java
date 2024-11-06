@@ -66,7 +66,10 @@ public class BlogListController extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         SliderDAO sdao = new SliderDAO();
+        BlogDAO dao = new BlogDAO();
         List<Slider> listS1 = sdao.getAllSliderBlog();
+        List<Blog> listBlog = dao.getAllBlog();
+        request.setAttribute("listBlog", listBlog);
         request.setAttribute("listS1", listS1);
         request.getRequestDispatcher("bloglisthome.jsp").forward(request, response);
 

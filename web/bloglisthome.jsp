@@ -96,7 +96,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <pre>
@@ -105,6 +105,18 @@
                             <div class="blog_left_sidebar" id="content">
 
                                 <!--List Blog Here-->
+
+                                <c:forEach items="${listBlog}" var="m">
+                                    <div class="media post_item">
+                                        <img src="data:image/jpeg;base64,${m.image}" alt="post" style="height: 50%; width: 15%">
+                                        <div class="media-body">                  
+                                            <a href="blogdetail?id=${m.id}">
+                                                <h3 style="color: #2d2d2d;">${m.title}</h3>
+                                            </a>
+                                            <p>${m.created_date}</p>                 
+                                        </div>
+                                    </div>
+                                </c:forEach>   
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -132,6 +144,21 @@
                                     <h3 class="widget_title" style="color: #2d2d2d;">Recent Post</h3>
                                     <div id="sub_content">
                                         <!--Recent Blog Here-->
+                                        <aside class="single_sidebar_widget popular_post_widget">
+
+                                            <c:forEach items="${listBlog}" var="m">
+                                                <div class="media post_item">
+                                                    <img src="data:image/jpeg;base64,${m.image}" alt="post" style="height: 50%; width: 15%">
+                                                    <div class="media-body">                  
+                                                        <a href="blogdetail?id=${m.id}">
+                                                            <h3 style="color: #2d2d2d;">${m.title}</h3>
+                                                        </a>
+                                                        <p>${m.created_date}</p>                 
+                                                    </div>
+                                                </div>
+                                            </c:forEach>                      
+
+                                        </aside>
                                     </div>             
                                 </aside>
 
@@ -280,20 +307,19 @@
         <!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
-        <script src="js/blog.js"></script>
 
     </body>
     <script>
-                                                    $(".custom-carousel").owlCarousel({
-                                                        autoWidth: true,
-                                                        loop: true
+                                                $(".custom-carousel").owlCarousel({
+                                                    autoWidth: true,
+                                                    loop: true
+                                                });
+                                                $(document).ready(function () {
+                                                    $(".custom-carousel .item").click(function () {
+                                                        $(".custom-carousel .item").not($(this)).removeClass("active");
+                                                        $(this).toggleClass("active");
                                                     });
-                                                    $(document).ready(function () {
-                                                        $(".custom-carousel .item").click(function () {
-                                                            $(".custom-carousel .item").not($(this)).removeClass("active");
-                                                            $(this).toggleClass("active");
-                                                        });
-                                                    });
+                                                });
 
     </script>
 </html>

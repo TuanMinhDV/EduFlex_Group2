@@ -27,18 +27,42 @@ public class CourseDAO extends DBContext {
                 + "        AVG(lc.rate) AS course_rate\n"
                 + "    FROM\n"
                 + "        Course c\n"
-                + "        LEFT JOIN Learner_Course lc ON c.course_id = lc.course_id\n"
+                + "    LEFT JOIN Learner_Course lc ON c.course_id = lc.course_id\n"
                 + "    GROUP BY\n"
                 + "        c.course_id\n"
+                + "),\n"
+                + "ChapterCount AS (\n"
+                + "    SELECT\n"
+                + "        c.course_id,\n"
+                + "        COUNT(*) AS chapter_count\n"
+                + "    FROM\n"
+                + "        Course c\n"
+                + "    INNER JOIN Chapter ch ON c.course_id = ch.course_id\n"
+                + "    GROUP BY\n"
+                + "        c.course_id\n"
+                + "),\n"
+                + "LessonCount AS (\n"
+                + "    SELECT\n"
+                + "        ch.course_id,\n"
+                + "        COUNT(*) AS lesson_count\n"
+                + "    FROM\n"
+                + "        Chapter ch\n"
+                + "    INNER JOIN Lesson l ON ch.chapter_id = l.chapter_id\n"
+                + "    GROUP BY\n"
+                + "        ch.course_id\n"
                 + ")\n"
                 + "SELECT \n"
-                + "    c.*,\n"
-                + "    a.fullname,\n"
-                + "    COALESCE(cr.course_rate, 0) AS course_rate \n"
+                + "    c.*, \n"
+                + "    a.fullname, \n"
+                + "    COALESCE(cr.course_rate, 0) AS course_rate, \n"
+                + "    cc.chapter_count, \n"
+                + "    lc.lesson_count\n"
                 + "FROM\n"
-                + "    Course c\n"
-                + "INNER JOIN Account a ON c.instructor_id = a.account_id\n"
-                + "LEFT JOIN CourseRatings cr ON c.course_id = cr.course_id;";
+                + "    Course c \n"
+                + "INNER JOIN Account a ON c.instructor_id = a.account_id \n"
+                + "LEFT JOIN CourseRatings cr ON c.course_id = cr.course_id \n"
+                + "LEFT JOIN ChapterCount cc ON c.course_id = cc.course_id \n"
+                + "LEFT JOIN LessonCount lc ON c.course_id = lc.course_id;";
         try {
             PreparedStatement st = connection.prepareStatement(query);
             ResultSet rs = st.executeQuery();
@@ -58,6 +82,8 @@ public class CourseDAO extends DBContext {
                 s.setInstructor_id(rs.getInt("instructor_id"));
                 s.setInstructor_name(rs.getString("fullname"));
                 s.setRate_course(rs.getDouble("course_rate"));
+                s.setChapter_num(rs.getInt("chapter_count"));
+                s.setLesson_num(rs.getInt("lesson_count"));
                 list.add(s);
             }
         } catch (SQLException e) {
@@ -272,18 +298,49 @@ public class CourseDAO extends DBContext {
 
     public List<Course> getAllCourseByInstructorId(int instructor_id) {
         List<Course> list = new ArrayList<>();
-        String query = "SELECT [course_id]\n"
-                + "      ,[course_name]\n"
-                + "      ,[description]\n"
-                + "      ,[image]\n"
-                + "      ,[price]\n"
-                + "      ,[discount]\n"
-                + "      ,[sold]\n"
-                + "      ,[created_date]\n"
-                + "      ,[updated_date]\n"
-                + "      ,[category_id]\n"
-                + "  FROM [dbo].[Course]\n"
-                + "  Where lecturer_id = ?";
+        String query = "WITH CourseRatings AS (\n"
+                + "    SELECT\n"
+                + "        c.course_id,\n"
+                + "        AVG(lc.rate) AS course_rate\n"
+                + "    FROM\n"
+                + "        Course c\n"
+                + "    LEFT JOIN Learner_Course lc ON c.course_id = lc.course_id\n"
+                + "    GROUP BY\n"
+                + "        c.course_id\n"
+                + "),\n"
+                + "ChapterCount AS (\n"
+                + "    SELECT\n"
+                + "        c.course_id,\n"
+                + "        COUNT(*) AS chapter_count\n"
+                + "    FROM\n"
+                + "        Course c\n"
+                + "    INNER JOIN Chapter ch ON c.course_id = ch.course_id\n"
+                + "    GROUP BY\n"
+                + "        c.course_id\n"
+                + "),\n"
+                + "LessonCount AS (\n"
+                + "    SELECT\n"
+                + "        ch.course_id,\n"
+                + "        COUNT(*) AS lesson_count\n"
+                + "    FROM\n"
+                + "        Chapter ch\n"
+                + "    INNER JOIN Lesson l ON ch.chapter_id = l.chapter_id\n"
+                + "    GROUP BY\n"
+                + "        ch.course_id\n"
+                + ")\n"
+                + "SELECT \n"
+                + "    c.*, \n"
+                + "    a.fullname, \n"
+                + "    COALESCE(cr.course_rate, 0) AS course_rate, \n"
+                + "    cc.chapter_count, \n"
+                + "    lc.lesson_count\n"
+                + "FROM\n"
+                + "    Course c \n"
+                + "INNER JOIN Account a ON c.instructor_id = a.account_id \n"
+                + "LEFT JOIN CourseRatings cr ON c.course_id = cr.course_id \n"
+                + "LEFT JOIN ChapterCount cc ON c.course_id = cc.course_id \n"
+                + "LEFT JOIN LessonCount lc ON c.course_id = lc.course_id \n"
+                + "WHERE c.instructor_id = ?;";
         try {
             PreparedStatement st = connection.prepareStatement(query);
             st.setInt(1, instructor_id);
@@ -301,6 +358,7 @@ public class CourseDAO extends DBContext {
                 s.setSold(rs.getInt("sold"));
                 s.setCreated_date(rs.getString("created_date"));
                 s.setUpdated_date(rs.getString("updated_date"));
+                s.setRate_course(rs.getDouble("course_rate"));
                 list.add(s);
             }
         } catch (SQLException e) {
@@ -375,40 +433,79 @@ public class CourseDAO extends DBContext {
     }
 
     public Course getCourseByCourseId(int course_id) {
-        String query = "SELECT [course_name]\n"
-                + "      ,[description]\n"
-                + "      ,[image]\n"
-                + "      ,[created_date]\n"
-                + "      ,[updated_date]\n"
-                + "      ,[price]\n"
-                + "      ,[discount]\n"
-                + "      ,[sold]\n"
-                + "      ,[instructor_id]\n"
-                + "  FROM [Course]"
-                + "  WHERE course_id = ?";
+        String query = "WITH CourseRatings AS (\n"
+                + "    SELECT\n"
+                + "        c.course_id,\n"
+                + "        AVG(lc.rate) AS course_rate\n"
+                + "    FROM\n"
+                + "        Course c\n"
+                + "    LEFT JOIN Learner_Course lc ON c.course_id = lc.course_id\n"
+                + "    GROUP BY\n"
+                + "        c.course_id\n"
+                + "),\n"
+                + "ChapterCount AS (\n"
+                + "    SELECT\n"
+                + "        c.course_id,\n"
+                + "        COUNT(*) AS chapter_count\n"
+                + "    FROM\n"
+                + "        Course c\n"
+                + "    INNER JOIN Chapter ch ON c.course_id = ch.course_id\n"
+                + "    GROUP BY\n"
+                + "        c.course_id\n"
+                + "),\n"
+                + "LessonCount AS (\n"
+                + "    SELECT\n"
+                + "        ch.course_id,\n"
+                + "        COUNT(*) AS lesson_count\n"
+                + "    FROM\n"
+                + "        Chapter ch\n"
+                + "    INNER JOIN Lesson l ON ch.chapter_id = l.chapter_id\n"
+                + "    GROUP BY\n"
+                + "        ch.course_id\n"
+                + ")\n"
+                + "SELECT \n"
+                + "    c.*, \n"
+                + "    a.fullname, \n"
+                + "    COALESCE(cr.course_rate, 0) AS course_rate, \n"
+                + "    cc.chapter_count, \n"
+                + "    lc.lesson_count\n"
+                + "FROM\n"
+                + "    Course c \n"
+                + "INNER JOIN Account a ON c.instructor_id = a.account_id \n"
+                + "LEFT JOIN CourseRatings cr ON c.course_id = cr.course_id \n"
+                + "LEFT JOIN ChapterCount cc ON c.course_id = cc.course_id \n"
+                + "LEFT JOIN LessonCount lc ON c.course_id = lc.course_id \n"
+                + "WHERE c.course_id = ?;";
 
         try {
             PreparedStatement st = connection.prepareStatement(query);
             st.setInt(1, course_id);
             ResultSet rs = st.executeQuery();
+
             if (rs.next()) {
                 byte[] imageData = rs.getBytes("image");
                 String base64Image = new String(Base64.getEncoder().encode(imageData));
-                Course s = new Course();
-                s.setCourse_id(course_id);
-                s.setCourse_name(rs.getString("course_name"));
-                s.setDescription(rs.getString("description"));
-                s.setImage(base64Image);
-                s.setPrice(rs.getFloat("price"));
-                s.setDiscount(rs.getFloat("discount"));
-                s.setSold(rs.getInt("sold"));
-                s.setCreated_date(rs.getString("created_date"));
-                s.setUpdated_date(rs.getString("updated_date"));
-                s.setInstructor_id(rs.getInt("instructor_id"));
-                return s;
+                Course course = new Course();
+                course.setCourse_id(course_id);
+                course.setCourse_name(rs.getString("course_name"));
+                course.setDescription(rs.getString("description"));
+                course.setImage(base64Image);
+                course.setPrice(rs.getFloat("price"));
+                course.setDiscount(rs.getFloat("discount"));
+                course.setSold(rs.getInt("sold"));
+                course.setCreated_date(rs.getString("created_date"));
+                course.setUpdated_date(rs.getString("updated_date"));
+                course.setInstructor_id(rs.getInt("instructor_id"));
+                course.setInstructor_name(rs.getString("fullname"));
+                course.setRate_course(rs.getDouble("course_rate"));
+                course.setChapter_num(rs.getInt("chapter_count"));
+                course.setLesson_num(rs.getInt("lesson_count"));
+                return course;
             }
         } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
         }
+
         return null;
     }
 
@@ -416,10 +513,8 @@ public class CourseDAO extends DBContext {
         CourseDAO s = new CourseDAO();
 
         List<Course> lists1 = s.getAllCourse();
-
-        System.out.println(lists1);
-
-
+        Course c = s.getCourseByCourseId(1);
+        System.out.println(c);
     }
 
 }//end dao

@@ -175,7 +175,7 @@
                         <div class="col-lg-4">
                             <div class="blog_right_sidebar">
                                 <a href="${detail.link}">
-                                    <c:if test="${detail.type == 'Subject'}">
+                                    <c:if test="${detail.type == 'Course'}">
                                         &nbsp; &nbsp; &nbsp;
                                         <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn">Go to Course</button>
                                         &nbsp; &nbsp;
@@ -196,7 +196,7 @@
 
                     </div>
                 </div>
-                <c:if test="${detail.type == 'Subject'}">
+                <c:if test="${detail.type == 'Course'}">
                     <section class="game-section">
                         <h2 class="line-title" style="font-family: Roboto, sans-serif; font-size: 20px;">Related Subject Slider</h2>
                         <div class="owl-carousel custom-carousel owl-theme" >                   

@@ -103,11 +103,168 @@
         <!-- Header End -->
 
         <!-- Class Start -->
-        
+        <!-- inner page banner END -->
+        <div class="content-block">
+            <!-- About Us -->
+            <div class="section-area section-sp1">
+                <div class="container">
+                    <div class="row d-flex flex-row-reverse">
+                        <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                            <div class="course-detail-bx">
+
+                                <div class="course-buy-now text-center">
+                                    <a href="#" class="disabled btn radius-xl text-uppercase">Available Course</a>
+                                </div>
+                                <hr>
+                                <div class="course-buy-now text-center">
+                                    <img src="data:image/jpeg;base64,${course.image}"alt="" style="border-radius: 50%; max-width: 100px; max-height: 100px;" /> 
+                                </div>                                        
+                                <div class="teacher-bx text-center">
+                                    <div class="teacher-info">
+                                        <div class="teacher-thumb">
+                                            <img src="data:image/jpeg;base64,${account.avatar}" alt=""/>
+                                        </div>
+                                        <div class="teacher-name">
+                                            <h5>${course.instructor_name}</h5>
+                                            <span>Teacher</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cours-more-info text-center">
+                                    <div class="review">
+                                        <span>Rate</span> ${course.rate_course}⭐
+                                    </div>
+                                </div>
+                                <div class="course-info-list scroll-page">
+                                    <ul class="navbar">
+                                        <li><a class="nav-link" href="#overview"><i class="ti-zip"></i>Overview</a></li>
+                                        <li><a class="nav-link" href="#curriculum"><i class="ti-bookmark-alt"></i>Curriculum</a></li>
+                                        <li><a class="nav-link" href="#instructor"><i class="ti-user"></i>Instructor</a></li>
+                                        <li><a class="nav-link" href="#reviews"><i class="ti-star"></i>Rate</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <div class="courses-post">
+                                <div class="ttr-post-media media-effect">
+                                    <a href="#"><img src="assets/images/blog/default/thum1.jpg" alt=""></a>
+                                </div>
+                                <div class="ttr-post-info">
+                                    <div class="ttr-post-title ">
+                                        <h2 class="post-title">${course.course_name}</h2>
+                                    </div>
+                                    <span class="course-buy-now text-center">
+                                        <a class="btn radius-xl text-uppercase">Let's Study!</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="courese-overview" id="overview">
+                                <h4>Overview</h4>
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-4">
+                                        <ul class="course-features">
+                                            <!--<li><i class="ti-bookmark-alt"></i> <span class="label">Major</span> <span class="value">${course.category_name}</span></li>-->
+                                            <li><i class="ti-book"></i> <span class="label">Course</span> <span class="value">${course.course_name}</span></li>
+                                            <li><i class="ti-pencil"></i> <span class="label">Lecturer</span> <span class="value">${course.instructor_name}</span></li>
+                                            <li><i class="ti-files"></i> <span class="label">Chapter</span> <span class="value">${course.chapter_num}</span></li>
+                                            <li><i class="ti-notepad"></i> <span class="label">Lesson</span> <span class="value">${course.lesson_num}</span></li>
+                                            <li><i class="ti-smallcap"></i> <span class="label">Language</span> <span class="value">English</span></li>
+                                            <!--<li><i class="ti-user"></i> <span class="label">Students</span> <span class="value">${subject.sold}</span></li>-->
+                                            <li><i class="ti-check-box"></i> <span class="label">Assessments</span> <span class="value">Yes</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-12 col-lg-8">
+                                        <h5 class="m-b5">💡 Course Description</h5>
+
+                                        <p>${course.description}</p>
+                                        <h5 class="m-b5">✔ Learning Outcomes</h5>
+                                        <ul class="list-checked primary">
+                                            <li>Over 37 lectures and 55.5 hours of content!</li>
+                                            <li>LIVE PROJECT End to End Software Testing Training Included.</li>
+                                            <li>Learn Software Testing and Automation basics from a professional trainer from your own desk.</li>
+                                            <li>Information packed practical training starting from basics to advanced testing techniques.</li>
+                                            <li>Best suitable for beginners to advanced level users and who learn faster when demonstrated.</li>
+                                            <li>Course content designed by considering current software testing technology and the job market.</li>
+                                            <li>Practical assignments at the end of every session.</li>
+                                            <li>Practical learning experience with live project work and examples.cv</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- List chapter here -->
+
+
+                            <hr>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- contact area END -->
+
+            </div>
+        </div>
+        <!-- Content END-->
         <!-- Class End -->
 
+        <!-- Instructor Course Start -->
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-7 col-lg-8">
+                    <div class="section-tittle text-center mb-55">
+                        <h2>Relate Instructor Course</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="courses-actives">
+                <!-- Single -->
+                <c:forEach var="i" items="${requestScope.listByIns}">
+                    <div class="properties pb-20 subject_card" style=" margin: 25px">
+                        <div class="properties__card">
+                            <div class="properties__img overlay1">
+                                <a href="#"><img src="data:image/jpeg;base64,${i.image}" alt="" style="width: 340px; border-radius: 5px"></a>
+                            </div>
+                            <div class="properties__caption" style="padding: 7px; background-color: aliceblue; border-radius: 5px">
+                                <h3 class="text-nowrap text-truncate"><a href="#">${i.course_name}</a></h3>
+                                <p class="limited-height" >
+                                    ${i.description}          
+                                </p>
+                                <div class="properties__footer d-flex justify-content-between align-items-center">
+                                    <div class="restaurant-name">
+                                        <div class="rating">
+                                            <c:forEach begin="1" end="${Math.floor(i.rate_course)}" varStatus="loop">
+                                                <i class="fa fa-star"></i>
+                                            </c:forEach>
+                                            <c:if test="${i.rate_course > Math.floor(i.rate_course) && i.rate_course < Math.floor(i.rate_course) + 1}">
+                                                <i class="fa fa-star-half"></i>
+                                            </c:if>
+                                            <c:forEach begin="${Math.ceil(i.rate_course) + 1}" end="5" varStatus="loop">
+                                                <span class="star-icon">
+                                                    <i class="fa fa-star"></i>
+                                                </span>
+                                            </c:forEach>
+                                        </div>
+                                        <p><span>(${i.rate_course})</span> rating</p>
+                                    </div>
+                                    <div class="price">
+                                        <span>$${i.price}</span>
+                                    </div>
+                                </div>
+                                <a href="coursedetail?course_id=${i.course_id}" class="border-btn border-btn2">Find out more</a>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+                <!-- Single -->
+            </div>
+        </div>
+        <!-- Instructor Course End -->
+
         <!-- Blog Start -->
-        
+
         <!-- Blog End -->
 
 
@@ -116,24 +273,50 @@
         <!-- Footer End -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="template subject_detail/lib/easing/easing.min.js"></script>
-        <script src="template subject_detail/lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="template subject_detail/lib/isotope/isotope.pkgd.min.js"></script>
-        <script src="template subject_detail/lib/lightbox/js/lightbox.min.js"></script>
+        <!-- JS here -->
+        <script src="courses-master/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="https://kit.fontawesome.com/79182c8e6c.js" crossorigin="anonymous"></script>
+        <!-- Jquery, Popper, Bootstrap -->
+        <script src="courses-master/assets/js/vendor/jquery-1.12.4.min.js"></script>
+        <script src="courses-master/assets/js/popper.min.js"></script>
+        <script src="courses-master/assets/js/bootstrap.min.js"></script>
+        <!-- Jquery Mobile Menu -->
+        <script src="courses-master/assets/js/jquery.slicknav.min.js"></script>
 
-        <!-- Contact Javascript File -->
-        <script src="template subject_detail/mail/jqBootstrapValidation.min.js"></script>
-        <script src="template subject_detail/mail/contact.js"></script>
+        <!-- Jquery Slick , Owl-Carousel Plugins -->
+        <script src="courses-master/assets/js/owl.carousel.min.js"></script>
+        <script src="courses-master/assets/js/slick.min.js"></script>
+        <!-- One Page, Animated-HeadLin -->
+        <script src="courses-master/assets/js/wow.min.js"></script>
+        <script src="courses-master/assets/js/animated.headline.js"></script>
+        <script src="courses-master/assets/js/jquery.magnific-popup.js"></script>
 
-        <!-- Template Javascript -->
-        <script src="template subject_detail/js/main.js"></script>
+        <!-- Date Picker -->
+        <script src="courses-master/assets/js/gijgo.min.js"></script>
+        <!-- Nice-select, sticky -->
+        <script src="courses-master/assets/js/jquery.nice-select.min.js"></script>
+        <script src="courses-master/assets/js/jquery.sticky.js"></script>
+        <!-- Progress -->
+        <script src="./assets/js/jquery.barfiller.js"></script>
+
+        <!-- counter , waypoint,Hover Direction -->
+        <script src="courses-master/assets/js/jquery.counterup.min.js"></script>
+        <script src="courses-master/assets/js/waypoints.min.js"></script>
+        <script src="courses-master/assets/js/jquery.countdown.min.js"></script>
+        <script src="courses-master/assets/js/hover-direction-snake.min.js"></script>
+
+        <!-- contact js -->
+        <script src="courses-master/assets/js/contact.js"></script>
+        <script src="courses-master/assets/js/jquery.form.js"></script>
+        <script src="courses-master/assets/js/jquery.validate.min.js"></script>
+        <script src="courses-master/assets/js/mail-script.js"></script>
+        <script src="courses-master/assets/js/jquery.ajaxchimp.min.js"></script>
+
+        <!-- Jquery Plugins, main Jquery -->	
+        <script src="courses-master/assets/js/plugins.js"></script>
+        <script src="courses-master/assets/js/main.js"></script>
 
 
     </body>

@@ -75,7 +75,7 @@
                         <div class="item" style="background-image: url(data:image/jpeg;base64,${m.image});">
                             <div class="item-desc">
                                 <h3 style="font-family: Roboto, sans-serif; font-size: 25px; color: white">${m.title}</h3>                           
-                                <a href="" class="genric-btn link" style="font-family: Roboto, sans-serif; font-size: 15px; background-color: black; color: #FFF">View Detail</a>
+                                <a href="sliderdetail?id=${m.id}" class="genric-btn link" style="font-family: Roboto, sans-serif; font-size: 15px; background-color: black; color: #FFF">View Detail</a>
                             </div>
                         </div>
                     </c:forEach>

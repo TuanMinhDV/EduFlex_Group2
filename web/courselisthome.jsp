@@ -171,136 +171,145 @@
                                         </ul>
                                     </div>
                                     <hr>
-                                    <div class="courses-actives">
-                                        <div id="list-subject" class="row">
-                                            <c:forEach var="i" items="${requestScope.listCE}">
-                                                <div class="properties pb-20 subject_card">
-                                                    <div class="properties__card">
-                                                        <div class="properties__img overlay1">
-                                                            <a href="#"><img src="data:image/jpeg;base64,${i.image}" alt=""></a>
-                                                        </div>
-                                                        <div class="properties__caption">
-                                                            <!--<p>User Experience</p>-->
-                                                            <h3 class="text-nowrap text-truncate"><a href="#">${i.course_name}</a></h3>
-                                                            <p class="limited-height">
-                                                                ${i.description}          
-                                                            </p>
-                                                            <div class="properties__footer d-flex justify-content-between align-items-center">
-                                                                <div class="restaurant-name">
-                                                                    <div class="rating">
-                                                                        <c:forEach begin="1" end="${Math.floor(i.rate_course)}" varStatus="loop">
+                                    <c:set var="total" value="0"></c:set>
+
+                                    <c:forEach var="i" items="${requestScope.listCE}" >
+                                        <c:set var="total" value="${total + 1}" />
+
+                                        <c:if test="${total % 3 == 1}">
+                                            <div class="courses-actives">
+                                            </c:if>
+
+                                            <div class="properties pb-20 subject_card">
+                                                <div class="properties__card">
+                                                    <div class="properties__img overlay1">
+                                                        <a href="#"><img src="data:image/jpeg;base64,${i.image}" alt=""></a>
+                                                    </div>
+                                                    <div class="properties__caption">
+                                                        <!--<p>User Experience</p>-->
+                                                        <h3 class="text-nowrap text-truncate"><a href="#">${i.course_name}</a></h3>
+                                                        <p class="limited-height">
+                                                            ${i.description}          
+                                                        </p>
+                                                        <div class="properties__footer d-flex justify-content-between align-items-center">
+                                                            <div class="restaurant-name">
+                                                                <div class="rating">
+                                                                    <c:forEach begin="1" end="${Math.floor(i.rate_course)}" varStatus="loop">
+                                                                        <i class="fa fa-star"></i>
+                                                                    </c:forEach>
+                                                                    <c:if test="${i.rate_course > Math.floor(i.rate_course) && i.rate_course < Math.floor(i.rate_course) + 1}">
+                                                                        <i class="fa fa-star-half"></i>
+                                                                    </c:if>
+                                                                    <c:forEach begin="${Math.ceil(i.rate_course) + 1}" end="5" varStatus="loop">
+                                                                        <span class="star-icon">
                                                                             <i class="fa fa-star"></i>
-                                                                        </c:forEach>
-                                                                        <c:if test="${i.rate_course > Math.floor(i.rate_course) && i.rate_course < Math.floor(i.rate_course) + 1}">
-                                                                            <i class="fa fa-star-half"></i>
-                                                                        </c:if>
-                                                                        <c:forEach begin="${Math.ceil(i.rate_course) + 1}" end="5" varStatus="loop">
-                                                                            <span class="star-icon">
-                                                                                <i class="fa fa-star"></i>
-                                                                            </span>
-                                                                        </c:forEach>
-                                                                    </div>
-                                                                    <p><span>(${i.rate_course})</span> rating</p>
+                                                                        </span>
+                                                                    </c:forEach>
                                                                 </div>
-                                                                <div class="price">
-                                                                    <span>$${i.price}</span>
-                                                                </div>
+                                                                <p><span>(${i.rate_course})</span> rating</p>
                                                             </div>
-                                                            <a href="coursedetail?course_id=${i.course_id}" class="border-btn border-btn2">Find out more</a>
+                                                            <div class="price">
+                                                                <span>$${i.price}</span>
+                                                            </div>
                                                         </div>
+                                                        <a href="coursedetail?course_id=${i.course_id}" class="border-btn border-btn2">Find out more</a>
                                                     </div>
                                                 </div>
-                                            </c:forEach>
-                                            <input type="hidden" id="account_id" name="account_id" value="${sessionScope.account.account_id}">
-                                        </div>
-                                    </div>
-                                    
+                                            </div>
+
+                                            <c:if test="${total % 3 == 0}">
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+
 
                                 </div>
+
+
+                                <input type="hidden" id="account_id" name="account_id" value="${sessionScope.account.account_id}">
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 pb-1 text-lg-right">
-
-                        <nav aria-label="..." >
-                            <ul class="pagination " id="pages">
-                                <li class="page-item pageInfo" style="padding-right: 30px ;padding-top: 5px">Page 1</li>
-
-                                <li class="page-item ">
-                                    <input type="button" class="page-link goPrevious" value="Previous">
-
-                                </li>
-
-                                <li class="page-item active">
-                                    <a class="page-link currentPage" id="currentPage" href="#"><span class="sr-only">(current)</span></a>
-                                </li>
-
-                                <li class="page-item">
-
-                                    <input type="button" class="page-link goNext" value="Next">
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-
                 </div>
+                <div class="col-12 pb-1 text-lg-right">
+
+                    <nav aria-label="..." >
+                        <ul class="pagination " id="pages">
+                            <li class="page-item pageInfo" style="padding-right: 30px ;padding-top: 5px">Page 1</li>
+
+                            <li class="page-item ">
+                                <input type="button" class="page-link goPrevious" value="Previous">
+
+                            </li>
+
+                            <li class="page-item active">
+                                <a class="page-link currentPage" id="currentPage" href="#"><span class="sr-only">(current)</span></a>
+                            </li>
+
+                            <li class="page-item">
+
+                                <input type="button" class="page-link goNext" value="Next">
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
             </div>
-            <!-- Courses area End -->
-
-        </main>
-        <jsp:include page="footer.jsp"></jsp:include>  
-        <!-- Scroll Up -->
-        <div id="back-top" >
-            <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
         </div>
+        <!-- Courses area End -->
 
-        <!-- JS here -->
-        <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
-        <!-- Jquery, Popper, Bootstrap -->
-        <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-        <!-- Jquery Mobile Menu -->
-        <script src="assets/js/jquery.slicknav.min.js"></script>
+    </main>
+    <jsp:include page="footer.jsp"></jsp:include>  
+    <!-- Scroll Up -->
+    <div id="back-top" >
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
 
-        <!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="assets/js/owl.carousel.min.js"></script>
-        <script src="assets/js/slick.min.js"></script>
-        <!-- One Page, Animated-HeadLin -->
-        <script src="assets/js/wow.min.js"></script>
-        <script src="assets/js/animated.headline.js"></script>
-        <script src="assets/js/jquery.magnific-popup.js"></script>
+    <!-- JS here -->
+    <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="assets/js/jquery.slicknav.min.js"></script>
 
-        <!-- Date Picker -->
-        <script src="assets/js/gijgo.min.js"></script>
-        <!-- Nice-select, sticky -->
-        <script src="assets/js/jquery.nice-select.min.js"></script>
-        <script src="assets/js/jquery.sticky.js"></script>
-        <!-- Progress -->
-        <script src="assets/js/jquery.barfiller.js"></script>
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/animated.headline.js"></script>
+    <script src="assets/js/jquery.magnific-popup.js"></script>
 
-        <!-- counter , waypoint,Hover Direction -->
-        <script src="assets/js/jquery.counterup.min.js"></script>
-        <script src="assets/js/waypoints.min.js"></script>
-        <script src="assets/js/jquery.countdown.min.js"></script>
-        <script src="assets/js/hover-direction-snake.min.js"></script>
+    <!-- Date Picker -->
+    <script src="assets/js/gijgo.min.js"></script>
+    <!-- Nice-select, sticky -->
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/jquery.sticky.js"></script>
+    <!-- Progress -->
+    <script src="assets/js/jquery.barfiller.js"></script>
 
-        <!-- contact js -->
-        <script src="assets/js/contact.js"></script>
-        <script src="assets/js/jquery.form.js"></script>
-        <script src="assets/js/jquery.validate.min.js"></script>
-        <script src="assets/js/mail-script.js"></script>
-        <script src="assets/js/jquery.ajaxchimp.min.js"></script>
+    <!-- counter , waypoint,Hover Direction -->
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/jquery.countdown.min.js"></script>
+    <script src="assets/js/hover-direction-snake.min.js"></script>
 
-        <!-- Jquery Plugins, main Jquery -->	
-        <script src="assets/js/plugins.js"></script>
-        <script src="assets/js/main.js"></script>
-        <script src="assets/js/pagingsubjectlist.js"></script>
-        <script src="assets/js/jqBootstrapValidation.min.js"></script>
+    <!-- contact js -->
+    <script src="assets/js/contact.js"></script>
+    <script src="assets/js/jquery.form.js"></script>
+    <script src="assets/js/jquery.validate.min.js"></script>
+    <script src="assets/js/mail-script.js"></script>
+    <script src="assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/main.js"></script>
 
 
 
 
-    </body>
+</body>
 </html>
 

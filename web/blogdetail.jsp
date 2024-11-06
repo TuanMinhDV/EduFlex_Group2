@@ -104,19 +104,19 @@
                                             class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
                                             <c:if test="${detail.id > 1}">
                                                 <div class="thumb">                      
-                                                    <a href="blogdetail?id=${detail.id - 1}">
+                                                    <a href="blogdetail?id=${preblog.id}">
                                                         <img class="img-fluid" src="assets/img/post/black.png" alt="" style="height: 60px; width: 60px">
                                                     </a>
 
                                                 </div>
                                                 <div class="arrow">
-                                                    <a href="blogdetail?id=${detail.id - 1}">
+                                                    <a href="blogdetail?id=${preblog.id}">
                                                         <span class="lnr text-white ti-arrow-left"></span>
                                                     </a>
                                                 </div>
                                                 <div class="detials">
                                                     <p>Prev Post</p>
-                                                    <a href="blogdetail?id=${detail.id - 1}">
+                                                    <a href="blogdetail?id=${preblog.id}">
                                                         <h4 style="color: #2d2d2d;"></h4>
                                                     </a>
                                                 </div>
@@ -124,27 +124,27 @@
                                         </div>
                                         <div
                                             class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                                            <c:set var="total" value="0" />
-                                            <c:forEach items="${listB}" var="item">
-                                                <c:set var="total" value="${total + item.id}" />
-                                            </c:forEach>
-                                            <c:if test="${detail.id < total-1}">
+                                            
+                                            <c:if test="${detail.id < maxId}">
                                                 <div class="detials">
                                                     <p>Next Post</p>
-                                                    <a href="blogdetail?id=${detail.id + 1}">
+                                                    <a href="blogdetail?id=${nextblog.id}">
                                                         <h4 style="color: #2d2d2d;"></h4>
                                                     </a>
                                                 </div>
                                                 <div class="arrow">
-                                                    <a href="blogdetail?id=${detail.id + 1}">
+                                                    <a href="blogdetail?id=${nextblog.id}">
                                                         <span class="lnr text-white ti-arrow-right"></span>
                                                     </a>
                                                 </div>
                                                 <div class="thumb">
-                                                    <a href="blogdetail?id=${detail.id + 1}">
+                                                    <a href="blogdetail?id=${nextblog.id}">
                                                         <img class="img-fluid" src="assets/img/post/black.png" alt="" style="height: 60px; width: 60px">
                                                     </a>
                                                 </div>
+                                            </c:if>
+                                            <c:if test="${detail.id == maxId}">
+                                                Hello
                                             </c:if>
                                         </div>
                                     </div>

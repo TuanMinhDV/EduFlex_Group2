@@ -40,6 +40,7 @@ public class BlogDAO extends DBContext {
                         rs.getString(4), base64Image, rs.getString(6),
                         rs.getString(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getString(11)));
             }
+            return listB;
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -90,6 +91,91 @@ public class BlogDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
+        return null;
+    }
+
+    public Blog getBlogWithMaxId() {
+        String sql = "SELECT * FROM Blog WHERE id = (SELECT MAX(id) FROM Blog)";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                byte[] imageData = rs.getBytes("image");
+                String base64Image = new String(Base64.getEncoder().encode(imageData));
+                Blog blog = new Blog(
+                        rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), base64Image, rs.getString(6),
+                        rs.getString(7), rs.getInt(8), rs.getInt(9), rs.getString(10), ""
+                );
+                return blog;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public Blog getNextBlogByID(String id) {
+
+        String sql = "select b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname from Blog b \n"
+                + "join Account a on b.marketer_id = a.account_id\n"
+                + "where a.role_id = 4 and b.id > ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            Blog blog = null;
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                byte[] imageData = rs.getBytes("image");
+                String base64Image = new String(Base64.getEncoder().encode(imageData));
+                Account a = new Account();
+                blog = new Blog(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), base64Image, rs.getString(6),
+                        rs.getString(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getString(11));
+                break;  // Exit loop after finding the first blog with a higher ID
+            }
+
+            return blog;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+
+    public Blog getPreviousBlogByID(String id) {
+
+        String sql = "select b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname from Blog b \n"
+                + "join Account a on b.marketer_id = a.account_id\n"
+                + "where a.role_id = 4 and b.id < ?\n"
+                + "order by b.id desc\n"
+                + "limit 1";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            Blog blog = null;
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                byte[] imageData = rs.getBytes("image");
+                String base64Image = new String(Base64.getEncoder().encode(imageData));
+                Account a = new Account();
+                blog = new Blog(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), base64Image, rs.getString(6),
+                        rs.getString(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getString(11));
+            }
+
+            return blog;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
         return null;
     }
 
@@ -169,73 +255,6 @@ public class BlogDAO extends DBContext {
         return listP;
     }
 
-    public boolean editBlog(String title, String content, String description, String fileName,
-            String link, String created_date, String status, String marketer_id, String tag, String blogid) {
-        String sql1 = "UPDATE [dbo].[Blog]\n"
-                + "   SET [title] = ?\n"
-                + "      ,[content] = ?\n"
-                + "      ,[description] = ?\n"
-                + "      ,[image] = ?\n"
-                + "      ,[link] = ?\n"
-                + "      ,[created_date] = ?\n"
-                + "      ,[status] = ?\n"
-                + "      ,[marketer_id] = ?\n"
-                + "      ,[tag] = ?\n"
-                + " WHERE id= ? ";
-        
-        String sql2 = "UPDATE [dbo].[Blog]\n"
-                + "   SET [title] = ?\n"
-                + "      ,[content] = ?\n"
-                + "      ,[description] = ?\n"
-                + "      ,[link] = ?\n"
-                + "      ,[created_date] = ?\n"
-                + "      ,[status] = ?\n"
-                + "      ,[marketer_id] = ?\n"
-                + "      ,[tag] = ?\n"
-                + " WHERE id= ? ";
-        
-        if (fileName != null) {
-            String pathToFile = "D:/Sem5_Fall2023/SWP391/image/";
-            File avatarImage = new File(pathToFile + fileName);
-            try ( InputStream avatarStream = new FileInputStream(avatarImage)) {
-                PreparedStatement st = connection.prepareStatement(sql1);
-                st.setString(1, title);
-                st.setString(2, content);
-                st.setString(3, description);
-                st.setBinaryStream(4, avatarStream);
-                st.setString(5, link);
-                st.setString(6, created_date);
-                st.setString(7, status);
-                st.setString(8, marketer_id);
-                st.setString(9, tag);
-                st.setString(10, blogid);
-
-                st.executeUpdate();
-                return true;
-            } catch (SQLException | IOException e) {
-            }
-        }
-        else{
-            try {
-                PreparedStatement st = connection.prepareStatement(sql2);
-                st.setString(1, title);
-                st.setString(2, content);
-                st.setString(3, description);
-                st.setString(4, link);
-                st.setString(5, created_date);
-                st.setString(6, status);
-                st.setString(7, marketer_id);
-                st.setString(8, tag);
-                st.setString(9, blogid);
-                st.executeUpdate();
-                return true;
-            } catch (SQLException e) {
-
-            }
-        }
-        return false;
-    }
-
     public List<Blog> getAllBlogByOwner(String marketer_id) {
         List<Blog> listB = new ArrayList<>();
         String sql = "select b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname from Blog b \n"
@@ -261,70 +280,14 @@ public class BlogDAO extends DBContext {
         return listB;
     }
 
-    public boolean addBlog(String title, String content, String description, String fileName,
-            String link, String status, String marketer_id, String tag) {
-        String sql = "INSERT INTO [dbo].[Blog]\n"
-                + "           ([title]\n"
-                + "           ,[content]\n"
-                + "           ,[description]\n"
-                + "           ,[image]\n"
-                + "           ,[link]\n"
-                + "           ,[created_date]\n"
-                + "           ,[status]\n"
-                + "           ,[marketer_id]\n"
-                + "           ,[tag])\n"
-                + "     VALUES\n"
-                + "           (?\n"
-                + "           ,?\n"
-                + "           ,?\n"
-                + "           ,?\n"
-                + "           ,?\n"
-                + "           ,getdate()\n"
-                + "           ,?\n"
-                + "           ,?\n"
-                + "           ,?)";
-        if (fileName != null) {
-            String pathToFile = "D:/Sem5_Fall2023/SWP391/image/";
-            File avatarImage = new File(pathToFile + fileName);
-            try ( InputStream avatarStream = new FileInputStream(avatarImage)) {
-                PreparedStatement st = connection.prepareStatement(sql);
-                st.setString(1, title);
-                st.setString(2, content);
-                st.setString(3, description);
-                st.setBinaryStream(4, avatarStream);
-                st.setString(5, link);
-                st.setString(6, status);
-                st.setString(7, marketer_id);
-                st.setString(8, tag);
-
-                st.executeUpdate();
-                return true;
-            } catch (SQLException | IOException e) {
-            }
-        }
-        return false;
-    }
-    
-     public void deleteBlog(String id) {
-
-        String sql = "delete from blog where id=?";
-
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, id);
-            st.executeUpdate();
-        } catch (Exception e) {
-
-        }
-    }
-
     public static void main(String[] args) {
         BlogDAO dao = new BlogDAO();
-        Blog p1 = dao.getBlogByID("1");
-        List<Blog> p2 = dao.getAllBlogByOwner("4");
-        for (Blog blog : p2) {
-            System.out.println(p2);
-        }
+//        Blog maxBlog = dao.getBlogWithMaxId();
+//        System.out.println(maxBlog);
 
+//        Blog next = dao.getNextBlogByID("4");
+//        System.out.println(next);
+        List<Blog> list = dao.getAllBlog();
+        System.out.println(list);
     }
 }

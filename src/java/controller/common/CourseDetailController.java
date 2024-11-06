@@ -75,9 +75,12 @@ public class CourseDetailController extends HttpServlet {
                 active = 0;
             }
             Course course = c.getCourseByCourseId(course_id);
+            List<Course> listByIns = c.getAllCourseByInstructorId(course.getInstructor_id());
+            
             request.setAttribute("active", active);
             request.setAttribute("course", course);
             // Danh sách dề xuất
+            request.setAttribute("listByIns", listByIns);
 //            request.setAttribute("listRS", listRS);
 //            request.setAttribute("listC", listC);
 //            request.setAttribute("category_id", category_id);

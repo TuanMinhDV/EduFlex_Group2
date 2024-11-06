@@ -47,7 +47,7 @@
                         <table class="table table-bordered m-0">
                             <thead>
                                 <tr>
-                                    <th class="text-center py-3 px-4" style="min-width: 400px;">Subject Name </th>
+                                    <th class="text-center py-3 px-4" style="min-width: 400px;">Course Name </th>
                                     <th class="text-right py-3 px-4" style="width: 100px;">Price</th>
                                 </tr>
                             </thead>
@@ -74,7 +74,7 @@
                                             </td>
                                             <td class="text-right font-weight-semibold align-middle p-4">${item.orderCourse.price*(1-item.orderCourse.discount/100)}</td>
                                             <td class="text-center align-middle px-0">
-                                                <a href="/EduFlex_Demo3_1_1/removeitem?course_id=${item.orderCourse.course_id}" class="shop-tooltip close float-none text-danger">×</a>
+                                                <a href="removeitem?course_id=${item.orderCourse.course_id}" class="shop-tooltip close float-none text-danger">×</a>
                                             </td>
                                         </tr>
                                     </c:if>
@@ -102,7 +102,7 @@
                         </div>
                     </div>
                     <div class="float-left">
-                        <a type="button" href="home.jsp?updatedCart=${updatedCart}" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</a>
+                        <a type="button" href="courselist" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</a>
                     </div>
                     <div class="float-right">
                         <form action="authorize_payment" method="post">
