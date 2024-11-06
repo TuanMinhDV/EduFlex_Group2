@@ -47,35 +47,37 @@
                         <table class="table table-bordered m-0">
                             <thead>
                                 <tr>
-                                    <th class="text-center py-3 px-4" style="min-width: 400px;">Subject Name </th>
+                                    <th class="text-center py-3 px-4" style="min-width: 400px;">Course Name </th>
                                     <th class="text-right py-3 px-4" style="width: 100px;">Price</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <c:forEach var="item" items="${cart.items}">
-                                    <tr>
-                                        <td class="p-4">
-                                            <div class="media align-items-center">
+                                    <c:if test="${item.learnerId == sessionScope.account.account_id}">
+                                        <tr>
+                                            <td class="p-4">
+                                                <div class="media align-items-center">
 
-                                                <img 
-                                                    <c:if test="${item.orderCourse.image eq null}">
-                                                        src="data:image/jpeg;base64,${item.orderCourse.image}"
-                                                    </c:if>
-                                                    <c:if test="${item.orderCourse.image ne null}">
-                                                        src="data:image/jpeg;base64,${item.orderCourse.image}"
-                                                    </c:if> 
-                                                    class="d-block ui-w-40 ui-bordered mr-4" alt="Subject Image">
+                                                    <img 
+                                                        <c:if test="${item.orderCourse.image eq null}">
+                                                            src="data:image/jpeg;base64,${item.orderCourse.image}"
+                                                        </c:if>
+                                                        <c:if test="${item.orderCourse.image ne null}">
+                                                            src="data:image/jpeg;base64,${item.orderCourse.image}"
+                                                        </c:if> 
+                                                        class="d-block ui-w-40 ui-bordered mr-4" alt="Course Image">
 
-                                                <div class="media-body">
-                                                    <a href="coursedetail?course_id=${item.orderCourse.course_id}" class="d-block text-dark">${item.orderCourse.course_name}</a>
+                                                    <div class="media-body">
+                                                        <a href="coursedetail?course_id=${item.orderCourse.course_id}" class="d-block text-dark">${item.orderCourse.course_name}</a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right font-weight-semibold align-middle p-4">${item.orderCourse.price*(1-item.orderCourse.discount/100)}</td>
-                                        <td class="text-center align-middle px-0">
-                                            <a href="/EduFlex_Demo3_1_1/removeitem?course_id=${item.orderCourse.course_id}" class="shop-tooltip close float-none text-danger">×</a>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td class="text-right font-weight-semibold align-middle p-4">${item.orderCourse.price*(1-item.orderCourse.discount/100)}</td>
+                                            <td class="text-center align-middle px-0">
+                                                <a href="removeitem?course_id=${item.orderCourse.course_id}" class="shop-tooltip close float-none text-danger">×</a>
+                                            </td>
+                                        </tr>
+                                    </c:if>
                                 </c:forEach>
 
                             </tbody>
@@ -89,7 +91,9 @@
                         <div class="d-flex">
                             <c:set var="totalMoney" value="0" />
                             <c:forEach var="item" items="${cart.items}">
-                                <c:set var="totalMoney" value="${totalMoney + item.orderCourse.price*(1-item.orderCourse.discount/100)}" />
+                                <c:if test="${item.learnerId == sessionScope.account.account_id}">
+                                    <c:set var="totalMoney" value="${totalMoney + item.orderCourse.price*(1-item.orderCourse.discount/100)}" />
+                                </c:if>
                             </c:forEach>
                             <div class="text-right mt-4 mr-5">                         
                                 <label class="text-muted font-weight-normal m-0">Total money</label>
@@ -98,7 +102,7 @@
                         </div>
                     </div>
                     <div class="float-left">
-                        <a type="button" href="home.jsp?updatedCart=${updatedCart}" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</a>
+                        <a type="button" href="courselist" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</a>
                     </div>
                     <div class="float-right">
                         <form action="authorize_payment" method="post">

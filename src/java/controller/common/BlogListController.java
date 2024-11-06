@@ -4,7 +4,10 @@
  */
 package controller.common;
 
-import dto.CartDAO;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import dto.BlogDAO;
+import dto.SliderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,14 +15,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Account;
-import model.Cart;
-import model.CartItem;
+import model.Blog;
+import model.Slider;
 
-@WebServlet(name = "HomeController", urlPatterns = {"/home"})
-public class HomeController extends HttpServlet {
+/**
+ *
+ * @author Admin
+ */
+@WebServlet(name = "BlogListController", urlPatterns = "/bloglist")
+public class BlogListController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,15 +38,15 @@ public class HomeController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeController</title>");
+            out.println("<title>Servlet BlogListServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BlogListServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,28 +64,15 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        CartDAO dao = new CartDAO();
-        try {
-            Account account = (Account) session.getAttribute("account");
-            int accountId = account.getAccount_id();
-            List<CartItem> cart_item_list = dao.loadCart(accountId);
-            Cart cart = new Cart(cart_item_list);
-            Object o = session.getAttribute("cart");
-            if (o != null) {
-                cart = (Cart) cart_item_list;
-            } else {
-                cart = new Cart();
-            }
-            
-            List<CartItem> list = cart.getItemsByAccId(accountId);
-            session.setAttribute("cart", cart);
-            session.setAttribute("size", cart_item_list.size());
-        } catch (Exception e) {
+        //processRequest(request, response);
+        SliderDAO sdao = new SliderDAO();
+        BlogDAO dao = new BlogDAO();
+        List<Slider> listS1 = sdao.getAllSliderBlog();
+        List<Blog> listBlog = dao.getAllBlog();
+        request.setAttribute("listBlog", listBlog);
+        request.setAttribute("listS1", listS1);
+        request.getRequestDispatcher("bloglisthome.jsp").forward(request, response);
 
-        }
-
-        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     /**
@@ -94,7 +86,25 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        Gson gson = new Gson();
+        JsonObject jsonobj = new JsonObject();
+        BlogDAO dao = new BlogDAO();
+        List<Blog> listB = dao.getAllBlog();
+        List<Blog> listB1 = dao.getRelatedBlog();
+        
+        
+        
+        String list1 = gson.toJson(listB);
+        String list2 = gson.toJson(listB1);
+        
+
+        jsonobj.addProperty("list1", list1);
+        jsonobj.addProperty("list2", list2);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonobj.toString());
     }
 
     /**

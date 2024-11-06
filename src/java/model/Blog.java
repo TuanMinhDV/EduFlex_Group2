@@ -122,7 +122,7 @@ public class Blog {
 
     @Override
     public String toString() {
-        return "Blog{" + "id=" + id + ", title=" + title + ", content=" + content + ", description=" + description + ", image=" + image + ", link=" + link + ", created_date=" + created_date + ", status=" + status + ", marketer_id=" + marketer_id + ", tag=" + tag + ", fullname=" + fullname + '}';
+        return "Blog{" + "id=" + id + ", title=" + title +  ", description=" + description + ", link=" + link + ", created_date=" + created_date + ", status=" + status + ", marketer_id=" + marketer_id + ", tag=" + tag + ", fullname=" + fullname + '}';
     }
     
     

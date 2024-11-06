@@ -1,5 +1,6 @@
 package controller.auth;
 
+import dto.CartDAO;
 import dto.RegistrationDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -19,47 +20,57 @@ public class BuyCourseController extends BaseRequiredAuthorizationController {
     @Override
     protected void doAuthGet(HttpServletRequest request, HttpServletResponse response, Account acc) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        CartDAO dao = new CartDAO();
         if (acc == null) {
             response.sendRedirect("login.jsp");
         } else {
             boolean productExisted = false;
-            Cart cart = null;
+            int accountId = acc.getAccount_id();
+            List<CartItem> cart_item_list = dao.loadCart(accountId);
+            Cart cart = new Cart(cart_item_list);
             Object o = session.getAttribute("cart");
             if (o != null) {
                 cart = (Cart) o;
             } else {
                 cart = new Cart();
             }
+
             String tcourse_id = request.getParameter("course_id");
-            int course_id;
+            int course_id = Integer.parseInt(tcourse_id);
 
             try {
-                course_id = Integer.parseInt(tcourse_id);
-
                 RegistrationDAO reg = new RegistrationDAO();
+                CartDAO cartdao = new CartDAO();
                 OrderCourse orderCourse = reg.getCoursebyId(course_id);
-                //int category_id = orderCourse.getCategory_id();
                 double discount = orderCourse.getDiscount();
                 double price = orderCourse.getPrice() * (1 - discount / 100);
-                CartItem t = new CartItem(orderCourse, price);
-                //t.setCategory_id(category_id);
+                //Tạo cart Item mới
+                CartItem t = new CartItem(orderCourse, price, accountId);
 
                 for (CartItem existingItem : cart.getItems()) {
                     if (existingItem.getOrderCourse().getCourse_id() == t.getOrderCourse().getCourse_id()) {
                         productExisted = true;
                         break;
                     }
+
+                }
+                for (CartItem itemDB : cartdao.loadCart(accountId)) {
+                    if (itemDB.getCourse().getCourse_id() == course_id) {
+                        productExisted = true;
+                        break;
+                    }
                 }
                 if (!productExisted) {
                     cart.addItem(t);
+                    cartdao.addCartItem(t);
+                }
+                if (productExisted) {
+                    request.setAttribute("productExistsMessage", "Subject already in the cart!");
                 }
             } catch (NumberFormatException e) {
             }
-            if (productExisted) {
-                request.setAttribute("productExistsMessage", "Subject already in the cart!");
-            }
 
-            List<CartItem> list = cart.getItems();
+            List<CartItem> list = cart.getItemsByAccId(accountId);
             session.setAttribute("cart", cart);
             session.setAttribute("size", list.size());
             //request.getRequestDispatcher("courselist").forward(request, response);

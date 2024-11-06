@@ -152,7 +152,7 @@
 
                                             <%-- Chuyển đổi chuỗi(string) thành đối tượng LocalDateTime --%>
                                             <c:set var="endTimeDateTime" value="${java.time.LocalDateTime.parse(endTime)}" />
-                                                
+
                                             <!--Lưu ý: do chưa sửa dữ liệu trong data base nên việc hiển thị ko thành công-->
 
                                             <c:choose>
@@ -170,11 +170,11 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                            </div>
                         </div>
                     </div>
                 </div>
-<div class="courses-area section-padding40 fix">
+            </div>
+            <div class="courses-area section-padding40 fix">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-7 col-lg-8">
@@ -228,7 +228,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Courses area End -->
 
             <!--? About Area-1 Start -->
@@ -492,16 +492,16 @@
 
     </body>
     <script>
-        $(".custom-carousel").owlCarousel({
-            autoWidth: true,
-            loop: true
-        });
-        $(document).ready(function () {
-            $(".custom-carousel .item").click(function () {
-                $(".custom-carousel .item").not($(this)).removeClass("active");
-                $(this).toggleClass("active");
-            });
-        });
+                                                        $(".custom-carousel").owlCarousel({
+                                                            autoWidth: true,
+                                                            loop: true
+                                                        });
+                                                        $(document).ready(function () {
+                                                            $(".custom-carousel .item").click(function () {
+                                                                $(".custom-carousel .item").not($(this)).removeClass("active");
+                                                                $(this).toggleClass("active");
+                                                            });
+                                                        });
 
     </script>
     <script>

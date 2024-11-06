@@ -20,5 +20,9 @@ public class Constants {
 
     public static String PASSWORD_REGEX = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,20}";
     
-    public static String SAVE_PATH = "F:/SWP392_Code/ImagesRepository/";
+    public static String SAVE_PATH = "F:/EduFlex_Demo3_1_1/ImagesRepository/";
+    //Paypal
+    public static String CLIENT_ID = "AdSZ83lfNfMvBHrAmLDsX8PZV5ssp9WhyENka2MJcpIMcemUzIUCn9mD8MADWMEMZ6pFIA7BaOgCd8n3";
+    public static String CLIENT_SECRET = "ECVF6sXS6Fw3KGJ08CxthhMukeZh5dDqNhzvgpIbkkgcRT7ccCo5VUEB4R6a3BwijegEBUz3Y3e6csJo";
+    public static String MODE = "sandbox";
 }

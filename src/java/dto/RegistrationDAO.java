@@ -278,7 +278,7 @@ public class RegistrationDAO extends DBContext {
                 + "FROM [Order] o\n"
                 + "JOIN Order_Detail od ON o.order_id = od.order_id\n"
                 + "JOIN Subject s ON od.subject_id = s.subject_id\n"
-                + "WHERE s.lecturer_id = ?\n"
+                + "WHERE s.instructor_id = ?\n"
                 + "GROUP BY o.order_date;";
         try (
                 PreparedStatement ps = connection.prepareStatement(sql)) {

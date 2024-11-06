@@ -4,22 +4,25 @@
  */
 package controller.common;
 
-import dto.CartDAO;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Account;
-import model.Cart;
-import model.CartItem;
+import model.Learner_Course;
+import model.Course;
 
-@WebServlet(name = "HomeController", urlPatterns = {"/home"})
-public class HomeController extends HttpServlet {
+/**
+ *
+ * @author admin
+ */
+@WebServlet(name = "FilterSubjectController", urlPatterns = {"/filtersubject"})
+public class FilterSubjectController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,18 +36,36 @@ public class HomeController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet HomeController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet HomeController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String cate = request.getParameter("string1");
+        String price = request.getParameter("string2");
+        String key = request.getParameter("key");
+        String[] s1 = {};
+        String[] s2 = {};
+        if ((cate == null || cate.length() == 0) && (price == null || price.length() == 0)) {
+
+        } else {
+            s1 = cate.split(",");
+            s2 = price.split(",");
+
         }
+//        Subject1DAO s = new Subject1DAO();
+//        List<Subject> listS = s.filterSubject(s1, s2, key);
+//        List<Learner_Subject> listLSS = s.getLearnerSubject();
+//        int numberOfSubject = listS.size();
+//        int numberOfPage = numberOfSubject / 9;
+//        if (numberOfSubject % 9 != 0) {
+//            numberOfPage++;
+//        }
+//        Gson gson = new Gson();
+//        String list = gson.toJson(listS);
+//        String listLS = gson.toJson(listLSS);
+//        JsonObject jsonobj = new JsonObject();
+//        jsonobj.addProperty("numberOfPage", numberOfPage);
+//        jsonobj.addProperty("list", list);
+//        jsonobj.addProperty("listLS", listLS);
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("UTF-8");
+//        response.getWriter().write(jsonobj.toString());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,28 +80,7 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        CartDAO dao = new CartDAO();
-        try {
-            Account account = (Account) session.getAttribute("account");
-            int accountId = account.getAccount_id();
-            List<CartItem> cart_item_list = dao.loadCart(accountId);
-            Cart cart = new Cart(cart_item_list);
-            Object o = session.getAttribute("cart");
-            if (o != null) {
-                cart = (Cart) cart_item_list;
-            } else {
-                cart = new Cart();
-            }
-            
-            List<CartItem> list = cart.getItemsByAccId(accountId);
-            session.setAttribute("cart", cart);
-            session.setAttribute("size", cart_item_list.size());
-        } catch (Exception e) {
-
-        }
-
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

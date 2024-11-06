@@ -72,7 +72,8 @@
                                     <ul id="navigation">    
                                         <!--HOME-->
                                         <li class="active" ><a href="home">Home</a></li>
-                                        <li><a href="subjectlist">Subject</a></li>
+                                        <li><a href="courselist">Course</a></li>
+                                        <!--PHÂN QUYỀN SAU KHI ĐÃ ĐĂNG NHẬP-->
                                         <li><a href="sliderlist">Slider</a>
                                             <ul class="submenu">
                                                 <li><a href="sliderlist">Slider</a></li>
@@ -90,7 +91,6 @@
                                                     </c:if>
                                             </ul>
                                         </li>
-                                        <!--PHÂN QUYỀN SAU KHI ĐÃ ĐĂNG NHẬP-->
                                         <c:if test="${sessionScope.account.role_id == 3}">
                                             <li><a href="subjectmanagement">Lecturer Management</a>
                                                 <ul class="submenu">
@@ -127,8 +127,8 @@
                                                     <c:if test="${sessionScope.account.avatar != null}">
                                                         <!--<a href="avatar"><img src="assets/images/profiles/default_profile_image" alt="profile picture"></a>-->
                                                         <div class="avatar" 
-                                                             style="width: 50px; height: 50px; 
-                                                             border-radius: 50%;background-image: 
+                                                             style="width: 50px; height: 50px;
+                                                             border-radius: 50%;background-image:
                                                              url('data:image/jpeg;base64,${sessionScope.account.avatar}')">
                                                         </div>
                                                     </c:if>
@@ -141,24 +141,37 @@
                                             </li>
                                         </c:if>
                                         <!--GIỎ HÀNG-->
-                                        <li class="button-header"><c:set var="size" value="${sessionScope.size}"/>
-                                            <div style="display: flex;justify-content: center;align-items: end;padding-top: " id="bag">
-                                                <div>
-                                                    <a style="height: 15px" href="cart.jsp">
-                                                        <img src="img/CART.png" style="height: 50px"alt=""/>
-                                                        <c:if test="${size == null}">
+                                        <c:if test="${sessionScope.account == null}">
+                                            <li class="button-header">
+                                                <div style="display: flex;justify-content: center;align-items: end;padding-top: " id="bag">
+                                                    <div>
+                                                        <a style="height: 15px" href="login.jsp">
+                                                            <img src="img/CART.png" style="height: 50px"alt=""/>
                                                             (0)
-                                                        </c:if>
-                                                        <c:if test="${size != null}">
-                                                            (${size})
-                                                        </c:if>
-                                                    </a>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                                <!--<div >
-                                                    <a style="height: 15px" href="cart.jsp">(${size})</a>
-                                                </div>-->
-                                            </div>
-                                        </li>
+                                            </li>
+                                        </c:if>
+                                        <c:if test="${sessionScope.account != null}">
+                                            <li class="button-header">
+                                                <c:set var="size" value="${sessionScope.size}"/>
+                                                <div style="display: flex;justify-content: center;align-items: end;padding-top: " id="bag">
+                                                    <div>
+                                                        <a style="height: 15px" href="cart.jsp">
+                                                            <img src="img/CART.png" style="height: 50px"alt=""/>
+                                                            <c:if test="${size == null}">
+                                                                (0)
+                                                            </c:if>
+                                                            <c:if test="${size != null}">
+                                                                (${size})
+                                                            </c:if>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </c:if>
+
 
                                     </ul>
                                 </nav>
