@@ -101,12 +101,12 @@
                                         </c:if>
                                         <c:if test="${sessionScope.account.role_id == 1}">
                                             <li><a href="manageaccount">Admin Management</a>
-
+                                                
                                             </li>
                                         </c:if>
                                         <c:if test="${sessionScope.account.role_id == 2}">
                                             <li><a href="mycourse">My Subject</a>
-
+                                                    
                                             </li>
                                         </c:if>
                                         <!--PHÂN QUYỀN NẾU CHƯA ĐĂNG NHẬP-->
