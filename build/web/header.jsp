@@ -95,7 +95,7 @@
                                             </li>
                                         </c:if>
                                         <c:if test="${sessionScope.account.role_id == 2}">
-                                            <li><a href="viewLeanerCourse?learnerId=${sessionScope.account.account_id}">My Course</a>
+                                            <li><a href="mycourse">My Course</a>
 
                                             </li>
                                         </c:if>

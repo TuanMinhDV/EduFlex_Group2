@@ -45,11 +45,11 @@ public class ReviewPayment extends HttpServlet {
         for (CartItem item : cart.getItems()) {
             subtotal += item.getPrice();
         }
-        double total = subtotal;
-        List<OrderCourse> list = registration.getAll();
-        Account a = (Account) session.getAttribute("account");
+        //double total = subtotal;
+        //List<OrderCourse> list = registration.getAll();
+        Account acc = (Account) session.getAttribute("account");
         
-        registration.addorderSubject(a, cart, subtotal);
+        registration.addOrderCourse(acc, cart, subtotal);
         LocalDate curDate = LocalDate.now(); 
         String date = curDate.toString();
         request.setAttribute("paymentDate", date);

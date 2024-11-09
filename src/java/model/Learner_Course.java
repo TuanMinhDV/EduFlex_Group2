@@ -17,8 +17,8 @@ public class Learner_Course {
     private String fullname;
     private String course_name;
     private String image;
-    private int lecturer_id;
-    private String lecturer_name;
+    private int instructor_id;
+    private String instructor_name;
     private int category_id;
     private String enroll_date;
     private float rate;
@@ -26,7 +26,9 @@ public class Learner_Course {
     public Learner_Course() {
     }
 
-    public Learner_Course(int id, int learner_id, int course_id, String enrolled_date, String end_date, int active, int status, int account_id, String fullname, String course_name, String image, int lecturer_id, String lecturer_name, int category_id, String enroll_date, float rate) {
+    public Learner_Course(int id, int learner_id, int course_id, String enrolled_date, String end_date, int active, int status, 
+            int account_id, String fullname, String course_name, String image, int instructor_id, String instructor_name, 
+            int category_id, String enroll_date, float rate) {
         this.id = id;
         this.learner_id = learner_id;
         this.course_id = course_id;
@@ -38,8 +40,8 @@ public class Learner_Course {
         this.fullname = fullname;
         this.course_name = course_name;
         this.image = image;
-        this.lecturer_id = lecturer_id;
-        this.lecturer_name = lecturer_name;
+        this.instructor_id = instructor_id;
+        this.instructor_name = instructor_name;
         this.category_id = category_id;
         this.enroll_date = enroll_date;
         this.rate = rate;
@@ -133,20 +135,20 @@ public class Learner_Course {
         this.image = image;
     }
 
-    public int getLecturer_id() {
-        return lecturer_id;
+    public int getInstructor_id() {
+        return instructor_id;
     }
 
-    public void setLecturer_id(int lecturer_id) {
-        this.lecturer_id = lecturer_id;
+    public void setInstructor_id(int instructor_id) {
+        this.instructor_id = instructor_id;
     }
 
-    public String getLecturer_name() {
-        return lecturer_name;
+    public String getInstructor_name() {
+        return instructor_name;
     }
 
-    public void setLecturer_name(String lecturer_name) {
-        this.lecturer_name = lecturer_name;
+    public void setInstructor_name(String instructor_name) {
+        this.instructor_name = instructor_name;
     }
 
     public int getCategory_id() {
@@ -175,7 +177,19 @@ public class Learner_Course {
 
     @Override
     public String toString() {
-        return "Learner_Course{" + "id=" + id + ", learner_id=" + learner_id + ", course_id=" + course_id + ", enrolled_date=" + enrolled_date + ", end_date=" + end_date + ", active=" + active + ", status=" + status + ", account_id=" + account_id + ", fullname=" + fullname + ", course_name=" + course_name + ", image=" + image + ", lecturer_id=" + lecturer_id + ", lecturer_name=" + lecturer_name + ", category_id=" + category_id + ", enroll_date=" + enroll_date + ", rate=" + rate + '}';
+        return "Learner_Course{" + "id=" + id + 
+                ", learner_id=" + learner_id + 
+                ", course_id=" + course_id + 
+                ", enrolled_date=" + enrolled_date + 
+                ", end_date=" + end_date + 
+                ", active=" + active + 
+                ", status=" + status + 
+                ", account_id=" + account_id + 
+                ", fullname=" + fullname + 
+                ", course_name=" + course_name + 
+                ", instructor_id=" + instructor_id + 
+                ", instructor_name=" + instructor_name + 
+                ", rate="+ rate + "}\n";
     }
     
     

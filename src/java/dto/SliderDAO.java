@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Account;
 import model.Blog;
 import model.Constants;
@@ -132,6 +134,7 @@ public class SliderDAO extends DBContext {
         }
         return null;
     }
+
     public Slider getSliderEditByID(String id) {
 
         String sql = "select s.id, s.image, s.title, s.status, s.link, s.marketer_id, s.type, s.endtime, s.description, a.fullname from Slider s\n"
@@ -207,7 +210,7 @@ public class SliderDAO extends DBContext {
         if (fileName != null) {
             //String pathToFile = "D:/Sem5_Fall2023/SWP391/image/";
             File avatarImage = new File(Constants.SAVE_PATH + fileName);
-            try ( InputStream avatarStream = new FileInputStream(avatarImage)) {
+            try (InputStream avatarStream = new FileInputStream(avatarImage)) {
                 PreparedStatement st = connection.prepareStatement(sql1);
                 st.setBinaryStream(1, avatarStream);
                 st.setString(2, title);
@@ -266,7 +269,7 @@ public class SliderDAO extends DBContext {
         if (fileName != null) {
             //String pathToFile = "D:/Sem5_Fall2023/SWP391/image/";
             File avatarImage = new File(Constants.SAVE_PATH + fileName);
-            try ( InputStream avatarStream = new FileInputStream(avatarImage)) {
+            try (InputStream avatarStream = new FileInputStream(avatarImage)) {
                 PreparedStatement st = connection.prepareStatement(sql);
                 st.setBinaryStream(1, avatarStream);
                 st.setString(2, title);
@@ -437,23 +440,20 @@ public class SliderDAO extends DBContext {
         return list;
     }
 
-    public List<Learner_Course> getAllMyCourse(String learner_id) {
+    public List<Learner_Course> getAllMyCourse(String learner_id) throws SQLException {
         List<Learner_Course> list = new ArrayList<>();
-        String sql = "select distinct ls.*, a.account_id, a.fullname, s.course_name, s.image, s.instructor_id, accsub.fullname as [instructor_name], s.category_id \n"
-                + "from Learner_Course ls \n"
-                + "join Course s on ls.course_id = s.course_id\n"
-                + "join Account a on a.account_id = ls.learner_id\n"
-                + "join (select * from Account acc JOIN Course sub ON acc.account_id = sub.instructor_id) "
-                + "as accsub ON accsub.account_id = s.instructor_id\n"
-                + "WHERE ls.active = 1 AND ls.learner_id = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
+        String sql = "SELECT lc.*, a.account_id, a.fullname, s.course_name, s.image, s.instructor_id, accsub.fullname AS instructor_name "
+                + "FROM Learner_Course lc "
+                + "INNER JOIN Course s ON lc.course_id = s.course_id "
+                + "INNER JOIN Account a ON a.account_id = lc.learner_id "
+                + "INNER JOIN Account accsub ON accsub.account_id = s.instructor_id "
+                + "WHERE lc.active = 1 AND lc.learner_id = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, learner_id);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
                 Learner_Course ls = new Learner_Course();
                 ls.setId(rs.getInt("id"));
                 ls.setLearner_id(rs.getInt("learner_id"));
@@ -465,141 +465,37 @@ public class SliderDAO extends DBContext {
                 ls.setAccount_id(rs.getInt("account_id"));
                 ls.setFullname(rs.getString("fullname"));
                 ls.setCourse_name(rs.getString("course_name"));
-                ls.setImage(base64Image);
-                ls.setLecturer_id(rs.getInt("lecturer_id"));
-                ls.setLecturer_name(rs.getString("lecturer_name"));
-                ls.setCategory_id(rs.getInt("category_id"));
+
+                // Handle image data efficiently:
+                byte[] imageData = rs.getBytes("image");
+                if (imageData != null) {
+                    ls.setImage(new String(Base64.getEncoder().encode(imageData)));
+                }
+
+                ls.setInstructor_id(rs.getInt("instructor_id"));
+                ls.setInstructor_name(rs.getString("instructor_name"));
+                ls.setRate(rs.getInt("rate"));
+
                 list.add(ls);
             }
-        } catch (SQLException e) {
+        }catch (SQLException e) {
         }
 
         return list;
     }
-    public List<Learner_Course> getAllMyCourseCompleted(String learner_id) {
-        List<Learner_Course> list = new ArrayList<>();
-        String sql = "select distinct ls.*, a.account_id, a.fullname, s.course_name, s.image, s.lecturer_id, accsub.fullname as [lecturer_name], s.category_id \n"
-                + "from Learner_Course ls \n"
-                + "join Course s on ls.course_id = s.course_id\n"
-                + "join Account a on a.account_id = ls.learner_id\n"
-                + "join (select * from Account acc JOIN Course sub ON acc.account_id = sub.lecturer_id) as accsub ON accsub.account_id = s.lecturer_id\n"
-                + "WHERE ls.active = 1 AND ls.status = 1 AND ls.learner_id = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, learner_id);
-            ResultSet rs = st.executeQuery();
 
-            while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
-                Learner_Course ls = new Learner_Course();
-                ls.setId(rs.getInt("id"));
-                ls.setLearner_id(rs.getInt("learner_id"));
-                ls.setCourse_id(rs.getInt("course_id"));
-                ls.setEnrolled_date(rs.getString("enrolled_date"));
-                ls.setEnd_date(rs.getString("end_date"));
-                ls.setActive(rs.getInt("active"));
-                ls.setStatus(rs.getInt("status"));
-                ls.setAccount_id(rs.getInt("account_id"));
-                ls.setFullname(rs.getString("fullname"));
-                ls.setCourse_name(rs.getString("course_name"));
-                ls.setImage(base64Image);
-                ls.setLecturer_id(rs.getInt("lecturer_id"));
-                ls.setLecturer_name(rs.getString("lecturer_name"));
-                ls.setCategory_id(rs.getInt("category_id"));
-                list.add(ls);
-            }
-        } catch (SQLException e) {
-        }
-
-        return list;
-    }
-    
-    public List<Learner_Course> getAllMyCourseNotCompleted(String learner_id) {
-        List<Learner_Course> list = new ArrayList<>();
-        String sql = "select distinct ls.*, a.account_id, a.fullname, s.course_name, s.image, s.lecturer_id, accsub.fullname as [lecturer_name], s.category_id \n"
-                + "from Learner_Course ls \n"
-                + "join Course s on ls.course_id = s.course_id\n"
-                + "join Account a on a.account_id = ls.learner_id\n"
-                + "join (select * from Account acc JOIN Course sub ON acc.account_id = sub.lecturer_id) as accsub ON accsub.account_id = s.lecturer_id\n"
-                + "WHERE ls.active = 1 AND ls.status = 0 AND ls.learner_id = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, learner_id);
-            ResultSet rs = st.executeQuery();
-
-            while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
-                Learner_Course ls = new Learner_Course();
-                ls.setId(rs.getInt("id"));
-                ls.setLearner_id(rs.getInt("learner_id"));
-                ls.setCourse_id(rs.getInt("course_id"));
-                ls.setEnrolled_date(rs.getString("enrolled_date"));
-                ls.setEnd_date(rs.getString("end_date"));
-                ls.setActive(rs.getInt("active"));
-                ls.setStatus(rs.getInt("status"));
-                ls.setAccount_id(rs.getInt("account_id"));
-                ls.setFullname(rs.getString("fullname"));
-                ls.setCourse_name(rs.getString("course_name"));
-                ls.setImage(base64Image);
-                ls.setLecturer_id(rs.getInt("lecturer_id"));
-                ls.setLecturer_name(rs.getString("lecturer_name"));
-                ls.setCategory_id(rs.getInt("category_id"));
-                list.add(ls);
-            }
-        } catch (SQLException e) {
-        }
-
-        return list;
-    }
-    
-    public List<Learner_Course> searchByName(String search_raw) {
-        List<Learner_Course> listP = new ArrayList<>();
-        String sql = "select distinct ls.*, a.account_id, a.fullname, s.course_name, s.image, s.lecturer_id, accsub.fullname as [lecturer_name], s.category_id \n"
-                + "from Learner_Course ls \n"
-                + "join Course s on ls.course_id = s.course_id\n"
-                + "join Account a on a.account_id = ls.learner_id\n"
-                + "join (select * from Account acc JOIN Course sub ON acc.account_id = sub.lecturer_id) as accsub ON accsub.account_id = s.lecturer_id\n"
-                + "WHERE ls.active = 1 AND ls.learner_id = ?\n"
-                + "where s.course_name like ?";
-
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, "%" + search_raw + "%");
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
-                Learner_Course ls = new Learner_Course();
-                ls.setId(rs.getInt("id"));
-                ls.setLearner_id(rs.getInt("learner_id"));
-                ls.setCourse_id(rs.getInt("course_id"));
-                ls.setEnrolled_date(rs.getString("enrolled_date"));
-                ls.setEnd_date(rs.getString("end_date"));
-                ls.setActive(rs.getInt("active"));
-                ls.setStatus(rs.getInt("status"));
-                ls.setAccount_id(rs.getInt("account_id"));
-                ls.setFullname(rs.getString("fullname"));
-                ls.setCourse_name(rs.getString("course_name"));
-                ls.setImage(base64Image);
-                ls.setLecturer_id(rs.getInt("lecturer_id"));
-                ls.setLecturer_name(rs.getString("lecturer_name"));
-                ls.setCategory_id(rs.getInt("category_id"));
-                listP.add(ls);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return listP;
-    }
 
     public static void main(String[] args) {
         SliderDAO dao = new SliderDAO();
-        List<Learner_Course> ls1 = dao.getAllMyCourse("2");
+        try {
+            List<Learner_Course> ls1 = dao.getAllMyCourse(2+"");
+            System.out.println(ls1);
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Slider s2 = dao.getSliderByID("1");
         List<Slider> ls3 = dao.getAllSliderDiscount();
 
-        System.out.println(s2);
+        
     }
 }

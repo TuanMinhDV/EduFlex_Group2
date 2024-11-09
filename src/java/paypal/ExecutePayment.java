@@ -31,9 +31,9 @@ public class ExecutePayment extends HttpServlet {
         String paymentId = request.getParameter("paymentId");
         String payerId = request.getParameter("PayerID");
         String paymentDate= request.getParameter("paymentDate");
-        String[] subject_name = request.getParameterValues("course_name");
+        String[] course_name = request.getParameterValues("course_name");
         List<String> listS = new ArrayList<>();
-        for(String s : subject_name){
+        for(String s : course_name){
                 listS.add(s);  
             }
         request.setAttribute("course_name", listS);
