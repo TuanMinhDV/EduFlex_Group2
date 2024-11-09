@@ -85,7 +85,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     if (success && sendEmail) {
         String emailSubject = "New Account Created";
         String emailBody = String.format("Hello %s,\n\nYour account has been created on the EduFlex system with the following details:\n\n"
-                + "Username: %s\nPassword: defaultPassword\nFull Name: %s\nEmail: %s\nPhone: %s\nRole: %s\nOTP: %s\n\nThank you!",
+                + "Username: %s\nPassword: 123\nFull Name: %s\nEmail: %s\nPhone: %s\nRole: %s\nOTP: %s\n\nThank you!",
                 fullname, username, fullname, email, phone, roleName, otp);
 
         EmailUtilsByAdmin.sendEmail(email, emailSubject, emailBody);

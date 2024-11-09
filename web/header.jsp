@@ -100,7 +100,7 @@
                                             </li>
                                         </c:if>
                                         <c:if test="${sessionScope.account.role_id == 1}">
-                                            <li><a href="manageaccount">Admin Management</a>
+                                            <li><a href="adminhomeservlet">Admin Management</a>
                                                 
                                             </li>
                                         </c:if>

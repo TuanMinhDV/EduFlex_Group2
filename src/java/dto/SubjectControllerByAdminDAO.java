@@ -277,4 +277,20 @@ public class SubjectControllerByAdminDAO extends DBContext {
         return false;
     }
 
+    public int getTotalCategories() {
+        int totalCategories = 0;
+
+        String sql = "SELECT COUNT(*) AS total FROM Category";
+        try (PreparedStatement stm = connection.prepareStatement(sql); ResultSet rs = stm.executeQuery()) {
+
+            if (rs.next()) {
+                totalCategories = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            System.out.println("getTotalCategories: " + e.getMessage());
+        }
+
+        return totalCategories;
+    }
+
 }

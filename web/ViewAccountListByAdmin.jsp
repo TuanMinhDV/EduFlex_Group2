@@ -1,148 +1,174 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Admin Dashboard - Account List</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Account List</title>
         <style>
-            /* Reset margin and padding */
             * {
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
             }
             body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f6f9;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f0f2f5;
                 display: flex;
                 min-height: 100vh;
-                margin: 0;
             }
-            /* Sidebar */
             .sidebar {
                 width: 250px;
-                background-color: #333;
+                background-color: #2c3e50;
                 color: #fff;
-                padding-top: 20px;
                 position: fixed;
                 height: 100%;
-                box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+                padding-top: 20px;
             }
             .sidebar h2 {
                 text-align: center;
-                font-size: 1.5em;
-                color: #f4f4f9;
+                font-size: 24px;
                 padding: 15px 0;
-                border-bottom: 1px solid #575757;
+                margin-bottom: 20px;
+                color: #ecf0f1;
+                border-bottom: 1px solid #34495e;
             }
             .sidebar a {
-                display: block;
-                color: #ddd;
+                display: flex;
+                align-items: center;
+                color: #bdc3c7;
                 padding: 15px;
                 text-decoration: none;
-                font-size: 1em;
+                font-size: 18px;
                 transition: background 0.3s;
+                gap: 10px;
             }
             .sidebar a:hover {
-                background-color: #575757;
+                background-color: #34495e;
                 color: #fff;
             }
-            /* Main content */
             .content {
                 margin-left: 250px;
-                padding: 20px;
+                padding: 30px;
                 flex-grow: 1;
             }
-            .content h1 {
-                text-align: center;
-                font-size: 2em;
+            h1 {
+                font-size: 28px;
                 color: #333;
-                margin-bottom: 20px;
+                margin-bottom: 25px;
             }
             .card {
                 background-color: #fff;
                 padding: 20px;
-                border-radius: 8px;
+                border-radius: 10px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 margin-bottom: 20px;
-                max-width: 800px;
-                margin: 0 auto;
             }
-            .filter-form, .search-form, .pagination {
+            .form-container {
                 display: flex;
-                justify-content: center;
-                margin-bottom: 20px;
+                gap: 15px;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px 0;
             }
-            button, select, input[type="text"] {
-                padding: 8px;
-                font-size: 14px;
-                margin-right: 10px;
+            .inline-form {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .table-container {
+                width: 100%;
+                margin: 0 auto;
             }
             table {
                 width: 100%;
                 border-collapse: collapse;
-                margin-top: 20px;
-            }
-            table, th, td {
-                border: 1px solid #ddd;
+                margin-bottom: 20px;
+                font-size: 16px;
             }
             th, td {
                 padding: 12px;
+                border: 1px solid #ddd;
                 text-align: center;
             }
             th {
-                background-color: #f2f2f2;
-                color: #555;
+                background-color: #34495e;
+                color: #ecf0f1;
+            }
+            tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+            tr:hover {
+                background-color: #eaf2f8;
+            }
+            button, select, input[type="text"] {
+                padding: 8px 12px;
+                font-size: 14px;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+                transition: 0.2s;
+            }
+            button:hover, select:hover, input[type="text"]:hover {
+                border-color: #3498db;
+            }
+            .pagination {
+                margin: 15px 0;
+                text-align: center;
+            }
+            .pagination a {
+                color: #3498db;
+                padding: 10px 15px;
+                text-decoration: none;
+                transition: background 0.2s;
+                margin: 0 5px;
+                border-radius: 5px;
+            }
+            .pagination a:hover {
+                background-color: #3498db;
+                color: #fff;
             }
         </style>
     </head>
     <body>
-
-        <!-- Sidebar for Dashboard -->
         <div class="sidebar">
             <h2>EduFlex Admin</h2>
-            <a href="http://localhost:8080/FinalVersionEduFlex/viewaccountlistbyadmin">View Account List</a>
-            <a href="http://localhost:8080/FinalVersionEduFlex/viewcommentlistbyadmin">View Comment List</a>
-            <a href="http://localhost:8080/FinalVersionEduFlex/viewcourselistbyadmin">View Course List</a>
-            <a href="http://localhost:8080/FinalVersionEduFlex/ViewOrderListByAdmin">View Order List</a>
-            <a href="http://localhost:8080/FinalVersionEduFlex/viewsubjectbyadmin">View Category List</a>
-        </div>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/adminhomeservlet"><i class="fas fa-home"></i> Home</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/viewaccountlistbyadmin"><i class="fas fa-user"></i> View Account List</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/viewcommentlistbyadmin"><i class="fas fa-comments"></i> View Comment List</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/viewcourselistbyadmin"><i class="fas fa-book"></i> View Course List</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/ViewOrderListByAdmin"><i class="fas fa-shopping-cart"></i> View Order List</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/viewsubjectbyadmin"><i class="fas fa-chart-line"></i> View Category List</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/revenueChart"><i class="fas fa-dollar-sign"></i> Revenue</a>
 
-        <!-- Main content area -->
+        </div>
         <div class="content">
             <h1>Account List</h1>
-
-            <!-- Filter and Search Forms -->
-            <div class="filter-form">
-                <form action="viewaccountlistbyadmin" method="get">
+            <div class="card form-container">
+                <form action="addaccountbyadmin" method="get" class="inline-form">
+                    <button type="submit">Add Account</button>
+                </form>
+                <form action="viewaccountlistbyadmin" method="get" class="inline-form">
                     <select name="role">
                         <option value="">All Roles</option>
                         <c:forEach var="role" items="${roles}">
-                            <option value="${role.roleName}" <c:if test="${param.role == role.roleName}">selected</c:if>>
-                                ${role.roleName}
-                            </option>
+                            <option value="${role.roleName}" <c:if test="${param.role == role.roleName}">selected</c:if>>${role.roleName}</option>
                         </c:forEach>
                     </select>
                     <select name="status">
                         <option value="">All Status</option>
                         <option value="1" <c:if test="${param.status == '1'}">selected</c:if>>Active</option>
                         <option value="0" <c:if test="${param.status == '0'}">selected</c:if>>Blocked</option>
-                    </select>
-                    <button type="submit">Filter</button>
-                </form>
-            </div>
-
-            <div class="search-form">
-                <form action="viewaccountlistbyadmin" method="get">
-                    <input type="text" name="searchName" placeholder="Enter account name to search" 
-                           value="${param.searchName}" style="width: 300px;">
+                        </select>
+                        <button type="submit">Filter</button>
+                    </form>
+                    <form action="viewaccountlistbyadmin" method="get" class="inline-form">
+                        <input type="text" name="searchName" placeholder="Enter account name" value="${param.searchName}">
                     <button type="submit">Search</button>
                 </form>
             </div>
-
-            <!-- Table displaying account list -->
-            <div class="card">
+            <div class="card table-container">
                 <table>
                     <tr>
                         <th>Account ID</th>
@@ -153,7 +179,6 @@
                         <th>OTP</th>
                         <th>Role</th>
                         <th>Status</th>
-                        <th>Change Role</th>
                         <th>Change Status</th>
                     </tr>
                     <c:forEach var="account" items="${data}">
@@ -169,51 +194,38 @@
                                     <input type="hidden" name="accountId" value="${account.accountId}" />
                                     <select name="newRole">
                                         <c:forEach var="role" items="${roles}">
-                                            <option value="${role.roleId}" <c:if test="${role.roleName == account.roleName}">selected</c:if>>
-                                                ${role.roleName}
-                                            </option>
+                                            <option value="${role.roleId}" <c:if test="${role.roleName == account.roleName}">selected</c:if>>${role.roleName}</option>
                                         </c:forEach>
                                     </select>
                                     <button type="submit">Change</button>
                                 </form>
                             </td>
+                            <td>${account.status ? 'Active' : 'Blocked'}</td>
                             <td>
-                                <c:choose>
-                                    <c:when test="${account.status}">Active</c:when>
-                                    <c:otherwise>Blocked</c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td>
-                                <form action="changeAccountStatus" method="post" onsubmit="return confirm('Are you sure you want to change the account status?');">
+                                <form action="changeAccountStatus" method="post" onsubmit="return confirm('Are you sure?');">
                                     <input type="hidden" name="accountId" value="${account.accountId}" />
                                     <input type="hidden" name="currentStatus" value="${account.status}" />
-                                    <button type="submit">Change</button>
-                                    <input type="checkbox" name="sendEmail" value="true"> Send Email
+                                    <button type="submit">Toggle Status</button>
+                                    <label>
+                                        <input type="checkbox" name="sendEmail" value="true"> Send Email
+                                    </label>
                                 </form>
                             </td>
                         </tr>
                     </c:forEach>
                 </table>
             </div>
-
-            <!-- Pagination control -->
             <div class="pagination">
                 <c:if test="${currentPage > 1}">
-                    <a href="viewaccountlistbyadmin?page=${currentPage - 1}&pageSize=10&searchName=${param.searchName}&role=${param.role}&status=${param.status}">Previous</a>
+                    <a href="viewaccountlistbyadmin?page=${currentPage - 1}">Previous</a>
                 </c:if>
-
-                <c:forEach var="i" begin="${currentPage - 1}" end="${currentPage + 1}">
-                    <c:if test="${i >= 1 && i <= totalPages}">
-                        <a href="viewaccountlistbyadmin?page=${i}&pageSize=10&searchName=${param.searchName}&role=${param.role}&status=${param.status}"
-                           style="${i == currentPage ? 'font-weight: bold;' : ''}">${i}</a>
-                    </c:if>
+                <c:forEach var="i" begin="${1}" end="${totalPages}">
+                    <a href="viewaccountlistbyadmin?page=${i}" style="${i == currentPage ? 'font-weight:bold' : ''}">${i}</a>
                 </c:forEach>
-
                 <c:if test="${currentPage < totalPages}">
-                    <a href="viewaccountlistbyadmin?page=${currentPage + 1}&pageSize=10&searchName=${param.searchName}&role=${param.role}&status=${param.status}">Next</a>
+                    <a href="viewaccountlistbyadmin?page=${currentPage + 1}">Next</a>
                 </c:if>
             </div>
-
         </div>
     </body>
 </html>

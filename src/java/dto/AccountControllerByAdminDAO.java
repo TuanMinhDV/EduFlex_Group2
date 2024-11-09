@@ -312,7 +312,7 @@ public class AccountControllerByAdminDAO extends DBContext {
             String sql = "INSERT INTO Account (username, password, fullname, email, phone, otp, active, role_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             stm = connection.prepareStatement(sql);
             stm.setString(1, account.getUsername());
-            stm.setString(2, "defaultPassword"); // Password mặc định, nên được mã hóa trong thực tế
+            stm.setString(2, "202CB962AC59075B964B07152D234B70"); // Password mặc định, nên được mã hóa trong thực tế
             stm.setString(3, account.getFullname());
             stm.setString(4, account.getEmail());
             stm.setString(5, account.getPhone());
@@ -384,6 +384,49 @@ private boolean isPhoneDuplicate(String phone) throws SQLException {
         closeResources();
     }
 }
+
+   public int getTotalAccounts() {
+    int totalAccounts = 0;
+    
+    try {
+        String strSQL = "SELECT COUNT(*) AS total FROM Account";
+        stm = connection.prepareStatement(strSQL);
+        rs = stm.executeQuery();
+        
+        if (rs.next()) {
+            totalAccounts = rs.getInt("total");
+        }
+    } catch (SQLException e) {
+        System.out.println("Error in getTotalAccounts: " + e.getMessage());
+    } finally {
+        closeResources();
+    }
+    
+    return totalAccounts;
+}
+
+   
+public int getTotalLearners() {
+    int totalLearners = 0;
+    
+    try {
+        String strSQL = "SELECT COUNT(*) AS total FROM Account WHERE role_id = ?";
+        stm = connection.prepareStatement(strSQL);
+        stm.setInt(1, 2); // role_id = 2 là Learner
+        rs = stm.executeQuery();
+        
+        if (rs.next()) {
+            totalLearners = rs.getInt("total");
+        }
+    } catch (SQLException e) {
+        System.out.println("Error in getTotalLearners: " + e.getMessage());
+    } finally {
+        closeResources();
+    }
+    
+    return totalLearners;
+}
+
 
    
     

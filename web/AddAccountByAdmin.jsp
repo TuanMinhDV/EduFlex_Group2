@@ -6,48 +6,56 @@
         <meta charset="UTF-8">
         <title>Add New Account</title>
         <style>
-            body {
-                font-family: Arial, sans-serif;
+            /* Reset margin and padding */
+            * {
                 margin: 0;
                 padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f6f9;
                 display: flex;
                 min-height: 100vh;
-                background-color: #f4f4f9;
             }
-            /* Sidebar styles */
+            /* Sidebar styles to match the Admin Dashboard */
             .sidebar {
                 width: 250px;
-                background-color: #333;
+                background-color: #2c3e50;
                 color: #fff;
+                display: flex;
+                flex-direction: column;
                 padding-top: 20px;
                 position: fixed;
                 height: 100%;
-                box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             }
             .sidebar h2 {
                 text-align: center;
-                font-size: 1.2em;
+                font-size: 24px;
                 color: #f4f4f9;
+                padding: 10px 0;
+                border-bottom: 1px solid #34495e;
             }
             .sidebar a {
-                display: block;
-                color: #ddd;
-                padding: 15px;
+                color: #ecf0f1;
+                padding: 15px 20px;
                 text-decoration: none;
-                font-size: 1em;
+                font-size: 18px;
+                display: block;
+                transition: background 0.3s;
             }
             .sidebar a:hover {
-                background-color: #575757;
-                color: #fff;
+                background-color: #34495e;
             }
             /* Content area styles */
             .content {
                 margin-left: 250px;
                 padding: 20px;
-                flex-grow: 1;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                flex-grow: 1;
             }
             .form-container {
                 width: 100%;
@@ -121,12 +129,15 @@
 
         <!-- Sidebar for Dashboard -->
         <div class="sidebar">
-            <h2>Dashboard</h2>
-            <a href="http://localhost:8080/FinalVersionEduFlex/viewaccountlistbyadmin">View Account List</a>
-            <a href="http://localhost:8080/FinalVersionEduFlex/viewcommentlistbyadmin">View Comment List</a>
-            <a href="http://localhost:8080/FinalVersionEduFlex/viewcourselistbyadmin">View Course List</a>
-            <a href="http://localhost:8080/FinalVersionEduFlex/ViewOrderListByAdmin">View Order List</a>
-            <a href="http://localhost:8080/FinalVersionEduFlex/viewsubjectbyadmin">View Category List</a>
+            <h2>EduFlex Admin</h2>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/adminhomeservlet"><i class="fas fa-home"></i> Home</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/viewaccountlistbyadmin"><i class="fas fa-user"></i> View Account List</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/viewcommentlistbyadmin"><i class="fas fa-comments"></i> View Comment List</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/viewcourselistbyadmin"><i class="fas fa-book"></i> View Course List</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/ViewOrderListByAdmin"><i class="fas fa-shopping-cart"></i> View Order List</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/viewsubjectbyadmin"><i class="fas fa-chart-line"></i> View Category List</a>
+            <a class="btn btn-primary" href="http://localhost:8080/EduFlex_Demo3_1_1/revenueChart"><i class="fas fa-dollar-sign"></i> Revenue</a>
+
         </div>
 
         <!-- Main content area -->
@@ -170,10 +181,10 @@
                             <option value="${role.roleName}">${role.roleName}</option>
                         </c:forEach>
                     </select>
-
-                    <label>Send Account Info Email:</label>
-                    <input type="checkbox" name="sendEmail" value="true"> Send email with account information
-
+                    <label style="display: flex; align-items: center;">
+                        <input type="checkbox" name="sendEmail" value="true">
+                        <span style="margin-left: 5px;">Send email with account information</span>
+                    </label>
                     <input type="submit" value="Add Account">
                 </form>
             </div>

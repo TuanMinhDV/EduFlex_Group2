@@ -120,13 +120,25 @@ public class CourseControllerByAdminDAO extends DBContext {
         return count;
     }
 
-  
-     public static void main(String[] args) {
-        CourseControllerByAdminDAO da = new CourseControllerByAdminDAO();
-        ArrayList<CourseControlByAdmin> data = da.getCoursesWithPaginationAndSearch("0", 1, 10);
+  public int getTotalCourse() {
+    int totalCourses = 0;
+    
+    try {
+        String sql = "SELECT COUNT(*) AS total FROM Course WHERE isDisable = 0 OR isDisable IS NULL";
+        stm = connection.prepareStatement(sql);
+        rs = stm.executeQuery();
         
-        data.forEach(course -> System.out.println(course.toString()));
-    }
+        if (rs.next()) {
+            totalCourses = rs.getInt("total");
+        }
+    } catch (SQLException e) {
+        System.out.println("Error in getTotalCourse: " + e.getMessage());
+    } 
+    
+    return totalCourses;
+}
+
+ 
 
     
     

@@ -2,6 +2,8 @@ package dto;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import model.AccountControlByAdmin;
 import model.OrderControlByAdmin;
 import model.OrderDetailControlByAdmin;
@@ -240,5 +242,91 @@ public class OrderControllerByAdminDAO extends DBContext {
     }
 
     
-    
+     public double getTotalRevenue(String startDate, String endDate) {
+    double totalRevenue = 0.0;
+    try {
+        String sql = "SELECT SUM(total_money) FROM [Order] WHERE 1=1";
+        if (startDate != null && !startDate.isEmpty()) {
+            sql += " AND order_date >= ?";
+        }
+        if (endDate != null && !endDate.isEmpty()) {
+            sql += " AND order_date <= ?";
+        }
+        stm = connection.prepareStatement(sql);
+
+        int index = 1;
+        if (startDate != null && !startDate.isEmpty()) {
+            stm.setString(index++, startDate);
+        }
+        if (endDate != null && !endDate.isEmpty()) {
+            stm.setString(index++, endDate);
+        }
+
+        rs = stm.executeQuery();
+        if (rs.next()) {
+            totalRevenue = rs.getDouble(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        closeResources();
+    }
+    return totalRevenue;
+}
+public double getAverageOrderValue(String startDate, String endDate) {
+    double avgOrderValue = 0.0;
+    try {
+        String sql = "SELECT AVG(total_money) FROM [Order] WHERE 1=1";
+        if (startDate != null && !startDate.isEmpty()) {
+            sql += " AND order_date >= ?";
+        }
+        if (endDate != null && !endDate.isEmpty()) {
+            sql += " AND order_date <= ?";
+        }
+        stm = connection.prepareStatement(sql);
+
+        int index = 1;
+        if (startDate != null && !startDate.isEmpty()) {
+            stm.setString(index++, startDate);
+        }
+        if (endDate != null && !endDate.isEmpty()) {
+            stm.setString(index++, endDate);
+        }
+
+        rs = stm.executeQuery();
+        if (rs.next()) {
+            avgOrderValue = rs.getDouble(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        closeResources();
+    }
+    return avgOrderValue;
+}
+
+
+    public Map<String, Double> getMonthlyRevenue(String year) {
+    Map<String, Double> monthlyRevenue = new LinkedHashMap<>();
+    try {
+        String sql = "SELECT FORMAT(order_date, 'yyyy-MM') AS month, SUM(total_money) AS total "
+                   + "FROM [Order] "
+                   + "WHERE YEAR(order_date) = ? "
+                   + "GROUP BY FORMAT(order_date, 'yyyy-MM') "
+                   + "ORDER BY month";
+        stm = connection.prepareStatement(sql);
+        stm.setString(1, year);
+
+        rs = stm.executeQuery();
+        while (rs.next()) {
+            monthlyRevenue.put(rs.getString("month"), rs.getDouble("total"));
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        closeResources();
+    }
+    return monthlyRevenue;
+}
+
 }
