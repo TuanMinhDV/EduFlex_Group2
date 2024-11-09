@@ -37,8 +37,7 @@ public class RemoveItem extends BaseRequiredAuthorizationController {
             OrderCourse orderCourse = reg.getCoursebyId(course_id);
             double discount = orderCourse.getDiscount();
             double price = orderCourse.getPrice() * (1 - discount / 100);
-            CartItem cartitem = new CartItem(orderCourse, price, acc.getAccount_id());
-            cartdao.deleteCartItem(cartitem);
+            
 
             session.setAttribute("size", remainingItems);
             response.sendRedirect("cart.jsp");

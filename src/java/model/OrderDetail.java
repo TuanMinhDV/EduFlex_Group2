@@ -4,62 +4,48 @@ public class OrderDetail {
 
     private String id;
     private String order_id;
-    private String subject_id;
+    private String course_id;
     private double price;
     private float total;
     private float subtotal;
     private String customerId;
     private String customerName;
     private String orderId;
-    private String subjectId;
-    private String subjectName; 
-    private String subjectImage; 
+    private String courseName; 
+    private String courseImage; 
 
-    public OrderDetail(String orderId, String subjectId, double price) {
+    public OrderDetail(String orderId, String course_id, double price) {
         this.orderId = orderId;
-        this.subjectId = subjectId;
+        this.course_id = course_id;
         this.price = price;
     }
 
-    // Thêm getter và setter cho subjectName
-    public String getSubjectName() {
-        return subjectName;
+    public OrderDetail() {
     }
 
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
+    public OrderDetail(String id, String order_id, String course_id, double price) {
+        this.id = id;
+        this.order_id = order_id;
+        this.course_id = course_id;
+        this.price = price;
+    }
+    public OrderDetail(String subtotal, String total) {
+        this.subtotal = Float.parseFloat(subtotal);
+        this.total = Float.parseFloat(total);
     }
 
-    // Thêm getter và setter cho subjectImage
-    public String getSubjectImage() {
-        return subjectImage;
+    @Override
+    public String toString() {
+        return "OrderDetail{" + "id=" + id + ", order_id=" + order_id + ", course_id=" + course_id + ", price=" + price + ", total=" + total + ", subtotal=" + subtotal + ", customerId=" + customerId + ", customerName=" + customerName + ", orderId=" + orderId + ", courseName=" + courseName + ", courseImage=" + courseImage + '}';
     }
-
-    public void setSubjectImage(String subjectImage) {
-        this.subjectImage = subjectImage;
-    }
-
     
 
-    public String getCustomerId() {
-        return customerId;
+    public String getSubtotal() {
+        return String.format("%.2f", subtotal);
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-
-
-    public OrderDetail() {
+    public String getTotal() {
+        return String.format("%.2f", total);
     }
 
     public String getId() {
@@ -78,12 +64,12 @@ public class OrderDetail {
         this.order_id = order_id;
     }
 
-    public String getSubject_id() {
-        return subject_id;
+    public String getCourse_id() {
+        return course_id;
     }
 
-    public void setSubject_id(String subject_id) {
-        this.subject_id = subject_id;
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
     }
 
     public double getPrice() {
@@ -94,27 +80,53 @@ public class OrderDetail {
         this.price = price;
     }
 
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
+   
     public void setSubtotal(float subtotal) {
         this.subtotal = subtotal;
     }
 
-    public OrderDetail(String id, String order_id, String subject_id, double price) {
-        this.id = id;
-        this.order_id = order_id;
-        this.subject_id = subject_id;
-        this.price = price;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public OrderDetail(String subtotal, String total) {
-        this.subtotal = Float.parseFloat(subtotal);
-        this.total = Float.parseFloat(total);
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
-    public String getSubtotal() {
-        return String.format("%.2f", subtotal);
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public String getTotal() {
-        return String.format("%.2f", total);
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getCourseImage() {
+        return courseImage;
+    }
+
+    public void setCourseImage(String courseImage) {
+        this.courseImage = courseImage;
     }
 }

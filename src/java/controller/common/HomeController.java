@@ -75,7 +75,7 @@ public class HomeController extends HttpServlet {
             
             List<CartItem> list = cart.getItemsByAccId(accountId);
             session.setAttribute("cart", cart);
-            session.setAttribute("size", cart_item_list.size());
+            session.setAttribute("size", list.size());
         } catch (Exception e) {
 
         }

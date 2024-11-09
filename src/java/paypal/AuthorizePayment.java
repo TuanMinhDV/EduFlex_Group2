@@ -29,14 +29,14 @@ public class AuthorizePayment extends BaseRequiredAuthorizationController {
 
     @Override
     protected void doAuthGet(HttpServletRequest req, HttpServletResponse resp, Account acc) throws ServletException, IOException {
-  }
+    }
 
     @Override
     protected void doAuthPost(HttpServletRequest request, HttpServletResponse response, Account acc) throws ServletException, IOException {
         Cart cart = (Cart) request.getSession().getAttribute("cart");
 
         if (cart == null || cart.getItems() == null || cart.getItems().isEmpty()) {
-            response.sendRedirect("courselisthome");
+            response.sendRedirect("courselist");
         } else {
             try {
                 double subtotal = 0.0;
@@ -44,8 +44,7 @@ public class AuthorizePayment extends BaseRequiredAuthorizationController {
                     subtotal += item.getPrice();
                 }
                 double total = subtotal;
-                OrderDetail orderDetail = new OrderDetail(String.format("%.2f", subtotal),
-                        String.format("%.2f", total));
+                OrderDetail orderDetail = new OrderDetail(String.format("%.2f", subtotal),String.format("%.2f", total));
                 PaymentServices paymentServices = new PaymentServices();
                 String approvalLink = paymentServices.authorizePayment(orderDetail);
                 response.sendRedirect(approvalLink);

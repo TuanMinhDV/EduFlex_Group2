@@ -76,25 +76,25 @@ public class RegistrationDAO extends DBContext {
         return null;
     }
 
-    public OrderCourse addorderSubject(Account a, Cart cart, double subtotal) {
-        LocalDate curDate = LocalDate.now();
-        String date = curDate.toString();
-        String sql = "insert into [Order] values(?,?,?)";
-        PreparedStatement ps;
-        int orderId = -1;
+    public OrderCourse addOrderCourse(Account a, Cart cart, double subtotal) {
         try {
+            String sql = "INSERT into [Order] values(?,?,?)";
+            PreparedStatement ps;
+            int orderId = -1;
             Date currentDate = new Date(Calendar.getInstance().getTime().getTime());
             ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            
             ps.setInt(1, a.getAccount_id());
             ps.setDate(2, currentDate);
             ps.setDouble(3, subtotal);
             ps.executeUpdate();
+            
             ResultSet generatedKeys = ps.getGeneratedKeys();
             if (generatedKeys.next()) {
                 orderId = generatedKeys.getInt(1);
             }
 
-            String sql2 = "insert into Order_Detail values(?,?,?)";
+            String sql2 = "INSERT into Order_Detail values(?,?,?)";
             PreparedStatement ps2 = connection.prepareStatement(sql2);
 
             for (CartItem i : cart.getItems()) {
@@ -105,155 +105,33 @@ public class RegistrationDAO extends DBContext {
             }
             connection.commit();
             connection.setAutoCommit(true);
-            String sql3 = "SELECT od.subject_id FROM [Order] o INNER JOIN Order_Detail od ON o.order_id = od.order_id WHERE o.order_id = ?";
+            
+            String sql3 = "SELECT od.course_id FROM [Order] o "
+                    + "INNER JOIN Order_Detail od "
+                    + "ON o.order_id = od.order_id "
+                    + "WHERE o.order_id = ?";
             PreparedStatement ps3 = connection.prepareStatement(sql3);
             ps3.setInt(1, orderId);
-            ResultSet rs = ps3.executeQuery();
-
-            String sql4 = "INSERT INTO Learner_Subject (learner_id, subject_id, enrolled_date, end_date, active, status) VALUES (?, ?, ?, ?, ?, ?)";
+            ResultSet resultsset3 = ps3.executeQuery();
+            String sql4 = "INSERT INTO Learner_Course (learner_id, course_id, enrolled_date, end_date, active, status, rate) "
+                    + "VALUES (?, ?, ?, ?, ?, 0, 0)";
             PreparedStatement ps4 = connection.prepareStatement(sql4);
 
-            while (rs.next()) {
+            while (resultsset3.next()) {
                 int learner_id = a.getAccount_id();
-                int subject_id = rs.getInt("subject_id");
+                int course_id = resultsset3.getInt("course_id");
                 Date enroll_date = currentDate;
                 Date end_date = calculateOneYearFromDate(enroll_date);
 
                 ps4.setInt(1, learner_id);
-                ps4.setInt(2, subject_id);
+                ps4.setInt(2, course_id);
                 ps4.setDate(3, enroll_date);
                 ps4.setDate(4, end_date);
                 ps4.setBoolean(5, true);
-                ps4.setInt(6, 0);
                 ps4.executeUpdate();
             }
             connection.commit();
-            connection.setAutoCommit(true);
-
-            String sqlSubjectIds = "SELECT DISTINCT subject_id FROM Order_Detail WHERE order_id = ?";
-            PreparedStatement psSubjectIds = connection.prepareStatement(sqlSubjectIds);
-            psSubjectIds.setInt(1, orderId);
-            ResultSet subjectIdsResultSet = psSubjectIds.executeQuery();
-
-            List<Integer> subjectIds = new ArrayList<>();
-            while (subjectIdsResultSet.next()) {
-                int subjectId = subjectIdsResultSet.getInt("subject_id");
-                subjectIds.add(subjectId);
-            }
-            String sqlCourses = "SELECT DISTINCT course_id FROM Course WHERE subject_id IN (" + String.join(", ", Collections.nCopies(subjectIds.size(), "?")) + ")";
-            PreparedStatement psCourses = connection.prepareStatement(sqlCourses);
-            for (int i = 0; i < subjectIds.size(); i++) {
-                psCourses.setInt(i + 1, subjectIds.get(i));
-            }
-            ResultSet coursesResultSet = psCourses.executeQuery();
-
-            String sqlInsertLearnerCourse = "INSERT INTO Learner_Course (learner_id, course_id, status, rate) VALUES (?, ?, 0, 0)";
-            PreparedStatement psInsertLearnerCourse = connection.prepareStatement(sqlInsertLearnerCourse);
-            psInsertLearnerCourse.setInt(1, a.getAccount_id());
-
-            while (coursesResultSet.next()) {
-                int courseId = coursesResultSet.getInt("course_id");
-                psInsertLearnerCourse.setInt(2, courseId);
-                psInsertLearnerCourse.executeUpdate();
-            }
-
-            String sqlCourseIds = "SELECT DISTINCT course_id FROM Learner_Course WHERE learner_id = ?";
-            PreparedStatement psCourseIds = connection.prepareStatement(sqlCourseIds);
-            psCourseIds.setInt(1, a.getAccount_id());
-            ResultSet courseIdsResultSet = psCourseIds.executeQuery();
-            List<Integer> courseIds = new ArrayList<>();
-            while (courseIdsResultSet.next()) {
-                int courseId = courseIdsResultSet.getInt("course_id");
-                courseIds.add(courseId);
-            }
-
-            String sqlChapters = "SELECT DISTINCT chapter_id FROM Chapter WHERE course_id IN (" + String.join(", ", Collections.nCopies(courseIds.size(), "?")) + ")";
-            PreparedStatement psChapters = connection.prepareStatement(sqlChapters);
-            for (int i = 0; i < courseIds.size(); i++) {
-                psChapters.setInt(i + 1, courseIds.get(i));
-            }
-            ResultSet chaptersResultSet = psChapters.executeQuery();
-
-            String sqlInsertLearnerChapter = "INSERT INTO Learner_Chapter (learner_id, chapter_id, status) VALUES (?, ?, 0)";
-            PreparedStatement psInsertLearnerChapter = connection.prepareStatement(sqlInsertLearnerChapter);
-            psInsertLearnerChapter.setInt(1, a.getAccount_id());
-
-            String sqlInsertQuizResult = "INSERT INTO Quiz_Result (learner_id, quiz_id, mark, status) VALUES (?, ?, 0, 0)";
-            PreparedStatement psInsertQuizResult = connection.prepareStatement(sqlInsertQuizResult);
-            psInsertQuizResult.setInt(1, a.getAccount_id());
-
-            while (chaptersResultSet.next()) {
-                int chapterId = chaptersResultSet.getInt("chapter_id");
-
-                // Kiểm tra xem đã chèn vào Learner_Chapter chưa
-                String sqlCheckChapter = "SELECT COUNT(*) FROM Learner_Chapter WHERE learner_id = ? AND chapter_id = ?";
-                PreparedStatement psCheckChapter = connection.prepareStatement(sqlCheckChapter);
-                psCheckChapter.setInt(1, a.getAccount_id());
-                psCheckChapter.setInt(2, chapterId);
-                ResultSet checkChapterResultSet = psCheckChapter.executeQuery();
-                checkChapterResultSet.next();
-
-                int chapterCount = checkChapterResultSet.getInt(1);
-
-                if (chapterCount == 0) {
-                    // Chèn vào Learner_Chapter
-                    psInsertLearnerChapter.setInt(2, chapterId);
-                    psInsertLearnerChapter.executeUpdate();
-
-                    // Chèn vào Quiz_Result
-                    psInsertQuizResult.setInt(2, chapterId);
-                    psInsertQuizResult.executeUpdate();
-                }
-            }
-
-            String sqlGetChapterIds = "SELECT DISTINCT chapter_id FROM Chapter WHERE course_id IN (" + String.join(", ", Collections.nCopies(courseIds.size(), "?")) + ")";
-            PreparedStatement psGetChapterIds = connection.prepareStatement(sqlGetChapterIds);
-            for (int i = 0; i < courseIds.size(); i++) {
-                psGetChapterIds.setInt(i + 1, courseIds.get(i));
-            }
-            ResultSet chapterIdsResultSet = psGetChapterIds.executeQuery();
-
-            List<Integer> chapters = new ArrayList<>();
-            while (chapterIdsResultSet.next()) {
-                int chapterId = chapterIdsResultSet.getInt("chapter_id");
-                chapters.add(chapterId);
-            }
-
-            String sqlGetLessonIdsForChapters = "SELECT DISTINCT l.lesson_id FROM Lesson l "
-                    + "WHERE l.chapter_id IN (" + String.join(", ", Collections.nCopies(chapters.size(), "?")) + ")";
-            PreparedStatement psGetLessonIdsForChapters = connection.prepareStatement(sqlGetLessonIdsForChapters);
-            for (int i = 0; i < chapters.size(); i++) {
-                psGetLessonIdsForChapters.setInt(i + 1, chapters.get(i));
-            }
-            ResultSet lessonIdsResultSet = psGetLessonIdsForChapters.executeQuery();
-
-            String sqlInsertLearnerLesson = "INSERT INTO Learner_Lesson (learner_id, lesson_id, status) VALUES (?, ?, 0)";
-            PreparedStatement psInsertLearnerLesson = connection.prepareStatement(sqlInsertLearnerLesson);
-            psInsertLearnerLesson.setInt(1, a.getAccount_id());
-
-            // ...
-// Check and insert into Learner_Lesson
-            while (lessonIdsResultSet.next()) {
-                int lessonId = lessonIdsResultSet.getInt("lesson_id");
-
-                // Kiểm tra xem đã chèn vào Learner_Lesson chưa
-                String sqlCheckLesson = "SELECT COUNT(*) FROM Learner_Lesson WHERE learner_id = ? AND lesson_id = ?";
-                PreparedStatement psCheckLesson = connection.prepareStatement(sqlCheckLesson);
-                psCheckLesson.setInt(1, a.getAccount_id());
-                psCheckLesson.setInt(2, lessonId);
-                ResultSet checkLessonResultSet = psCheckLesson.executeQuery();
-                checkLessonResultSet.next();
-
-                int lessonCount = checkLessonResultSet.getInt(1);
-
-                if (lessonCount == 0) {
-                    // Chèn vào Learner_Lesson
-                    psInsertLearnerLesson.setInt(2, lessonId);
-                    psInsertLearnerLesson.executeUpdate();
-                }
-            }
-
-// ...
+            connection.setAutoCommit(true);     
         } catch (SQLException e) {
             try {
                 connection.rollback();
@@ -272,6 +150,7 @@ public class RegistrationDAO extends DBContext {
         return new Date(calendar.getTime().getTime());
     }
 
+    //Cancel
     public List<Order> getOrdersByLecturerId(int lecturerId) {
         List<Order> orders = new ArrayList<>();
         String sql = "SELECT o.order_date, COUNT(DISTINCT o.order_id) AS total_orders, SUM(o.total_money) AS total_money\n"
@@ -298,4 +177,10 @@ public class RegistrationDAO extends DBContext {
         return orders;
     }
 
+    public static void main(String[] args) {
+        LocalDate curDate = LocalDate.now();
+        String date = curDate.toString();
+         Date currentDate = new Date(Calendar.getInstance().getTime().getTime());
+        System.out.println(currentDate);
+    }
 }
