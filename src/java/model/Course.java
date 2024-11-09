@@ -24,6 +24,23 @@ public class Course {
     private int lesson_num;
     private int isDisable;
 
+    // Start DungBT
+    public Course(int course_id, String course_name, String description, String image, float price, float discount, int sold, String created_date, String updated_date, int instructor_id, int isDisable) {
+        this.course_id = course_id;
+        this.course_name = course_name;
+        this.description = description;
+        this.image = image;
+        this.price = price;
+        this.discount = discount;
+        this.sold = sold;
+        this.created_date = created_date;
+        this.updated_date = updated_date;
+        this.instructor_id = instructor_id;
+        this.isDisable = isDisable;
+    }
+    
+    // End DungBT
+    
     public int getIsDisable() {
         return isDisable;
     }

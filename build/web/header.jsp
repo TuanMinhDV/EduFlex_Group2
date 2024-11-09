@@ -72,7 +72,7 @@
                                     <ul id="navigation">    
                                         <!--HOME-->
                                         <li class="active" ><a href="home">Home</a></li>
-                                        <li><a href="subjectlist">Subject</a></li>
+                                        <li><a href="instructorCourses">Subject</a></li>
                                         <li><a href="sliderlist">Slider</a>
                                             <ul class="submenu">
                                                 <li><a href="sliderlist">Slider</a></li>
