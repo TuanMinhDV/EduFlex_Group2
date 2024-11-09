@@ -43,6 +43,17 @@
                 padding: 10px;
                 text-align: center;
             }
+            .limited-height {
+                display: flex;
+                flex-direction: column;
+                height: 400px;
+            }
+
+            .properties__caption {
+                flex-grow: 1; /* This will make the description take up available space */
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         </style>
         <script>
             // JavaScript để hiển thị thanh thông báo từ trên xuống
@@ -131,6 +142,10 @@
                 </div>
                 <!--? slider Area End-->
 
+
+
+
+
                 <!-- Courses area start -->
                 <div class="game-section" >
                     <h2 class="line-title" style="font-family: Roboto, sans-serif; font-size: 20px; margin-left: 15% ">Season Discount</h2>
@@ -174,6 +189,62 @@
                     </div>
                 </div>
             </div>
+            <!--? About Area-1 Start -->
+            <section class="about-area1 fix pt-10">
+                <div class="support-wrapper align-items-center">
+                    <div class="left-content1">
+                        <div class="about-icon">
+                            <img src="courses-master/assets/img/icon/about.svg" alt="">
+                        </div>
+                        <!-- section tittle -->
+                        <div class="section-tittle section-tittle2 mb-55">
+                            <div class="front-text">
+                                <h2 class="">Learn new skills online with top educators</h2>
+                                <p>The automated process all your website tasks. Discover tools and 
+                                    techniques to engage effectively with vulnerable children and young 
+                                    people.</p>
+                            </div>
+                        </div>
+                        <div class="single-features">
+                            <div class="features-icon">
+                                <img src="courses-master/assets/img/icon/right-icon.svg" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <p>Techniques to engage effectively with vulnerable children and young people.</p>
+                            </div>
+                        </div>
+                        <div class="single-features">
+                            <div class="features-icon">
+                                <img src="courses-master/assets/img/icon/right-icon.svg" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <p>Join millions of people from around the world  learning together.</p>
+                            </div>
+                        </div>
+
+                        <div class="single-features">
+                            <div class="features-icon">
+                                <img src="courses-master/assets/img/icon/right-icon.svg" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <p>Join millions of people from around the world learning together. Online learning is as easy and natural.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-content1">
+                        <!-- img -->
+                        <div class="right-img" style="width: 400px;">
+                            <img src="courses-master/assets/img/gallery/about3.png" alt="hahax">
+
+                            <div class="video-icon" >
+                                <a class="popup-video btn-icon" href="https://www.youtube.com/watch?v=wqQ0pmWp170"><i class="fas fa-play"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- About1 Area End -->
+            <!-- Most rated Course Start -->
             <div class="courses-area section-padding40 fix">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -228,121 +299,19 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Most rated Course End -->
             <!-- Courses area End -->
 
-            <!--? About Area-1 Start -->
-            <section class="about-area1 fix pt-10">
-                <div class="support-wrapper align-items-center">
-                    <div class="left-content1">
-                        <div class="about-icon">
-                            <img src="courses-master/assets/img/icon/about.svg" alt="">
-                        </div>
-                        <!-- section tittle -->
-                        <div class="section-tittle section-tittle2 mb-55">
-                            <div class="front-text">
-                                <h2 class="">Learn new skills online with top educators</h2>
-                                <p>The automated process all your website tasks. Discover tools and 
-                                    techniques to engage effectively with vulnerable children and young 
-                                    people.</p>
-                            </div>
-                        </div>
-                        <div class="single-features">
-                            <div class="features-icon">
-                                <img src="courses-master/assets/img/icon/right-icon.svg" alt="">
-                            </div>
-                            <div class="features-caption">
-                                <p>Techniques to engage effectively with vulnerable children and young people.</p>
-                            </div>
-                        </div>
-                        <div class="single-features">
-                            <div class="features-icon">
-                                <img src="courses-master/assets/img/icon/right-icon.svg" alt="">
-                            </div>
-                            <div class="features-caption">
-                                <p>Join millions of people from around the world  learning together.</p>
-                            </div>
-                        </div>
-
-                        <div class="single-features">
-                            <div class="features-icon">
-                                <img src="courses-master/assets/img/icon/right-icon.svg" alt="">
-                            </div>
-                            <div class="features-caption">
-                                <p>Join millions of people from around the world learning together. Online learning is as easy and natural.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="right-content1">
-                        <!-- img -->
-                        <div class="right-img">
-                            <img src="courses-master/assets/img/gallery/about.png" alt="">
-
-                            <div class="video-icon" >
-                                <a class="popup-video btn-icon" href="https://www.youtube.com/watch?v=wqQ0pmWp170"><i class="fas fa-play"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- About Area End -->
-
-            <!--? About Area-3 Start -->
-            <section class="about-area3 fix">
-                <div class="support-wrapper align-items-center">
-                    <div class="right-content3">
-                        <!-- img -->
-                        <div class="right-img">
-                            <img src="courses-master/assets/img/gallery/about3.png" alt="">
-                        </div>
-                    </div>
-                    <div class="left-content3">
-                        <!-- section tittle -->
-                        <div class="section-tittle section-tittle2 mb-20">
-                            <div class="front-text">
-                                <h2 class="">Learner outcomes on courses you will take</h2>
-                            </div>
-                        </div>
-                        <div class="single-features">
-                            <div class="features-icon">
-                                <img src="courses-master/assets/img/icon/right-icon.svg" alt="">
-                            </div>
-                            <div class="features-caption">
-                                <p>Techniques to engage effectively with vulnerable children and young people.</p>
-                            </div>
-                        </div>
-                        <div class="single-features">
-                            <div class="features-icon">
-                                <img src="courses-master/assets/img/icon/right-icon.svg" alt="">
-                            </div>
-                            <div class="features-caption">
-                                <p>Join millions of people from around the world
-                                    learning together.</p>
-                            </div>
-                        </div>
-                        <div class="single-features">
-                            <div class="features-icon">
-                                <img src="courses-master/assets/img/icon/right-icon.svg" alt="">
-                            </div>
-                            <div class="features-caption">
-                                <p>Join millions of people from around the world learning together.
-                                    Online learning is as easy and natural.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- About Area End -->
             <!--? About Area-2 Start -->
             <section class="about-area2 fix pb-padding">
                 <div class="support-wrapper align-items-center">
-                    <div class="right-content2">
+                    <div class="right-content2" style="padding:  0px;margin-left: 400px;width: 500px">
                         <!-- img -->
-                        <div class="right-img">
+                        <div class="left-img" style=" ">
                             <img src="courses-master/assets/img/gallery/about2.png" alt="">
                         </div>
                     </div>
-                    <div class="left-content2">
+                    <div class="right-content2">
                         <!-- section tittle -->
                         <div class="section-tittle section-tittle2 mb-20">
                             <div class="front-text">

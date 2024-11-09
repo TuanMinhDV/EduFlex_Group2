@@ -40,18 +40,7 @@
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     }
 </style>
-<!-- ? Preloader Start -->
-<!--<div id="preloader-active">
-    <div class="preloader d-flex align-items-center justify-content-center">
-        <div class="preloader-inner position-relative">
-            <div class="preloader-circle"></div>
-            <div class="preloader-img pere-text">
-                <img src="assets/img/logo/loder.png" alt="">
-            </div>
-        </div>
-    </div>
-</div>-->
-<!-- Preloader Start -->
+
 <!-- Header Start -->
 <div class="header-area header-transparent">
     <div class="main-header ">
@@ -74,14 +63,15 @@
                                         <li class="active" ><a href="home">Home</a></li>
                                         <li><a href="courselist">Course</a></li>
                                         <!--PHÂN QUYỀN SAU KHI ĐÃ ĐĂNG NHẬP-->
-                                        <li><a href="sliderlist">Slider</a>
-                                            <ul class="submenu">
-                                                <li><a href="sliderlist">Slider</a></li>
-                                                    <c:if test="${sessionScope.account.role_id == 4}">
+                                        <c:if test="${sessionScope.account.role_id == 4}">
+                                            <li><a href="sliderlist">Slider</a>
+                                                <ul class="submenu">
+                                                    <li><a href="sliderlist">Slider</a></li>
                                                     <li><a href="slider_marketer">Slider Edit</a></li>
-                                                    </c:if>
-                                            </ul>
-                                        </li>
+                                                </ul>
+                                            </li>
+                                        </c:if>
+
                                         <!--BLOG-->
                                         <li><a href="bloglist">Blog</a>
                                             <ul class="submenu">
@@ -105,7 +95,7 @@
                                             </li>
                                         </c:if>
                                         <c:if test="${sessionScope.account.role_id == 2}">
-                                            <li><a href="mycourse">My Subject</a>
+                                            <li><a href="viewLeanerCourse?learnerId=${sessionScope.account.account_id}">My Course</a>
 
                                             </li>
                                         </c:if>

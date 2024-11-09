@@ -54,12 +54,7 @@ public class BuyCourseController extends BaseRequiredAuthorizationController {
                     }
 
                 }
-                for (CartItem itemDB : cartdao.loadCart(accountId)) {
-                    if (itemDB.getCourse().getCourse_id() == course_id) {
-                        productExisted = true;
-                        break;
-                    }
-                }
+                
                 if (!productExisted) {
                     cart.addItem(t);
                     cartdao.addCartItem(t);

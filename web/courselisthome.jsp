@@ -35,16 +35,26 @@
         <link rel="stylesheet" href="assets/css/slick.css">
         <link rel="stylesheet" href="assets/css/nice-select.css">
         <link rel="stylesheet" href="assets/css/style.css">
+        <style>
+            .limited-height {
+                display: flex;
+                flex-direction: column;
+                height: 400px;
+            }
 
-
-
-
+            .properties__caption {
+                flex-grow: 1; /* This will make the description take up available space */
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+        </style>
     </head>
 
     <body>
         <main>
             <jsp:include page="header.jsp"></jsp:include> 
-                <!--? slider Area Start-->
+                <!--  slider Area Start-->
                 <section class="slider-area slider-area2">
                     <div class="slider-active">
                         <!-- Single Slider -->
@@ -53,12 +63,12 @@
                                 <div class="row">
                                     <div class="col-xl-8 col-lg-11 col-md-12">
                                         <div class="hero__caption hero__caption2">
-                                            <h1 data-animation="bounceIn" data-delay="0.2s">Our subject</h1>
+                                            <h1 data-animation="bounceIn" data-delay="0.2s">Our course</h1>
                                             <!-- breadcrumb Start-->
                                             <nav aria-label="breadcrumb">
                                                 <ol class="breadcrumb">
                                                     <li class="breadcrumb-item"><a href="home">Home</a></li>
-                                                    <li class="breadcrumb-item"><a href="#">Services</a></li> 
+                                                    <li class="breadcrumb-item"><a href="#">Courses</a></li> 
                                                 </ol>
                                             </nav>
                                             <!-- breadcrumb End -->
@@ -76,7 +86,7 @@
                         <div class="row justify-content-center">
                             <div class="col-xl-7 col-lg-8">
                                 <div class="section-tittle text-center mb-55">
-                                    <h2>Our featured Subjects</h2>
+                                    <h2>Our featured Courses</h2>
                                 </div>
                             </div>
                         </div>
