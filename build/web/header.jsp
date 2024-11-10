@@ -84,8 +84,7 @@
                                         <c:if test="${sessionScope.account.role_id == 3}">
                                             <li><a href="subjectmanagement">Lecturer Management</a>
                                                 <ul class="submenu">
-                                                    <li><a href="chart">Chart</a></li>
-                                                    <li><a href="lecturersubject">Question Bank</a></li>
+                                                    <li><a href="listCourse">Subject</a></li>
                                                 </ul>
                                             </li>
                                         </c:if>
