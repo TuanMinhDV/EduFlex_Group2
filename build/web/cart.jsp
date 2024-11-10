@@ -102,7 +102,7 @@
                         </div>
                     </div>
                     <div class="float-left">
-                        <a type="button" href="courselist" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</a>
+                        <a type="button" href="courselisthome" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</a>
                     </div>
                     <div class="float-right">
                         <form action="authorize_payment" method="post">
