@@ -13,10 +13,52 @@ public class Question {
     private String chapter_name;
     private String course_name;
     private int rowNum;
+    private int isDisable;
+
+    public int getIsDisable() {
+        return isDisable;
+    }
 
     public Question() {
     }
 
+    public Question(int question_id, String content, String option1, String option2, String option3, String option4, int answer, int quiz_id, int level) {
+        this.question_id = question_id;
+        this.content = content;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.option4 = option4;
+        this.answer = answer;
+        this.quiz_id = quiz_id;
+        this.level = level;
+    }
+
+    public Question(int question_id, String content, String option1, String option2, String option3, String option4, int answer, int quiz_id, int level, int isDisable) {
+        this.question_id = question_id;
+        this.content = content;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.option4 = option4;
+        this.answer = answer;
+        this.quiz_id = quiz_id;
+        this.level = level;
+        this.isDisable = isDisable;
+    }
+
+    
+    
+    public Question(String content, String option1, String option2, String option3, String option4, int answer, int quiz_id) {
+        this.content = content;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.option4 = option4;
+        this.answer = answer;
+        this.quiz_id = quiz_id;
+    }
+    
     public int getRowNum() {
         return rowNum;
     }
