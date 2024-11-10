@@ -61,7 +61,7 @@
                                     <ul id="navigation">    
                                         <!--HOME-->
                                         <li class="active" ><a href="home">Home</a></li>
-                                        <li><a href="courselist">Course</a></li>
+                                        <li><a href="listCourse">Course</a></li>
                                         <!--PHÂN QUYỀN SAU KHI ĐÃ ĐĂNG NHẬP-->
                                         <c:if test="${sessionScope.account.role_id == 4}">
                                             <li><a href="sliderlist">Slider</a>
@@ -84,7 +84,7 @@
                                         <c:if test="${sessionScope.account.role_id == 3}">
                                             <li><a href="subjectmanagement">Lecturer Management</a>
                                                 <ul class="submenu">
-                                                    <li><a href="listCourse">Subject</a></li>
+                                                    <li><a href="listCourse">Manage Course</a></li>
                                                 </ul>
                                             </li>
                                         </c:if>

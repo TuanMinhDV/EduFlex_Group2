@@ -24,11 +24,11 @@
                 </a>
                 <nav class="navmenu">
                     <ul>
-                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="home">Home</a></li>
                         <li><a href="listCourse">Courses</a></li>
 <!--                        <li><a href="listChapter" onclick="goBack()">Chapters</a></li>
                         <li><a href="#" class="active">Lessons</a></li>-->
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="logout">Logout</a></li>
                     </ul>
                 </nav>
             </div>
