@@ -4,8 +4,40 @@
         <servlet-name>CourseListController</servlet-name>
         <servlet-class>controller.common.DungBT.CourseListController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChapterListController</servlet-name>
+        <servlet-class>controller.common.DungBT.ChapterListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuizzListController</servlet-name>
+        <servlet-class>controller.common.DungBT.QuizzListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionListController</servlet-name>
+        <servlet-class>controller.common.DungBT.QuestionListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LessonListController</servlet-name>
+        <servlet-class>controller.common.DungBT.LessonListController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CourseListController</servlet-name>
-        <url-pattern>/instructorCourses</url-pattern>
+        <url-pattern>/listCourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChapterListController</servlet-name>
+        <url-pattern>/listChapter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizzListController</servlet-name>
+        <url-pattern>/listQuizz</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionListController</servlet-name>
+        <url-pattern>/listQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LessonListController</servlet-name>
+        <url-pattern>/listLession</url-pattern>
     </servlet-mapping>
 </web-app>

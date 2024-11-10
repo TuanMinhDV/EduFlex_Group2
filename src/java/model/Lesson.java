@@ -21,6 +21,8 @@ public class Lesson {
     public void setIsDisable(int isDisable) {
         this.isDisable = isDisable;
     }
+    
+    
 
     public Lesson(int lesson_id, int lesson_no, String lesson_name, String video, String document, String description, int chapter_id, int isDisable) {
         this.lesson_id = lesson_id;

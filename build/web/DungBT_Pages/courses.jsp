@@ -7,8 +7,8 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <title>Course Management - Instructor Dashboard</title>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-        <link href="../DungBT_Pages/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../DungBT_Pages/assets/css/main.css" rel="stylesheet">
+        <link href="./DungBT_Pages/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./DungBT_Pages/assets/css/main.css" rel="stylesheet">
     </head>
 
     <body class="courses-page">
@@ -61,7 +61,7 @@
                                         <th>Image</th>
                                         <th>Price</th>
                                         <th>Discount</th>
-                                        <th>Category</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,7 +92,6 @@
                                                         <input type="hidden" name="idC" value="${c.course_id}">
                                                         <button type="submit" class="btn btn-danger btn-delete-course" onclick="return confirmDelete();">Delete</button>
                                                     </form>
-
                                                 </td>
                                             </tr>
                                         </c:if>
@@ -148,15 +147,6 @@
                                 <label for="course-discount">Discount</label>
                                 <input type="number" name="courseDiscount" class="form-control" id="course-discount" value="${courseDiscount}">
                             </div>
-                            <div class="form-group">
-                                <label for="course-category">Category</label>
-                                <select name="course_cateID" class="form-control" id="course-category">
-                                    <c:forEach items="${listCategory}" var="cate">
-                                        <option value="${cate.category_id}" ${courseCategory == cate.category_id ? 'selected' : ''}>${cate.category_name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary edit-course" data-dismiss="modal">Đóng</button>

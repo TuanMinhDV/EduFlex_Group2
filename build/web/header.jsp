@@ -72,7 +72,13 @@
                                     <ul id="navigation">    
                                         <!--HOME-->
                                         <li class="active" ><a href="home">Home</a></li>
-                                        <li><a href="instructorCourses">Subject</a></li>
+                                            <c:if test="${sessionScope.account.role_id == 3}">
+                                            <li><a href="listCourse">Subject</a></li>
+                                            </c:if>
+                                            <c:if test="${sessionScope.account.role_id != 3}">
+                                            <li><a href="#">Subject</a></li>
+                                            </c:if>
+                                        <li><a href="">Subject</a></li>
                                         <li><a href="sliderlist">Slider</a>
                                             <ul class="submenu">
                                                 <li><a href="sliderlist">Slider</a></li>
@@ -127,8 +133,8 @@
                                                     <c:if test="${sessionScope.account.avatar != null}">
                                                         <!--<a href="avatar"><img src="assets/images/profiles/default_profile_image" alt="profile picture"></a>-->
                                                         <div class="avatar" 
-                                                             style="width: 50px; height: 50px; 
-                                                             border-radius: 50%;background-image: 
+                                                             style="width: 50px; height: 50px;
+                                                             border-radius: 50%;background-image:
                                                              url('data:image/jpeg;base64,${sessionScope.account.avatar}')">
                                                         </div>
                                                     </c:if>
