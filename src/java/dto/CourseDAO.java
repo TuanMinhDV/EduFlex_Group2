@@ -18,6 +18,9 @@ import model.Course;
 
 public class CourseDAO extends DBContext {
 
+    protected PreparedStatement statement;
+    protected ResultSet resultSet;
+    
     // Lay tat ca cac Course
     public List<Course> getAllCourse() {
         List<Course> list = new ArrayList<>();
@@ -509,6 +512,167 @@ public class CourseDAO extends DBContext {
         return null;
     }
 
+    // Start DungBT
+    public List<Course> getAllCoursesByInstructorID_DungBT(int ins_ID) {
+        List<Course> listCourses = new ArrayList<>();
+        String sql = "SELECT TOP (1000) [course_id]\n"
+                + "      ,[course_name]\n"
+                + "      ,[description]\n"
+                + "      ,[image]\n"
+                + "      ,[created_date]\n"
+                + "      ,[updated_date]\n"
+                + "      ,[price]\n"
+                + "      ,[discount]\n"
+                + "      ,[sold]\n"
+                + "      ,[instructor_id]\n"
+                + "      ,[isDisable]\n"
+                + "  FROM [EduFlex2.4].[dbo].[Course] where instructor_id = ?";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, ins_ID);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("course_id");
+                String name = resultSet.getString("course_name");
+                String img = resultSet.getString("image");
+                String createDate = resultSet.getString("created_date");
+                String updateDate = resultSet.getString("updated_date");
+                float price = resultSet.getFloat("price");
+                float discount = resultSet.getFloat("discount");
+                int sold = resultSet.getInt("sold");
+                int instructor_id = resultSet.getInt("instructor_id");
+                String des = resultSet.getString("description");
+                int isDisable = resultSet.getInt("isDisable");
+                Course c = new Course(id, name, des, img, price, discount, sold, createDate, updateDate, instructor_id, isDisable);
+                listCourses.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return listCourses;
+    }
+    
+    public void updateCourse_DungBT(Course c) {
+        String sql = "UPDATE [dbo].[Course] SET [course_name] = ? ,[description] = ? ,[image] = ? ,[price] = ? ,[discount] = ? WHERE course_id = ?";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, c.getCourse_name());
+            statement.setString(2, c.getDescription());
+            statement.setString(3, c.getImage());
+            statement.setFloat(4, c.getPrice());
+            statement.setFloat(5, c.getDiscount());
+            statement.setInt(6, c.getCourse_id());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public Course getCourseByID_DungBT(int idC) {
+        String sql = "select [course_id]\n"
+                + "      ,[course_name]\n"
+                + "      ,[description]\n"
+                + "      ,[image]\n"
+                + "      ,[created_date]\n"
+                + "      ,[updated_date]\n"
+                + "      ,[price]\n"
+                + "      ,[discount]\n"
+                + "      ,[sold]\n"
+                + "      ,[instructor_id]\n"
+                + "      ,[isDisable] FROM [dbo].[Course] where course_id = ?";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, idC);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("course_id");
+                String name = resultSet.getString("course_name");
+                String img = resultSet.getString("image");
+                String createDate = resultSet.getString("created_date");
+                String updateDate = resultSet.getString("updated_date");
+                float price = resultSet.getFloat("price");
+                float discount = resultSet.getFloat("discount");
+                int sold = resultSet.getInt("sold");
+                int instructor_id = resultSet.getInt("instructor_id");
+                String des = resultSet.getString("description");
+                int isDisable = resultSet.getInt("isDisable");
+                Course course = new Course(id, name, des, img, price, discount, sold, createDate, updateDate, instructor_id, isDisable);
+                return course;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public void addCourse_DungBT(Course c) {
+        String sql = "INSERT INTO [dbo].[Course]\n"
+                + "           ([course_name]\n"
+                + "           ,[description]\n"
+                + "           ,[image]\n"
+                + "           ,[price]\n"
+                + "           ,[discount]\n"
+                + "           ,[instructor_id])\n"
+                + "     VALUES \n"
+                + "           (?, ?, ?, ?, ?, ?)";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, c.getCourse_name());
+            statement.setString(2, c.getDescription());
+            statement.setString(3, c.getImage());
+            statement.setFloat(4, c.getPrice());
+            statement.setFloat(5, c.getDiscount());
+            statement.setInt(6, c.getInstructor_id());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void deleteCourse_DungBT(int id) {
+        String sql = "UPDATE [dbo].[Course]\n"
+                + "   SET [isDisable] = ?"
+                + " WHERE course_id = ?";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setBoolean(1, true);
+            statement.setInt(2, id);
+            resultSet = statement.executeQuery();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public List<Course> searchByName_DungBT(String txt) {
+        List<Course> listAll = new ArrayList<>();
+        String sql = "SELECT * from [dbo].[Course] where course_name like ?";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, "%" + txt + "%");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("course_id");
+                String name = resultSet.getString("course_name");
+                String img = resultSet.getString("image");
+                String createDate = resultSet.getDate("created_date").toString();
+                String updateDate = resultSet.getDate("updated_date").toString();
+                float price = resultSet.getFloat("price");
+                float discount = resultSet.getFloat("discount");
+                int sold = resultSet.getInt("sold");
+                int instructor_id = resultSet.getInt("instructor_id");
+                String des = resultSet.getString("description");
+                int isDisable = resultSet.getInt("isDisable");
+                Course course = new Course(id, name, des, img, price, discount, sold, createDate, updateDate, instructor_id, isDisable);
+                listAll.add(course);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return listAll;
+    }
+    
     public static void main(String[] args) {
         CourseDAO s = new CourseDAO();
 
