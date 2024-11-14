@@ -97,7 +97,8 @@ public class LoginController extends HttpServlet {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("account", a);
-            //session.setMaxInactiveInterval(1000);
+            //1000 giây reset
+            session.setMaxInactiveInterval(1000);
             response.sendRedirect("home");
         }
     }
