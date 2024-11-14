@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dto;
 
 import java.io.File;
@@ -11,13 +7,18 @@ import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.Role;
 
 public class AccountDAO extends DBContext {
+
+    PreparedStatement stm;
+    ResultSet rs;
 
     //login
     public Account login(String username, String password) {
@@ -73,7 +74,7 @@ public class AccountDAO extends DBContext {
         }
         return false;
     }
-    
+
     //Find Account Exist
     public Account findByAccount(String username) {
         try {
@@ -111,7 +112,7 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-    
+
     //Find Email Exist
     public Account findByEmail(String email) {
 
@@ -150,7 +151,7 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-    
+
     //Verify OTP
     public void verify(String username) {
         PreparedStatement ps;
@@ -318,7 +319,7 @@ public class AccountDAO extends DBContext {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //Change password
     public void resetPassword(String username, String password) {
         PreparedStatement ps;
@@ -435,8 +436,187 @@ public class AccountDAO extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
+    public int getTotalAccounts(String searchQuery, String role, String status) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) AS total FROM Account WHERE 1=1");
 
-        System.out.println("Run AccountDAO.java");
+        // Điều kiện tìm kiếm
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            sql.append(" AND (username LIKE ? OR fullname LIKE ? OR email LIKE ? OR phone LIKE ?)");
+        }
+        if (role != null && !role.isEmpty()) {
+            sql.append(" AND role_id = ?");
+        }
+        if (status != null && !status.isEmpty()) {
+            sql.append(" AND active = ?");
+        }
+
+        try {
+            stm = connection.prepareStatement(sql.toString());
+
+            int paramIndex = 1;
+            if (searchQuery != null && !searchQuery.isEmpty()) {
+                String likeQuery = "%" + searchQuery + "%";
+                stm.setString(paramIndex++, likeQuery);
+                stm.setString(paramIndex++, likeQuery);
+                stm.setString(paramIndex++, likeQuery);
+                stm.setString(paramIndex++, likeQuery);
+            }
+            if (role != null && !role.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(role));
+            }
+            if (status != null && !status.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(status));
+            }
+
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
+
+    public ArrayList<Account> getListAccountBySearchAndFilter(String searchQuery, String role, String status, int page, int pageSize) {
+        ArrayList<Account> accounts = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
+        StringBuilder sql = new StringBuilder("SELECT a.account_id, a.username, a.fullname, a.email, a.phone, a.otp, a.role_id, r.role_name, a.active "
+                + "FROM Account AS a JOIN Role AS r ON a.role_id = r.role_id WHERE 1=1");
+
+        // Điều kiện tìm kiếm
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            sql.append(" AND (a.username LIKE ? OR a.fullname LIKE ? OR a.email LIKE ? OR a.phone LIKE ?)");
+        }
+        if (role != null && !role.isEmpty()) {
+            sql.append(" AND a.role_id = ?");
+        }
+        if (status != null && !status.isEmpty()) {
+            sql.append(" AND a.active = ?");
+        }
+
+        sql.append(" ORDER BY a.account_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+
+        try {
+            stm = connection.prepareStatement(sql.toString());
+
+            int paramIndex = 1;
+            if (searchQuery != null && !searchQuery.isEmpty()) {
+                String likeQuery = "%" + searchQuery + "%";
+                stm.setString(paramIndex++, likeQuery);
+                stm.setString(paramIndex++, likeQuery);
+                stm.setString(paramIndex++, likeQuery);
+                stm.setString(paramIndex++, likeQuery);
+            }
+            if (role != null && !role.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(role));
+            }
+            if (status != null && !status.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(status));
+            }
+
+            stm.setInt(paramIndex++, offset);
+            stm.setInt(paramIndex++, pageSize);
+
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Account account = new Account();
+                account.setAccount_id(rs.getInt("account_id"));
+                account.setUsername(rs.getString("username"));
+                account.setFullname(rs.getString("fullname"));
+                account.setEmail(rs.getString("email"));
+                account.setPhone(rs.getString("phone"));
+                account.setOtp(rs.getString("otp"));
+                account.setRole_id(rs.getInt("role_id"));
+                account.setRoleName(rs.getString("role_name"));
+                account.setActive(rs.getInt("active"));
+                accounts.add(account);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return accounts;
+    }
+
+    // Phương thức lấy danh sách Role
+    public ArrayList<Role> getListRoleByAdmin() {
+        ArrayList<Role> roles = new ArrayList<>();
+        String sql = "SELECT role_id, role_name FROM Role";
+
+        try {
+            stm = connection.prepareStatement(sql);  // Sử dụng 'connection' có sẵn
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Role role = new Role();
+                role.setRole_Id(rs.getInt("role_id"));
+                role.setRole_Name(rs.getString("role_name"));
+                roles.add(role);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in getListRoleByAdmin: " + e.getMessage());
+        }
+
+        return roles;
+    }
+
+    public boolean updateAccountRole(int accountId, int newRoleId) {
+        String sql = "UPDATE Account SET role_id = ? WHERE account_id = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, newRoleId);
+            stm.setInt(2, accountId);
+
+            int rowsUpdated = stm.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Account getAccountByIdByAdmin(int accountId) {
+        Account account = null;
+        String sql = "SELECT a.account_id, a.username, a.fullname, a.email, a.role_id, r.role_name, a.active "
+                + "FROM Account AS a "
+                + "JOIN Role AS r ON a.role_id = r.role_id "
+                + "WHERE a.account_id = ?";
+
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, accountId);
+
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                account = new Account();
+                account.setAccount_id(rs.getInt("account_id"));
+                account.setUsername(rs.getString("username"));
+                account.setFullname(rs.getString("fullname"));
+                account.setEmail(rs.getString("email"));
+                account.setRole_id(rs.getInt("role_id"));
+                account.setRoleName(rs.getString("role_name"));  // Join to get role_name from Role table
+                account.setActive(rs.getInt("active"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
+    // Update account status
+    public boolean updateAccountStatus(int accountId, boolean newStatus) {
+        String sql = "UPDATE Account SET active = ? WHERE account_id = ?";
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setBoolean(1, newStatus);
+            stm.setInt(2, accountId);
+            int rowsUpdated = stm.executeUpdate();
+            return rowsUpdated > 0; // Return true if one or more rows were updated
+        } catch (SQLException e) {
+            System.out.println("Error in updateAccountStatus: " + e.getMessage());
+        }
+        return false; // Return false if an error occurred
+    }
+
 }
