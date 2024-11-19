@@ -72,18 +72,7 @@ public class VerifyRegisterController extends HttpServlet {
         request.setAttribute("dob", dob);
         request.setAttribute("email", email);
         request.setAttribute("startTime", startTime);
-//        ad.updateOTP(email, otp);
-//        
-//
-//        if (isWithinOneMinute(startTime, 60)) {
-//            request.getRequestDispatcher("register.jsp").forward(request, response);
-//        } else {
-//            // Sau khi hết thời gian cho phép
-//            ad.deleteOTP();
-//            request.setAttribute("mess", "OTP is expaise!!!");
-//            request.getRequestDispatcher("register.jsp").forward(request, response);
-//        }
-
+        ad.updateOTP(email, otp);
     }
 
     /**
