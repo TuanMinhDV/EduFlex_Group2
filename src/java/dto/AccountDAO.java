@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -310,7 +311,7 @@ public class AccountDAO extends DBContext {
     public void updateOTP(String email, String otp) {
         PreparedStatement ps;
         try {
-            String sql = "update [Account] set otp = ? where email=?";
+            String sql = "UPDATE [Account] SET otp = ? WHERE email=?";
             ps = connection.prepareStatement(sql);
             ps.setString(1, otp);
             ps.setString(2, email);
@@ -422,10 +423,24 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
-    public void deleteOTPByUsername() {
-        PreparedStatement ps;
-        ResultSet rs;
+    public Boolean countdown(int seconds) {
+        boolean isCounting = true;
+        for (int i = seconds; i >= 0; i--) {
+            System.out.println(i);
+            try {
+                Thread.sleep(1000); // Ngừng 1 giây
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        isCounting = false;
+        System.out.println("Hết giờ!");
+        return isCounting;
+    }
+
+    public void deleteOTP() {
         try {
+            PreparedStatement ps;
             String sql = "UPDATE Account\n"
                     + "SET otp = NULL\n"
                     + "WHERE otp IS NOT NULL;";
@@ -434,6 +449,24 @@ public class AccountDAO extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public String getOTP(String email) {
+        PreparedStatement ps;
+        try {
+            String otpDB = "";
+            String sql = "SELECT otp FROM [Account] WHERE email=?";
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                otpDB = rs.getString("otp");
+            }
+            return otpDB;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public int getTotalAccounts(String searchQuery, String role, String status) {
@@ -619,4 +652,28 @@ public class AccountDAO extends DBContext {
         return false; // Return false if an error occurred
     }
 
+     public static boolean isWithinOneMinute(Instant startTime, int second) {
+        Instant now = Instant.now();
+        Instant endTime = startTime.plusSeconds(second);
+
+        return !now.isAfter(endTime);
+    }
+    
+    public static void main(String[] args) {
+        AccountDAO dao = new AccountDAO();
+        Instant startTime = Instant.now();
+
+        // Kiểm tra liên tục trong vòng lặp (ví dụ)
+        while (isWithinOneMinute(startTime, 60)) {
+            System.out.println("Còn thời gian trong vòng 1 phút");
+            // Thực hiện các tác vụ khác...
+            try {
+                Thread.sleep(1000); // Ngừng 1 giây
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("Đã hết 1 phút");
+    }
 }

@@ -10,6 +10,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <!-- Favicons -->
+        <link href="NiceAdmin/assets/img/favicon.png" rel="icon">
     </head>
     <body>
         <h1>Hello World!</h1>
