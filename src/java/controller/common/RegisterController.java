@@ -14,21 +14,24 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import model.Account;
 import utils.EmailUtils;
 
-
 @WebServlet(name = "RegisterController", urlPatterns = "/register")
 public class RegisterController extends HttpServlet {
 
     private static final String PASSWORD_REGEX = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,20}";
     private static final String USERNAME_REGEX = "[a-z0-9]{4,20}";
+
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -38,7 +41,7 @@ public class RegisterController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -102,10 +105,10 @@ public class RegisterController extends HttpServlet {
         LocalDate curDate = LocalDate.now();
         Period age = Period.between(dob, curDate);
         boolean checkDob = age.getYears() <= 3;
-        if(!username.matches(USERNAME_REGEX)){
+        if (!username.matches(USERNAME_REGEX)) {
             request.setAttribute("mess", "Your username can only be consecutive lowercase letters and numbers");
             request.getRequestDispatcher("register.jsp").forward(request, response);
-        }else if (!password.matches(PASSWORD_REGEX)) {
+        } else if (!password.matches(PASSWORD_REGEX)) {
             request.setAttribute("mess", "Your password must has at least 8 characters and contain uppercase, lowercase, number and specical syntax (!, @, #, $, %)");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } else if (checkDob) {
@@ -120,6 +123,10 @@ public class RegisterController extends HttpServlet {
         } else if (password.equals(confirm)) {
             //Generate OTP
             String otp = EmailUtils.generateOTP();
+            //Generate DateTime hiện tại
+            LocalDateTime startTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedTime = startTime.format(formatter);
             try {
                 //send OTP to mail
                 EmailUtils.fakeSendEmail(email, "OCMS - Register", "Hello, this is Online Course Management System!!! Your OTP code is: " + otp);
@@ -127,7 +134,8 @@ public class RegisterController extends HttpServlet {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
             request.setAttribute("otp", otp);
-            request.getRequestDispatcher("verifyregister.jsp").forward(request, response);
+            request.setAttribute("startTime", formattedTime);
+            response.sendRedirect("verifyregister");
         } else {
             request.setAttribute("mess", "Confirm password is incorrect");
             request.getRequestDispatcher("register.jsp").forward(request, response);

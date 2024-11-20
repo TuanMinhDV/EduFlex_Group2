@@ -5,7 +5,6 @@
 package controller.common;
 
 import dto.AccountDAO;
-import static dto.AccountDAO.isWithinOneMinute;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,7 +13,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @WebServlet(name = "VerifyRegisterController", urlPatterns = "/verifyregister")
 public class VerifyRegisterController extends HttpServlet {
@@ -57,22 +58,20 @@ public class VerifyRegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccountDAO ad = new AccountDAO();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String fullname = request.getParameter("fullname");
         String dob = request.getParameter("dob");
         String email = request.getParameter("email");
         String otp = request.getParameter("otp");
-        Instant startTime = Instant.now();
 
         request.setAttribute("username", username);
         request.setAttribute("password", password);
         request.setAttribute("fullname", fullname);
         request.setAttribute("dob", dob);
         request.setAttribute("email", email);
-        request.setAttribute("startTime", startTime);
-        ad.updateOTP(email, otp);
+        request.setAttribute("otp", otp);
+        request.getRequestDispatcher("verifyregister.jsp").forward(request, response);
     }
 
     /**
@@ -86,49 +85,52 @@ public class VerifyRegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccountDAO ad = new AccountDAO();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String fullname = request.getParameter("fullname");
-        String dob = request.getParameter("dob");
-        String email = request.getParameter("email");
-        String otp = request.getParameter("otp");
-        String otpInput = request.getParameter("otpInput");
-        int count = Integer.parseInt(request.getParameter("count"));
-        String startTimeString = request.getParameter("startTime");
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT; // Adjust the formatter as needed
-        Instant startTime = Instant.from(formatter.parse(startTimeString));
+        try {
+            AccountDAO ad = new AccountDAO();
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String fullname = request.getParameter("fullname");
+            String dob = request.getParameter("dob");
+            String email = request.getParameter("email");
+            String otp = request.getParameter("otp");
+            String otpInput = request.getParameter("otpInput");
+            int count = Integer.parseInt(request.getParameter("count"));
 
-        ad.updateOTP(email, otp);
+//            String startTimeString = (String) request.getParameter("startTime");
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//            LocalDateTime startTime = LocalDateTime.parse(startTimeString, formatter);
+            LocalDateTime currentTime = LocalDateTime.now();
+            if (ad.isWithinOneMinute(currentTime, 60)) {
+                if (otpInput.equals(otp)) {
+                    ad.register(username, password, fullname, dob, email);
+                    request.setAttribute("mess", "You can login now");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                    response.sendRedirect("login");
 
-        if (isWithinOneMinute(startTime, 10)) {
-            if (otpInput.equals(ad.getOTP(email))) {
-
-                ad.register(username, password, fullname, dob, email);
-                request.setAttribute("mess", "You can login now");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            } else {
-                count--;
-                if (count == 0) {
-                    request.setAttribute("err", "Your OTP is not valid, verify email failed");
-                    request.getRequestDispatcher("register.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("count", count);
-                    request.setAttribute("mess", "Your OTP is not valid, " + count + " times remaining");
-                    request.setAttribute("username", username);
-                    request.setAttribute("password", password);
-                    request.setAttribute("fullname", fullname);
-                    request.setAttribute("dob", dob);
-                    request.setAttribute("email", email);
-                    request.setAttribute("otp", otp);
-                    request.getRequestDispatcher("verifyregister.jsp").forward(request, response);
+                    count--;
+                    if (count == 0) {
+                        request.setAttribute("err", "Your OTP is not valid, verify email failed");
+                        request.getRequestDispatcher("register.jsp").forward(request, response);
+                    } else {
+                        request.setAttribute("count", count);
+                        request.setAttribute("mess", "Your OTP is not valid, " + count + " times remaining");
+                        request.setAttribute("username", username);
+                        request.setAttribute("password", password);
+                        request.setAttribute("fullname", fullname);
+                        request.setAttribute("dob", dob);
+                        request.setAttribute("email", email);
+                        request.setAttribute("otp", otp);
+                        request.getRequestDispatcher("verifyregister.jsp").forward(request, response);
+                    }
                 }
+            } else {
+                // Sau khi hết thời gian cho phép
+                request.setAttribute("err", "OTP is expaise!!!");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
             }
-        } else {
-            // Sau khi hết thời gian cho phép
-            ad.deleteOTP();
-            request.setAttribute("mess", "OTP is expaise!!!");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+        } catch (ServletException | IOException | NumberFormatException | DateTimeParseException e) {
+
         }
 
     }

@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -652,28 +653,35 @@ public class AccountDAO extends DBContext {
         return false; // Return false if an error occurred
     }
 
-     public static boolean isWithinOneMinute(Instant startTime, int second) {
-        Instant now = Instant.now();
-        Instant endTime = startTime.plusSeconds(second);
-
+    public boolean isWithinOneMinute(LocalDateTime startTime, int seconds) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime endTime = startTime.plusSeconds(seconds);
         return !now.isAfter(endTime);
     }
-    
+
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();
-        Instant startTime = Instant.now();
+        LocalDateTime currentTime = LocalDateTime.now();
 
+        LocalDateTime startTime= LocalDateTime.now();
+        LocalDateTime endTime = startTime.plusSeconds(10);
+        System.out.println("startTime" + startTime);
+        System.out.println("endTime" + endTime);
+        boolean before = dao.isWithinOneMinute(currentTime, 60);
+        System.out.println(before);
+        
+        
         // Kiểm tra liên tục trong vòng lặp (ví dụ)
-        while (isWithinOneMinute(startTime, 60)) {
-            System.out.println("Còn thời gian trong vòng 1 phút");
-            // Thực hiện các tác vụ khác...
-            try {
-                Thread.sleep(1000); // Ngừng 1 giây
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        System.out.println("Đã hết 1 phút");
+//        while (dao.isWithinOneMinute(currentTime, 60)) {
+//            System.out.println("Còn thời gian trong vòng 1 phút");
+//            // Thực hiện các tác vụ khác...
+//            try {
+//                Thread.sleep(1000); // Ngừng 1 giây
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        System.out.println("Đã hết 1 phút");
     }
 }

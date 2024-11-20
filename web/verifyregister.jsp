@@ -37,7 +37,7 @@
                             <input type="submit" class="btn-success" value="VERIFY"/>
                             <p><h2 class="text-danger">${mess}</h2></p>
                             <div class="flex justify-between text-center mt-5">
-                                <a href="verifyregister" class="flex items-center text-silver hover:text-blue-900 cursor-pointer"><i class="ri-arrow-left-line text-xl mr-1"></i><span class="font-bold">Back</span></a>
+                                <a href="register" class="flex items-center text-silver hover:text-blue-900 cursor-pointer"><i class="ri-arrow-left-line text-xl mr-1"></i><span class="font-bold">Back</span></a>
                             </div>
                         </form>
                     </div>

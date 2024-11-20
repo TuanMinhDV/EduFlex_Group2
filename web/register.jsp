@@ -89,8 +89,7 @@
                         <h3 class="text-danger">${mess}</h3>
                     </div>
 
-                    <!-- Forget Password -->
-                    <a href="login.jsp" class="registration">LOGIN</a>
+                    <a href="login" class="registration">LOGIN</a>
                 </div>
             </form>
             <!-- /end login form -->
