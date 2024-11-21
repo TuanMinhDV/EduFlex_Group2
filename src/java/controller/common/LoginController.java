@@ -89,7 +89,7 @@ public class LoginController extends HttpServlet {
         }*/
         Account a = ad.login(username, password);
         if (a == null) {
-            request.setAttribute("mess", "username or password is incorrect");
+            request.setAttribute("mess", "Username or Password is incorrect!!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else if (a.getActive() == 2) {
             request.setAttribute("mess", "Your account has been BLOCKED");

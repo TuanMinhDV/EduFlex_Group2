@@ -4,123 +4,107 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
-        <!--        Thay src img de dong bo bg voi trang login-->
         <style>
             .container {
                 max-width: 100%;
                 max-height: 100%;
             }
         </style>
+        <!-- META ============================================= -->
         <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title> Reset password</title>
-        <meta name="description" content="">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
+
+        <!-- DESCRIPTION -->
+        <meta name="description" content="EduChamp : Education HTML Template" />
+
+        <!-- OG -->
+        <meta property="og:title" content="EduChamp : Education HTML Template" />
+        <meta property="og:description" content="EduChamp : Education HTML Template" />
+        <meta property="og:image" content="" />
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- FAVICONS ICON ============================================= -->
+        <link rel="icon" href="EduChamp-Template/assets/images/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" type="image/x-icon" href="EduChamp-Template/assets/images/favicon.png" />
+
+        <!-- PAGE TITLE HERE ============================================= -->
+        <title>EduFlex : Forget Password </title>
+
+        <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="manifest" href="site.webmanifest">
-        <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
-        <!-- CSS here -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="assets/css/slicknav.css">
-        <link rel="stylesheet" href="assets/css/flaticon.css">
-        <link rel="stylesheet" href="assets/css/progressbar_barfiller.css">
-        <link rel="stylesheet" href="assets/css/gijgo.css">
-        <link rel="stylesheet" href="assets/css/animate.min.css">
-        <link rel="stylesheet" href="assets/css/animated-headline.css">
-        <link rel="stylesheet" href="assets/css/magnific-popup.css">
-        <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="assets/css/themify-icons.css">
-        <link rel="stylesheet" href="assets/css/slick.css">
-        <link rel="stylesheet" href="assets/css/nice-select.css">
-        <link rel="stylesheet" href="assets/css/style.css"> 
+        <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- All PLUGINS CSS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="EduChamp-Template/assets/css/assets.css">
+
+        <!-- TYPOGRAPHY ============================================= -->
+        <link rel="stylesheet" type="text/css" href="EduChamp-Template/assets/css/typography.css">
+
+        <!-- SHORTCODES ============================================= -->
+        <link rel="stylesheet" type="text/css" href="EduChamp-Template/assets/css/shortcodes/shortcodes.css">
+
+        <!-- STYLESHEETS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="EduChamp-Template/assets/css/style.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="EduChamp-Template/assets/css/color/color-1.css">
     </head>
-    <body>
-
-        <!-- ? Preloader Start -->
-        <div id="preloader-active">
-            <div class="preloader d-flex align-items-center justify-content-center">
-                <div class="preloader-inner position-relative">
-                    <div class="preloader-circle"></div>
-                    <div class="preloader-img pere-text">
-                        <img src="assets/img/logo/loder.png" alt="">
-                    </div>
+    <body id="bg">
+        <div class="page-wraper">
+            <div id="loading-icon-bx"></div>
+            <div class="account-form">
+                <div class="account-head" style="background-image:url(EduChamp-Template/assets/images/background/bg2.jpg);">
+                    <a href="home"><img src="EduChamp-Template/assets/images/favicon.png" alt=""></a>
                 </div>
-            </div>
-        </div>
-        <main class="login-body" data-vide-bg="assets/img/login-bg.mp4">
-            <!-- Login Admin -->
-            <form class="form-default" action="forgetpassword" method="post">
-
-                <div class="login-form">
-
-                    <!-- logo-login -->
-                    <div class="logo-login">
-                        <a href="index.html"><img src="assets/img/logo/loder.png" alt=""></a>
-                    </div>
-                    <h2>Forget password</h2>
-                    <div class="form-input">
-                        <label for="email">Email</label>
-
-                        <input required  type="email" value="${email}" name="email" placeholder="Enter your email">
+                <div class="account-form-inner">
+                    <div class="account-container">
+                        <div class="heading-bx left">
+                            <h2 class="title-head">Forget <span>Password</span></h2>
+                            <p>Login Your Account <a href="login">Click here</a></p>
+                        </div>	
                         <p style="color: red">${msg}</p>
                         <c:if test="${msg ne null}">
                             <a href="register">Click to this to register</a>
                         </c:if>
-                    </div>
-                    <div class="form-input pt-30">
-                        <input type="submit" value="Reset Password">
-                    </div>
-                    <div class="social-login">
+                        <form class="contact-bx" action="forgetpassword" method="post">
+                            <div class="row placeani">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label>Your Email Address</label>
+                                            <input value="${email}" name="email" type="email" required="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 m-b30">
+                                    <button name="submit" type="submit" value="Submit" class="btn button-md">Submit</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                </div>
-            </form>
-            <!-- /end login form -->
-        </main>
-        <!--        tro lai dung vao file dan -->
-        <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-        <!-- Jquery, Popper, Bootstrap -->
-        <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="./assets/js/popper.min.js"></script>
-        <script src="./assets/js/bootstrap.min.js"></script>
-        <!-- Jquery Mobile Menu -->
-        <script src="./assets/js/jquery.slicknav.min.js"></script>
-
-        <!-- Video bg -->
-        <script src="./assets/js/jquery.vide.js"></script>
-
-        <!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="./assets/js/owl.carousel.min.js"></script>
-        <script src="./assets/js/slick.min.js"></script>
-        <!-- One Page, Animated-HeadLin -->
-        <script src="./assets/js/wow.min.js"></script>
-        <script src="./assets/js/animated.headline.js"></script>
-        <script src="./assets/js/jquery.magnific-popup.js"></script>
-
-        <!-- Date Picker -->
-        <script src="./assets/js/gijgo.min.js"></script>
-        <!-- Nice-select, sticky -->
-        <script src="./assets/js/jquery.nice-select.min.js"></script>
-        <script src="./assets/js/jquery.sticky.js"></script>
-        <!-- Progress -->
-        <script src="./assets/js/jquery.barfiller.js"></script>
-
-        <!-- counter , waypoint,Hover Direction -->
-        <script src="./assets/js/jquery.counterup.min.js"></script>
-        <script src="./assets/js/waypoints.min.js"></script>
-        <script src="./assets/js/jquery.countdown.min.js"></script>
-        <script src="./assets/js/hover-direction-snake.min.js"></script>
-
-        <!-- contact js -->
-        <script src="./assets/js/contact.js"></script>
-        <script src="./assets/js/jquery.form.js"></script>
-        <script src="./assets/js/jquery.validate.min.js"></script>
-        <script src="./assets/js/mail-script.js"></script>
-        <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-
-        <!-- Jquery Plugins, main Jquery -->	
-        <script src="./assets/js/plugins.js"></script>
-        <script src="./assets/js/main.js"></script>
+            </div>
+        </div>
+        <!-- External JavaScripts -->
+        <script src="EduChamp-Template/assets/js/jquery.min.js"></script>
+        <script src="EduChamp-Template/assets/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="EduChamp-Template/assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="EduChamp-Template/assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="EduChamp-Template/assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="EduChamp-Template/assets/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="EduChamp-Template/assets/vendors/counter/waypoints-min.js"></script>
+        <script src="EduChamp-Template/assets/vendors/counter/counterup.min.js"></script>
+        <script src="EduChamp-Template/assets/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="EduChamp-Template/assets/vendors/masonry/masonry.js"></script>
+        <script src="EduChamp-Template/assets/vendors/masonry/filter.js"></script>
+        <script src="EduChamp-Template/assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src="EduChamp-Template/assets/js/functions.js"></script>
+        <script src="EduChamp-Template/assets/js/contact.js"></script>
     </body>
+    
 </html>
