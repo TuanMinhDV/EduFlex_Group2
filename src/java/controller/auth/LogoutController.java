@@ -6,7 +6,6 @@
 package controller.auth;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -31,6 +30,7 @@ public class LogoutController extends HttpServlet {
         //Đăng xuất và rederect về home
         HttpSession session = request.getSession();
         session.removeAttribute("account");
+        session.removeAttribute("successMessage");
         response.sendRedirect("home");
     } 
 
