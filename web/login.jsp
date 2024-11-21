@@ -90,7 +90,7 @@
                             String successMessage = (String) request.getSession().getAttribute("successMessage");
                             if (successMessage != null) { 
                         %>
-                        <div class="success-message" style="color:white;">
+                        <div class="success-message" style="color:green;">
                             <%= successMessage %>
                             <button onclick="closeMessage()">X</button>
                         </div>
@@ -119,7 +119,7 @@
                                             <input type="checkbox" class="custom-control-input" id="customControlAutosizing" name="remember" value="on" ${cookie.crem != null ?'checked':''}>
                                             <label class="custom-control-label" for="customControlAutosizing">Remember me</label>
                                         </div>
-                                        <a href="forget" class="ml-auto">Forgot Password?</a>
+                                        <a href="forgetpassword" class="ml-auto">Forgot Password?</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 m-b30">

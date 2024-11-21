@@ -37,7 +37,7 @@
                                 </h3>
                                 <h2 class="text-center">Enter OTP</h2>
                                 <div class="panel-body">
-                                    <form method="post" action="verifyotp">
+                                    <form method="post" action="verifyforgetpassword">
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
