@@ -663,14 +663,13 @@ public class AccountDAO extends DBContext {
         AccountDAO dao = new AccountDAO();
         LocalDateTime currentTime = LocalDateTime.now();
 
-        LocalDateTime startTime= LocalDateTime.now();
+        LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = startTime.plusSeconds(10);
         System.out.println("startTime" + startTime);
         System.out.println("endTime" + endTime);
         boolean before = dao.isWithinOneMinute(currentTime, 60);
         System.out.println(before);
-        
-        
+
         // Kiểm tra liên tục trong vòng lặp (ví dụ)
 //        while (dao.isWithinOneMinute(currentTime, 60)) {
 //            System.out.println("Còn thời gian trong vòng 1 phút");
@@ -684,4 +683,72 @@ public class AccountDAO extends DBContext {
 //
 //        System.out.println("Đã hết 1 phút");
     }
+
+    public ArrayList<Role> getRoleList() {
+        ArrayList<Role> roleList = new ArrayList<>();
+        String sql = "SELECT role_id, role_name FROM [dbo].[Role]";
+
+        try (PreparedStatement stm = connection.prepareStatement(sql); ResultSet rs = stm.executeQuery()) {
+            while (rs.next()) {
+                Role role = new Role();
+                role.setRole_Id(rs.getInt("role_id"));
+                role.setRole_Name(rs.getString("role_name"));
+                roleList.add(role);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in getRoleList: " + e.getMessage());
+        }
+        return roleList;
+    }
+
+    public boolean addAccountByAdmin(Account account) {
+        String sql = "INSERT INTO Account (username, password, fullname, email, phone, active, role_id) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            // Thiết lập các tham số
+            ps.setString(1, account.getUsername());
+            ps.setString(2, account.getPassword()); // Thêm mật khẩu
+            ps.setString(3, account.getFullname());
+            ps.setString(4, account.getEmail());
+            ps.setString(5, account.getPhone());
+            ps.setInt(6, account.getActive());
+            ps.setInt(7, account.getRole_id());
+
+            // Thực thi câu lệnh SQL
+            int rowsInserted = ps.executeUpdate();
+            return rowsInserted > 0; // Trả về true nếu thêm thành công
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Trả về false nếu xảy ra lỗi
+    }
+
+    public boolean checkExistedPhone(String phone) {
+        String sql = "SELECT * FROM Account WHERE phone = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, phone);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public String getRoleNameById(int roleId) {
+        String sql = "SELECT role_name FROM Role WHERE role_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, roleId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("role_name");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Trả về null nếu không tìm thấy
+    }
+
 }

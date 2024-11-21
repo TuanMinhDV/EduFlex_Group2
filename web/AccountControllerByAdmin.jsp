@@ -8,6 +8,14 @@
     </head>
     <body>
         <h1>Account List by Admin</h1>
+        <!-- Add New Account Button -->
+        <div>
+            <form action="addaccountbyadmin" method="get">
+                <input type="submit" value="Add New Account" />
+            </form>
+        </div>
+        </br> 
+
         <% 
      String statusMessage = request.getParameter("statusMessage");
      if (statusMessage != null) {
