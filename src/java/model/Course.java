@@ -23,6 +23,19 @@ public class Course {
     private int instructor_id;
     private int isDisable;
 
+    public Course(int id, String name, String description, String image, Date created_date, Date updated_date, int instructor_id, int isDisable) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.created_date = created_date;
+        this.updated_date = updated_date;
+        this.instructor_id = instructor_id;
+        this.isDisable = isDisable;
+    }
+
+    
+    
     public Course() {
     }
 
