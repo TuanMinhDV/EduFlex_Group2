@@ -26,7 +26,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>EduChamp : Education HTML Template </title>
+        <title>Instructor: Manage Course </title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -79,22 +79,22 @@
                 height: 150px; /* Chi?u cao c?a ?nh */
             }
 
-/*             Nút "Read More" 
-            .action-box .btn {
-                position: absolute;
-                bottom: 10px;
-                left: 50%;
-                transform: translateX(-50%);
-                background-color: #007bff;  Màu n?n nút 
-                color: #fff;  Màu ch? 
-                border: none;
-                padding: 8px 16px;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 14px;
-                text-transform: uppercase;
-                transition: background-color 0.3s ease;
-            }*/
+            /*             Nút "Read More" 
+                        .action-box .btn {
+                            position: absolute;
+                            bottom: 10px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            background-color: #007bff;  Màu n?n nút 
+                            color: #fff;  Màu ch? 
+                            border: none;
+                            padding: 8px 16px;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            font-size: 14px;
+                            text-transform: uppercase;
+                            transition: background-color 0.3s ease;
+                        }*/
 
             /* Hi?u ?ng hover cho nút "Read More" */
             .action-box .btn:hover {
@@ -141,7 +141,7 @@
     </head>
     <body id="bg">
         <div class="page-wraper">
-            <div id="loading-icon-bx"></div>
+            <!--<div id="loading-icon-bx"></div>-->
 
             <!-- Header Top ==== -->
             <header class="header rs-nav">
@@ -246,7 +246,7 @@
                                             <li><a href="error-404.html">404 Page</a></li>
                                         </ul>
                                     </li>
-                                    <li class="add-mega-menu"><a href="javascript:;">Our Courses <i class="fa fa-chevron-down"></i></a>
+                                    <li class="add-mega-menu"><a href="javascript:;">Manage Course <i class="fa fa-chevron-down"></i></a>
                                         <ul class="sub-menu add-menu">
                                             <li class="add-menu-left">
                                                 <h5 class="menu-adv-title">Our Courses</h5>
@@ -324,7 +324,7 @@
                     <div class="container">
                         <ul class="list-inline">
                             <li><a href="#">Home</a></li>
-                            <li>Our Courses</li>
+                            <li>Manage Courses</li>
                         </ul>
                     </div>
                 </div>
@@ -353,7 +353,7 @@
                                         </ul>
                                     </div>
                                     <div class="widget">
-                                        <button type="button" class="btn btn-primary btn-lg">Add Course</button>
+                                        <button class="btn btn-primary btn-add-course" data-toggle="modal" data-target="#addCourseModal">Add Course</button>
                                     </div>
                                 </div>
                                 <div class="col-lg-9 col-md-8 col-sm-12">
@@ -370,22 +370,10 @@
                                                         <span>${course.cate_name}</span>
                                                     </div>
                                                     <div class="cours-more-info">
-                                                        <!--                                                        <div class="review">
-                                                                                                                    <span>3 Review</span>
-                                                                                                                    <ul class="cours-star">
-                                                                                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                                                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                                                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                                                                                        <li><i class="fa fa-star"></i></li>
-                                                                                                                        <li><i class="fa fa-star"></i></li>
-                                                                                                                    </ul>
-                                                                                                                </div>
-                                                                                                                <div class="price">
-                                                                                                                    <del>$190</del>
-                                                                                                                    <h5>$120</h5>
-                                                                                                                </div>-->
-                                                        <button style="background-color: blue;" type="button" class="btn btn-primary btn-lg">Edit Course</button>
-                                                        <button style="background-color: red; margin-left: 10px;" type="button" class="btn btn-danger btn-lg">Archive</button>
+                                                        <button style="background-color: blue;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editCourseModal" onclick="fillCourseData('${course.name}', '${course.description}', '${course.image}')">
+                                                            Edit Course
+                                                        </button>
+                                                        <button style="background-color: red; margin-left: 10px;" type="button" class="btn btn-danger btn-lg"  data-toggle="modal" data-target="#archiveCourseModal">Archive</button>
                                                     </div>
                                                     <button style="display: block; margin-top: 10px" type="button" class="btn btn-primary btn-lg">Manage Chapters</button>
                                                 </div>
@@ -398,115 +386,101 @@
                     </div>
                 </div>
                 <!-- contact area END -->
-
             </div>
             <!-- Content END-->
-            <!-- Footer ==== -->
-            <footer>
-                <div class="footer-top">
-                    <div class="pt-exebar">
-                        <div class="container">
-                            <div class="d-flex align-items-stretch">
-                                <div class="pt-logo mr-auto">
-                                    <a href="index.html"><img src="assets/images/logo-white.png" alt=""/></a>
-                                </div>
-                                <div class="pt-social-link">
-                                    <ul class="list-inline m-a0">
-                                        <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="pt-btn-join">
-                                    <a href="#" class="btn ">Join Now</a>
-                                </div>
-                            </div>
+
+            <!-- Modal Add Course -->
+            <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addCourseModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addCourseModalLabel">Add New Course</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-12 col-sm-12 footer-col-4">
-                                <div class="widget">
-                                    <h5 class="footer-title">Sign Up For A Newsletter</h5>
-                                    <p class="text-capitalize m-b20">Weekly Breaking news analysis and cutting edge advices on job searching.</p>
-                                    <div class="subscribe-form m-b20">
-                                        <form class="subscription-form" action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php" method="post">
-                                            <div class="ajax-message"></div>
-                                            <div class="input-group">
-                                                <input name="email" required="required"  class="form-control" placeholder="Your Email Address" type="email">
-                                                <span class="input-group-btn">
-                                                    <button name="submit" value="Submit" type="submit" class="btn"><i class="fa fa-arrow-right"></i></button>
-                                                </span> 
-                                            </div>
-                                        </form>
-                                    </div>
+                        <div class="modal-body">
+                            <form id="addCourseForm">
+                                <div class="form-group">
+                                    <label for="courseName">Course Name</label>
+                                    <input type="text" class="form-control" id="courseName" required>
                                 </div>
-                            </div>
-                            <div class="col-12 col-lg-5 col-md-7 col-sm-12">
-                                <div class="row">
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Company</h5>
-                                            <ul>
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="about-1.html">About</a></li>
-                                                <li><a href="faq-1.html">FAQs</a></li>
-                                                <li><a href="contact-1.html">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Get In Touch</h5>
-                                            <ul>
-                                                <li><a href="http://educhamp.themetrades.com/admin/index.html">Dashboard</a></li>
-                                                <li><a href="blog-classic-grid.html">Blog</a></li>
-                                                <li><a href="portfolio.html">Portfolio</a></li>
-                                                <li><a href="event.html">Event</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Courses</h5>
-                                            <ul>
-                                                <li><a href="courses.html">Courses</a></li>
-                                                <li><a href="courses-details.html">Details</a></li>
-                                                <li><a href="membership.html">Membership</a></li>
-                                                <li><a href="profile.html">Profile</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="courseDescription">Description</label>
+                                    <textarea class="form-control" id="courseDescription" rows="3" required></textarea>
                                 </div>
-                            </div>
-                            <div class="col-12 col-lg-3 col-md-5 col-sm-12 footer-col-4">
-                                <div class="widget widget_gallery gallery-grid-4">
-                                    <h5 class="footer-title">Our Gallery</h5>
-                                    <ul class="magnific-image">
-                                        <li><a href="assets/images/gallery/pic1.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic1.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic2.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic2.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic3.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic3.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic4.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic4.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic5.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic5.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic6.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic6.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic7.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic7.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic8.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic8.jpg" alt=""></a></li>
-                                    </ul>
+                                <div class="form-group">
+                                    <label for="courseImage">Course Image URL</label>
+                                    <input type="text" class="form-control-file" id="courseImage" required>
                                 </div>
-                            </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" onclick="addCourse()">Save Course</button>
                         </div>
                     </div>
                 </div>
-                <div class="footer-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 text-center"> <a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
+            </div>
+
+            <!-- Modal for Edit Course -->
+            <div class="modal fade" id="editCourseModal" tabindex="-1" role="dialog" aria-labelledby="editCourseModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editCourseModalLabel">Edit Course</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Edit Course Form -->
+                            <form>
+                                <div class="form-group">
+                                    <label for="courseName">Course Name</label>
+                                    <input type="text" class="form-control" id="courseNameEdit" name="courseName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="courseCategory">Description</label>
+                                    <!--                                    <input type="text" class="form-control" id="courseCategoryEdit" name="courseCategory">-->
+                                    <textarea class="form-control" id="courseCategoryEdit" name="courseCategory" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="courseImage">Course Image URL</label>
+                                    <input type="text" class="form-control" id="courseImageEdit" name="courseImage" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-            </footer>
-            <!-- Footer END ==== -->
+            </div>
+
+            <!-- Modal for Archive Confirmation -->
+            <div class="modal fade" id="archiveCourseModal" tabindex="-1" role="dialog" aria-labelledby="archiveCourseModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="archiveCourseModalLabel">Confirm Archive</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to archive this course? This action cannot be undone.
+                        </div>
+                        <div class="modal-footer">
+                            <!-- Cancel and Confirm Buttons -->
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" id="confirmArchiveBtn">Yes, Archive</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <button class="back-to-top fa fa-chevron-up" ></button>
         </div>
         <!-- External JavaScripts -->
@@ -525,6 +499,35 @@
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/contact.js"></script>
         <script src='assets/vendors/switcher/switcher.js'></script>
+        <script>
+                                function addCourse() {
+                                    const courseName = document.getElementById("courseName").value;
+                                    const courseDescription = document.getElementById("courseDescription").value;
+                                    const courseCategory = document.getElementById("courseCategory").value;
+                                    const courseImage = document.getElementById("courseImage").value;
+
+                                    // Th?c hi?n các thao tác ?? thêm khóa h?c vào c? s? d? li?u
+                                    console.log('Adding course:', courseName, courseDescription, courseCategory, courseImage);
+
+                                    // ?óng modal sau khi thêm khóa h?c
+                                    $('#addCourseModal').modal('hide');
+                                }
+
+                                // Function to fill the form with course data
+                                function fillCourseData(courseName, courseCategory, courseImage) {
+                                    document.getElementById('courseNameEdit').value = courseName;
+                                    document.getElementById('courseCategoryEdit').value = courseCategory;
+                                    document.getElementById('courseImageEdit').value = courseImage;
+                                }
+
+                                // Event handler for the Archive confirmation button
+                                document.getElementById('confirmArchiveBtn').addEventListener('click', function () {
+                                    // Logic to handle archiving (e.g., calling API, hiding the course, etc.)
+                                    alert('Course archived successfully!');
+                                    $('#archiveCourseModal').modal('hide'); // Close the modal after archiving
+                                });
+        </script>
+
     </body>
 
 </html>
