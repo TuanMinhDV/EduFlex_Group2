@@ -10,6 +10,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>CourseManageController</servlet-name>
-        <url-pattern>/manageCourse</url-pattern>
+        <url-pattern>/courseManage</url-pattern>
     </servlet-mapping>
 </web-app>
