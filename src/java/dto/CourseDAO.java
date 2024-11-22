@@ -47,7 +47,7 @@ public class CourseDAO extends DBContext {
         return listAll;
     }
 
-    public List<Course> getAllCoursesByInsID_byCategoryID(int ins_id, int cateID) {
+    public List<Course> getAllCoursesByInsId_CateID(int ins_id, int cateID) {
         List<Course> listAll = new ArrayList<>();
         String sql = """
                      SELECT 
@@ -84,6 +84,6 @@ public class CourseDAO extends DBContext {
 
     public static void main(String[] args) {
         CourseDAO dao = new CourseDAO();
-        System.out.println(dao.getAllCoursesByInsID_byCategoryID(6, 2));
+        System.out.println(dao.getAllCoursesByInsId_CateID(6, 2));
     }
 }
