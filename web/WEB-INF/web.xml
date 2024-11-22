@@ -4,4 +4,12 @@
         <servlet-name>AccountControllerByAdmin</servlet-name>
         <servlet-class>controller.auth.AccountControllerByAdmin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CourseManageController</servlet-name>
+        <servlet-class>controller.common.CourseManageController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CourseManageController</servlet-name>
+        <url-pattern>/courseManage</url-pattern>
+    </servlet-mapping>
 </web-app>
