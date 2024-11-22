@@ -5,12 +5,19 @@
 
 package controller.common;
 
+import dto.AccountDAO;
+import dto.CourseDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Account;
+import model.Category;
+import model.Course;
 
 /**
  *
@@ -53,7 +60,20 @@ public class CourseManageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        // Create Account
+        HttpSession session = request.getSession();
+        AccountDAO daoAccount = new AccountDAO();
+        Account acToLog = daoAccount.login("tamnt", "123");
+        session.setAttribute("account", acToLog);
+        
+        Account acLogin = (Account) session.getAttribute("account");
+        CourseDAO daoC = new CourseDAO();
+        List<Course> listCourse = daoC.getAllCoursesByInsID(acLogin.getAccount_id());
+        List<Category> listCate = daoC.getAllCategory();
+        request.setAttribute("listCategory", listCate);
+        request.setAttribute("listCourse", listCourse);
+        request.getRequestDispatcher("ManageCoursesByIns.jsp").forward(request, response);
+        
     } 
 
     /** 

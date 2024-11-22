@@ -22,6 +22,16 @@ public class Course {
     private int sold;
     private int instructor_id;
     private int isDisable;
+    
+    private String cate_name;
+
+    public String getCate_name() {
+        return cate_name;
+    }
+
+    public void setCate_name(String cate_name) {
+        this.cate_name = cate_name;
+    }
 
     public Course(int id, String name, String description, String image, Date created_date, Date updated_date, int instructor_id, int isDisable) {
         this.id = id;
