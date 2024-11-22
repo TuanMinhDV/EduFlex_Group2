@@ -4,6 +4,7 @@
  */
 package dto;
 
+import jakarta.servlet.http.HttpSession;
 import java.lang.reflect.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import model.Account;
 import model.Category;
 import model.Course;
 
@@ -48,9 +50,9 @@ public class CourseDAO extends DBContext {
                      SELECT c.course_id, c.course_name, c.description, c.image, c.created_date, c.updated_date, c.instructor_id, c.isDisable, cat.category_name
                                           FROM 
                                               course c
-                                          INNER JOIN 
+                                          LEFT JOIN 
                                               course_category cc ON c.course_id = cc.course_id
-                                          INNER JOIN 
+                                          LEFT JOIN 
                                               category cat ON cc.category_id = cat.category_id where instructor_id = ?""";
         try {
             statement = connection.prepareStatement(sql);
@@ -112,9 +114,28 @@ public class CourseDAO extends DBContext {
         }
         return listAll;
     }
+    
+    public void addCourseByInstructor(Course c) {
+        String sql = """
+                     INSERT INTO [dbo].[Course]
+                                ([course_name]
+                                ,[description]
+                                ,[image])
+                          VALUES 
+                                (?, ?, ?)""";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, c.getName());
+            statement.setString(2, c.getDescription());
+            statement.setString(3, c.getImage());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 
     public static void main(String[] args) {
         CourseDAO dao = new CourseDAO();
-        System.out.println(dao.getAllCategory());
+        System.out.println(dao.getAllCoursesByInsID(6));
     }
 }

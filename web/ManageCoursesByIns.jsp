@@ -141,7 +141,7 @@
     </head>
     <body id="bg">
         <div class="page-wraper">
-            <!--<div id="loading-icon-bx"></div>-->
+            <div id="loading-icon-bx"></div>
 
             <!-- Header Top ==== -->
             <header class="header rs-nav">
@@ -367,7 +367,7 @@
                                                     </div>
                                                     <div class="info-bx text-center">
                                                         <h5><a href="#">${course.name}</a></h5>
-                                                        <span>${course.cate_name}</span>
+                                                        <span>${course.cate_name != null ? course.cate_name : 'Not classified yet'}</span>
                                                     </div>
                                                     <div class="cours-more-info">
                                                         <button style="background-color: blue;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editCourseModal" onclick="fillCourseData('${course.name}', '${course.description}', '${course.image}')">
@@ -400,24 +400,26 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="addCourseForm">
+                            <form id="addCourseForm" action="courseManage" method="post">
+                                <input type="hidden" name="type" value="add"/>
+                                <!--<input type="hidden" name="type" value="add"/>-->
                                 <div class="form-group">
                                     <label for="courseName">Course Name</label>
-                                    <input type="text" class="form-control" id="courseName" required>
+                                    <input type="text" class="form-control" name="courseName" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="courseDescription">Description</label>
-                                    <textarea class="form-control" id="courseDescription" rows="3" required></textarea>
+                                    <textarea class="form-control" name="courseDescription" rows="3" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="courseImage">Course Image URL</label>
-                                    <input type="text" class="form-control-file" id="courseImage" required>
+                                    <input type="text" class="form-control-file" name="courseImage" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" value="Save" class="btn btn-primary"/>
                                 </div>
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" onclick="addCourse()">Save Course</button>
                         </div>
                     </div>
                 </div>
@@ -442,7 +444,6 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="courseCategory">Description</label>
-                                    <!--                                    <input type="text" class="form-control" id="courseCategoryEdit" name="courseCategory">-->
                                     <textarea class="form-control" id="courseCategoryEdit" name="courseCategory" required></textarea>
                                 </div>
                                 <div class="form-group">
@@ -500,32 +501,20 @@
         <script src="assets/js/contact.js"></script>
         <script src='assets/vendors/switcher/switcher.js'></script>
         <script>
-                                function addCourse() {
-                                    const courseName = document.getElementById("courseName").value;
-                                    const courseDescription = document.getElementById("courseDescription").value;
-                                    const courseCategory = document.getElementById("courseCategory").value;
-                                    const courseImage = document.getElementById("courseImage").value;
 
-                                    // Th?c hi?n các thao tác ?? thêm khóa h?c vào c? s? d? li?u
-                                    console.log('Adding course:', courseName, courseDescription, courseCategory, courseImage);
+                                                            // Function to fill the form with course data
+                                                            function fillCourseData(courseName, courseCategory, courseImage) {
+                                                                document.getElementById('courseNameEdit').value = courseName;
+                                                                document.getElementById('courseCategoryEdit').value = courseCategory;
+                                                                document.getElementById('courseImageEdit').value = courseImage;
+                                                            }
 
-                                    // ?óng modal sau khi thêm khóa h?c
-                                    $('#addCourseModal').modal('hide');
-                                }
-
-                                // Function to fill the form with course data
-                                function fillCourseData(courseName, courseCategory, courseImage) {
-                                    document.getElementById('courseNameEdit').value = courseName;
-                                    document.getElementById('courseCategoryEdit').value = courseCategory;
-                                    document.getElementById('courseImageEdit').value = courseImage;
-                                }
-
-                                // Event handler for the Archive confirmation button
-                                document.getElementById('confirmArchiveBtn').addEventListener('click', function () {
-                                    // Logic to handle archiving (e.g., calling API, hiding the course, etc.)
-                                    alert('Course archived successfully!');
-                                    $('#archiveCourseModal').modal('hide'); // Close the modal after archiving
-                                });
+                                                            // Event handler for the Archive confirmation button
+                                                            document.getElementById('confirmArchiveBtn').addEventListener('click', function () {
+                                                                // Logic to handle archiving (e.g., calling API, hiding the course, etc.)
+                                                                alert('Course archived successfully!');
+                                                                $('#archiveCourseModal').modal('hide'); // Close the modal after archiving
+                                                            });
         </script>
 
     </body>
