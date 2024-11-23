@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.Account;
@@ -63,20 +64,32 @@ public class CourseManageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Create Account
         HttpSession session = request.getSession();
-        AccountDAO daoAccount = new AccountDAO();
-        Account acToLog = daoAccount.login("tamnt", "123");
-        session.setAttribute("account", acToLog);
-
-        Account acLogin = (Account) session.getAttribute("account");
         CourseDAO daoC = new CourseDAO();
-        List<Course> listCourse = daoC.getAllCoursesByInsID(acLogin.getAccount_id());
-        List<Category> listCate = daoC.getAllCategory();
-        request.setAttribute("listCategory", listCate);
-        request.setAttribute("listCourse", listCourse);
-        request.getRequestDispatcher("ManageCoursesByIns.jsp").forward(request, response);
+        List<Course> listCourse = new ArrayList<>();
+        String reqCateFilter = request.getParameter("cateID");
+        if (reqCateFilter != null) {
+            Account acLogin = (Account) session.getAttribute("account");
+            listCourse = daoC.getAllCoursesByInsId_CateID(acLogin.getAccount_id(), Integer.parseInt(reqCateFilter));
+            List<Category> listCate = daoC.getAllCategory();
+            request.setAttribute("listCategory", listCate);
+            request.setAttribute("listCourse", listCourse);
+            request.getRequestDispatcher("ManageCoursesByIns.jsp").forward(request, response);
+        } else {
+            // Create Account
+            AccountDAO daoAccount = new AccountDAO();
+            Account acToLog = daoAccount.login("tamnt", "123");
+            session.setAttribute("account", acToLog);
 
+            Account acLogin = (Account) session.getAttribute("account");
+            listCourse = daoC.getAllCoursesByInsID(acLogin.getAccount_id());
+
+            List<Category> listCate = daoC.getAllCategory();
+            request.setAttribute("account", acLogin);
+            request.setAttribute("listCategory", listCate);
+            request.setAttribute("listCourse", listCourse);
+            request.getRequestDispatcher("ManageCoursesByIns.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -100,13 +113,57 @@ public class CourseManageController extends HttpServlet {
                 String courseName = request.getParameter("courseName");
                 String description = request.getParameter("courseDescription");
                 String urlImage = request.getParameter("courseImage");
-                
-                Course c = new Course();
-                c.setName(courseName);
-                c.setImage(urlImage);
-                c.setDescription(description);
-                c.setInstructor_id(acLogin.getAccount_id());
-                dao.addCourseByInstructor(c);
+                if (!isValid(courseName, true)) {
+                    request.setAttribute("error", "inputs aren't valid!");
+                    List<Course> listCourse = dao.getAllCoursesByInsID(acLogin.getAccount_id());
+                    List<Category> listCate = dao.getAllCategory();
+                    request.setAttribute("listCategory", listCate);
+                    request.setAttribute("listCourse", listCourse);
+                    request.getRequestDispatcher("ManageCoursesByIns.jsp").forward(request, response);
+                    return;
+                } else {
+                    Course c = new Course();
+                    c.setName(courseName);
+                    c.setImage(urlImage);
+                    c.setDescription(description);
+                    c.setInstructor_id(acLogin.getAccount_id());
+                    dao.addCourseByInstructor(c);
+                    List<Course> listCourse = dao.getAllCoursesByInsID(acLogin.getAccount_id());
+                    List<Category> listCate = dao.getAllCategory();
+                    request.setAttribute("listCategory", listCate);
+                    request.setAttribute("listCourse", listCourse);
+                    request.getRequestDispatcher("ManageCoursesByIns.jsp").forward(request, response);
+                }
+            }
+            case "edit" -> {
+                int courseID = Integer.parseInt(request.getParameter("courseID"));
+                String courseName = request.getParameter("courseName");
+                String description = request.getParameter("courseDescription");
+                String urlImage = request.getParameter("courseImage");
+                if (!isValid(courseName, true)) {
+                    request.setAttribute("error", "inputs aren't valid!");
+                    List<Course> listCourse = dao.getAllCoursesByInsID(acLogin.getAccount_id());
+                    List<Category> listCate = dao.getAllCategory();
+                    request.setAttribute("listCategory", listCate);
+                    request.setAttribute("listCourse", listCourse);
+                    request.getRequestDispatcher("ManageCoursesByIns.jsp").forward(request, response);
+                    return;
+                } else {
+                    Course course = dao.getCourseByID(courseID);
+                    course.setName(courseName);
+                    course.setDescription(description);
+                    course.setImage(urlImage);
+                    dao.updateCourseByInstructor(course);
+                    List<Course> listCourse = dao.getAllCoursesByInsID(acLogin.getAccount_id());
+                    List<Category> listCate = dao.getAllCategory();
+                    request.setAttribute("listCategory", listCate);
+                    request.setAttribute("listCourse", listCourse);
+                    request.getRequestDispatcher("ManageCoursesByIns.jsp").forward(request, response);
+                }
+            }
+            case "delete" -> {
+                int courseID = Integer.parseInt(request.getParameter("courseID"));
+                dao.deleteCourseByInstructor(courseID);
                 List<Course> listCourse = dao.getAllCoursesByInsID(acLogin.getAccount_id());
                 List<Category> listCate = dao.getAllCategory();
                 request.setAttribute("listCategory", listCate);
@@ -119,7 +176,7 @@ public class CourseManageController extends HttpServlet {
 
     }
 
-    public static boolean isValid(String input, boolean allowSpecial) {
+    public boolean isValid(String input, boolean allowSpecial) {
         // Kiểm tra null hoặc rỗng
         if (input == null || input.trim().isEmpty()) {
             return false;
@@ -149,4 +206,8 @@ public class CourseManageController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public static void main(String[] args) {
+        CourseManageController c = new CourseManageController();
+        System.out.println(c.isValid("123", true));
+    }
 }

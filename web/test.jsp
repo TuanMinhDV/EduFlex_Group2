@@ -13,6 +13,6 @@
     </head>
     <body>
         test
-        <h1>${course.name}</h1>
+        <h1>${error}</h1>
     </body>
 </html>
