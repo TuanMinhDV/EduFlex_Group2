@@ -4,12 +4,12 @@ public class CartItem {
 
     private OrderCourse orderCourse;
     private double price;
-    private Course course;
+    private Course1 course;
     private int category_id;
     private double discount;
     private int learnerId;
 
-    public CartItem(OrderCourse orderCourse, double price, Course course, int category_id, double discount) {
+    public CartItem(OrderCourse orderCourse, double price, Course1 course, int category_id, double discount) {
         this.orderCourse = orderCourse;
         this.price = price;
         this.course = course;
@@ -20,7 +20,7 @@ public class CartItem {
     public CartItem() {
     }
 
-    public CartItem(Course course, double price) {
+    public CartItem(Course1 course, double price) {
         this.course = course;
         this.price = price;
     }
@@ -35,7 +35,7 @@ public class CartItem {
         this.orderCourse = orderCourse;
         this.price = price;
     }
-    public CartItem(OrderCourse orderCourse, double price, Course course, int category_id) {
+    public CartItem(OrderCourse orderCourse, double price, Course1 course, int category_id) {
         this.orderCourse = orderCourse;
         this.price = price;
         this.course = course;
@@ -66,11 +66,11 @@ public class CartItem {
         this.price = price;
     }
 
-    public Course getCourse() {
+    public Course1 getCourse() {
         return course;
     }
 
-    public void setCourse(Course course) {
+    public void setCourse(Course1 course) {
         this.course = course;
     }
 

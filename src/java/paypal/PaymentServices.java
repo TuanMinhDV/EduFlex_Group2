@@ -55,8 +55,8 @@ public class PaymentServices {
 
     private RedirectUrls getRedirectURLs() {
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:9999/EduFlex_Demo3_1_1/cancel.jsp");
-        redirectUrls.setReturnUrl("http://localhost:9999/EduFlex_Demo3_1_1/review_payment");
+        redirectUrls.setCancelUrl("http://localhost:9999/EduFlex_v4/cancel.jsp");
+        redirectUrls.setReturnUrl("http://localhost:9999/EduFlex_v4/review_payment");
         return redirectUrls;
     }
 

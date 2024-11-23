@@ -5,7 +5,6 @@
 package controller.common;
 
 import dto.CourseDAO;
-//import dto.SubjectDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -61,13 +60,13 @@ public class CourseDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CourseDAO c = new CourseDAO();
-        String course_id_raw = request.getParameter("course_id");
-        int active;
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-
         try {
+            CourseDAO c = new CourseDAO();
+            String course_id_raw = request.getParameter("course_id");
+            int active;
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("account");
+
             int course_id = Integer.parseInt(course_id_raw);
             //int category_id = Integer.parseInt(category_id_raw);
             if (account != null) {
@@ -77,14 +76,11 @@ public class CourseDetailController extends HttpServlet {
             }
             Course1 course = c.getCourseByCourseId(course_id);
             List<Course1> listByIns = c.getAllCourseByInstructorId(course.getInstructor_id());
-            
+
             request.setAttribute("active", active);
             request.setAttribute("course", course);
             // Danh sách dề xuất
             request.setAttribute("listByIns", listByIns);
-//            request.setAttribute("listRS", listRS);
-//            request.setAttribute("listC", listC);
-//            request.setAttribute("category_id", category_id);
             request.getRequestDispatcher("course_detail.jsp").forward(request, response);
         } catch (Exception e) {
         }

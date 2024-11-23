@@ -154,7 +154,7 @@
                                         <li class="add-menu-left">
                                             <h5 class="menu-adv-title">Our Courses</h5>
                                             <ul>
-                                                <li><a href="courses.html">Courses </a></li>
+                                                <li><a href="courselist">Courses </a></li>
                                                 <li><a href="courses-details.html">Courses Details</a></li>
                                                 <li><a href="profile.html">Instructor Profile</a></li>
                                                 <li><a href="event.html">Upcoming Event</a></li>
@@ -174,6 +174,8 @@
                                         <li><a href="blog-standard-sidebar.html">Blog Standard Sidebar</a></li>
                                         <li><a href="blog-details.html">Blog Details</a></li>
                                     </ul>
+                                </li>
+                                <li><a href="mycourse">My Course <i class="fa fa-chevron-down"></i></a>
                                 </li>
                                 <li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
                                     <ul class="sub-menu">

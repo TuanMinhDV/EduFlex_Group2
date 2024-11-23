@@ -17,6 +17,7 @@ public class Course1 {
     private String updated_date;
     private int instructor_id;
     private String instructor_name;
+    private String instructor_email;
     private int category_id;
     private String category_name;
     private double rate_course;
@@ -33,6 +34,27 @@ public class Course1 {
     }
 
     public Course1() {
+    }
+
+    public Course1(int course_id, String course_name, String description, String image, float price, float discount, int sold, String created_date, String updated_date, int instructor_id, String instructor_name, String instructor_email, int category_id, String category_name, double rate_course, int chapter_num, int lesson_num, int isDisable) {
+        this.course_id = course_id;
+        this.course_name = course_name;
+        this.description = description;
+        this.image = image;
+        this.price = price;
+        this.discount = discount;
+        this.sold = sold;
+        this.created_date = created_date;
+        this.updated_date = updated_date;
+        this.instructor_id = instructor_id;
+        this.instructor_name = instructor_name;
+        this.instructor_email = instructor_email;
+        this.category_id = category_id;
+        this.category_name = category_name;
+        this.rate_course = rate_course;
+        this.chapter_num = chapter_num;
+        this.lesson_num = lesson_num;
+        this.isDisable = isDisable;
     }
 
     public Course1(int course_id, String course_name, String description, String image, float price, float discount, int sold, String created_date, String updated_date, int instructor_id, String instructor_name, double rate_course, int chapter_num, int lesson_num) {
@@ -82,6 +104,13 @@ public class Course1 {
         this.isDisable = isDisable;
     }
 
+    public String getInstructor_email() {
+        return instructor_email;
+    }
+
+    public void setInstructor_email(String instructor_email) {
+        this.instructor_email = instructor_email;
+    }
 
    public int getCategory_id() {
         return category_id;

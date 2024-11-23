@@ -33,7 +33,7 @@ public class CourseDAO extends DBContext {
     protected PreparedStatement statement;
     protected ResultSet resultSet;
 
-    public List<Category> getAllCategory(){
+    public List<Category> getAllCategory() {
         List<Category> listAll = new ArrayList<>();
         String sql = """
                      SELECT * from Category""";
@@ -51,7 +51,7 @@ public class CourseDAO extends DBContext {
         }
         return listAll;
     }
-    
+
     public List<Course> getAllCoursesByInsID(int ins_id) {
         List<Course> listAll = new ArrayList<>();
         String sql = """
@@ -122,7 +122,7 @@ public class CourseDAO extends DBContext {
         }
         return listAll;
     }
-    
+
     public void addCourseByInstructor(Course c) {
         String sql = """
                      INSERT INTO [dbo].[Course]
@@ -141,8 +141,8 @@ public class CourseDAO extends DBContext {
             System.out.println(e);
         }
     }
-    
-     public List<Course1> getAllCourse() {
+
+    public List<Course1> getAllCourse() {
         List<Course1> list = new ArrayList<>();
         String query = "WITH CourseRatings AS (\n"
                 + "    SELECT\n"
@@ -557,43 +557,44 @@ public class CourseDAO extends DBContext {
 
     public Course1 getCourseByCourseId(int course_id) {
         String query = "WITH CourseRatings AS (\n"
-                + "    SELECT\n"
-                + "        c.course_id,\n"
-                + "        AVG(lc.rate) AS course_rate\n"
-                + "    FROM\n"
-                + "        Course c\n"
-                + "    LEFT JOIN Learner_Course lc ON c.course_id = lc.course_id\n"
-                + "    GROUP BY\n"
-                + "        c.course_id\n"
+                + "  SELECT\n"
+                + "    c.course_id,\n"
+                + "    AVG(lc.rate) AS course_rate\n"
+                + "  FROM\n"
+                + "    Course c\n"
+                + "  LEFT JOIN Learner_Course lc ON c.course_id = lc.course_id\n"
+                + "  GROUP BY\n"
+                + "    c.course_id\n"
                 + "),\n"
                 + "ChapterCount AS (\n"
-                + "    SELECT\n"
-                + "        c.course_id,\n"
-                + "        COUNT(*) AS chapter_count\n"
-                + "    FROM\n"
-                + "        Course c\n"
-                + "    INNER JOIN Chapter ch ON c.course_id = ch.course_id\n"
-                + "    GROUP BY\n"
-                + "        c.course_id\n"
+                + "  SELECT\n"
+                + "    c.course_id,\n"
+                + "    COUNT(*) AS chapter_count\n"
+                + "  FROM\n"
+                + "    Course c\n"
+                + "  INNER JOIN Chapter ch ON c.course_id = ch.course_id\n"
+                + "  GROUP BY\n"
+                + "    c.course_id\n"
                 + "),\n"
                 + "LessonCount AS (\n"
-                + "    SELECT\n"
-                + "        ch.course_id,\n"
-                + "        COUNT(*) AS lesson_count\n"
-                + "    FROM\n"
-                + "        Chapter ch\n"
-                + "    INNER JOIN Lesson l ON ch.chapter_id = l.chapter_id\n"
-                + "    GROUP BY\n"
-                + "        ch.course_id\n"
+                + "  SELECT\n"
+                + "    ch.course_id,\n"
+                + "    COUNT(*) AS lesson_count\n"
+                + "  FROM\n"
+                + "    Chapter ch\n"
+                + "  INNER JOIN Lesson l ON ch.chapter_id = l.chapter_id\n"
+                + "  GROUP BY\n"
+                + "    ch.course_id\n"
                 + ")\n"
                 + "SELECT \n"
-                + "    c.*, \n"
-                + "    a.fullname, \n"
-                + "    COALESCE(cr.course_rate, 0) AS course_rate, \n"
-                + "    cc.chapter_count, \n"
-                + "    lc.lesson_count\n"
+                + "  c.*, \n"
+                + "  a.fullname, \n"
+                + "  a.email,  -- Add instructor's email here\n"
+                + "  COALESCE(cr.course_rate, 0) AS course_rate, \n"
+                + "  cc.chapter_count, \n"
+                + "  lc.lesson_count\n"
                 + "FROM\n"
-                + "    Course c \n"
+                + "  Course c \n"
                 + "INNER JOIN Account a ON c.instructor_id = a.account_id \n"
                 + "LEFT JOIN CourseRatings cr ON c.course_id = cr.course_id \n"
                 + "LEFT JOIN ChapterCount cc ON c.course_id = cc.course_id \n"
@@ -620,6 +621,7 @@ public class CourseDAO extends DBContext {
                 course.setUpdated_date(rs.getString("updated_date"));
                 course.setInstructor_id(rs.getInt("instructor_id"));
                 course.setInstructor_name(rs.getString("fullname"));
+                course.setInstructor_email(rs.getString("email"));
                 course.setRate_course(rs.getDouble("course_rate"));
                 course.setChapter_num(rs.getInt("chapter_count"));
                 course.setLesson_num(rs.getInt("lesson_count"));

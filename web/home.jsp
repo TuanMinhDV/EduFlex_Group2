@@ -103,6 +103,7 @@
                         </div>
                     </div>
                 </div>
+                <p>${message}</p>
                 <!-- Main Slider -->
                 <div class="content-block">
                     <!-- Popular Courses -->
