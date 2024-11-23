@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -56,179 +58,122 @@
         <link rel="stylesheet" type="text/css" href="EduChamp-Template/assets/vendors/revolution/css/layers.css">
         <link rel="stylesheet" type="text/css" href="EduChamp-Template/assets/vendors/revolution/css/settings.css">
         <link rel="stylesheet" type="text/css" href="EduChamp-Template/assets/vendors/revolution/css/navigation.css">
-        <!-- REVOLUTION SLIDER END -->	
+        <!-- REVOLUTION SLIDER END -->
+        <style>
+            .limited-height {
+                display: flex;
+                flex-direction: column;
+                height: 70px;
+            }
+        </style>
     </head>
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
             <jsp:include page="header.jsp"></jsp:include> 
-            <!-- Content -->
-            <div class="page-content bg-white">
-                <!-- Main Slider -->
-                <div class="section-area section-sp1 ovpr-dark bg-fix online-cours" style="background-image:url(EduChamp-Template/assets/images/background/bg1.jpg);">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12 text-center text-white">
-                                <h2>Online Courses To Learn</h2>
-                                <h5>Own Your Feature Learning New Skills Online</h5>
-                            </div>
-                        </div>
-                        <div class="mw800 m-auto">
+                <!-- Content -->
+                <div class="page-content bg-white">
+                    <!-- Main Slider -->
+                    <div class="section-area section-sp1 ovpr-dark bg-fix online-cours" style="background-image:url(EduChamp-Template/assets/images/background/bg1.jpg);">
+                        <div class="container">
                             <div class="row">
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="cours-search-bx m-b30">
-                                        <div class="icon-box">
-                                            <h3><i class="ti-user"></i><span class="counter">5</span>M</h3>
-                                        </div>
-                                        <span class="cours-search-text">Over 5 million student</span>
-                                    </div>
+                                <div class="col-md-12 text-center text-white">
+                                    <h2>Online Courses To Learn</h2>
+                                    <h5>Own Your Feature Learning New Skills Online</h5>
                                 </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="cours-search-bx m-b30">
-                                        <div class="icon-box">
-                                            <h3><i class="ti-book"></i><span class="counter">30</span>K</h3>
+                            </div>
+                            <div class="mw800 m-auto">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="cours-search-bx m-b30">
+                                            <div class="icon-box">
+                                                <h3><i class="ti-user"></i><span class="counter">5</span>M</h3>
+                                            </div>
+                                            <span class="cours-search-text">Over 5 million student</span>
                                         </div>
-                                        <span class="cours-search-text">30,000 Courses.</span>
                                     </div>
-                                </div>
-                                <div class="col-md-4 col-sm-12">
-                                    <div class="cours-search-bx m-b30">
-                                        <div class="icon-box">
-                                            <h3><i class="ti-layout-list-post"></i><span class="counter">20</span>K</h3>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="cours-search-bx m-b30">
+                                            <div class="icon-box">
+                                                <h3><i class="ti-book"></i><span class="counter">30</span>K</h3>
+                                            </div>
+                                            <span class="cours-search-text">30,000 Courses.</span>
                                         </div>
-                                        <span class="cours-search-text">Learn Anythink Online.</span>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="cours-search-bx m-b30">
+                                            <div class="icon-box">
+                                                <h3><i class="ti-layout-list-post"></i><span class="counter">20</span>K</h3>
+                                            </div>
+                                            <span class="cours-search-text">Learn Anythink Online.</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <p>${message}</p>
+                    <p>${message}</p>
                 <!-- Main Slider -->
                 <div class="content-block">
+                   
                     <!-- Popular Courses -->
                     <div class="section-area section-sp2 popular-courses-bx">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12 heading-bx left">
-                                    <h2 class="title-head">Popular <span>Courses</span></h2>
+                                    <h2 class="title-head">Best Rating <span>Courses</span></h2>
                                     <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                    <div class="item">
-                                        <div class="cours-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/courses/pic1.jpg" alt="">
-                                                <a href="#" class="btn">Read More</a>
-                                            </div>
-                                            <div class="info-bx text-center">
-                                                <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                <span>Programming</span>
-                                            </div>
-                                            <div class="cours-more-info">
-                                                <div class="review">
-                                                    <span>3 Review</span>
-                                                    <ul class="cours-star">
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
+                                    <jsp:useBean id="s" class="dto.CourseDAO" scope="request"/>
+                                    <c:forEach var="i" items="${s.top5MostRatedCourses}">
+                                        <!--Single Course-->
+                                        <div class="item">
+                                            <div class="cours-bx">
+                                                <div class="action-box">
+                                                    <img src="${i.image}" alt="Image: ${i.image}" style="height: 200px">
+                                                    <a href="coursedetail?course_id=${i.course_id}" class="btn">Read More</a>
                                                 </div>
-                                                <div class="price">
-                                                    <del>$190</del>
-                                                    <h5>$120</h5>
+                                                <div class="info-bx text-center">
+                                                    <h5><a href="coursedetail?course_id=${i.course_id}" class="limited-height">${i.course_name}</a></h5>
+                                                    <span>By ${i.instructor_name}</span>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="cours-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/courses/pic2.jpg" alt="">
-                                                <a href="#" class="btn">Read More</a>
-                                            </div>
-                                            <div class="info-bx text-center">
-                                                <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                <span>Programming</span>
-                                            </div>
-                                            <div class="cours-more-info">
-                                                <div class="review">
-                                                    <span>3 Review</span>
-                                                    <ul class="cours-star">
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="price">
-                                                    <del>$190</del>
-                                                    <h5>$120</h5>
+                                                <div class="cours-more-info">
+                                                    <div class="review">
+                                                        <span>Course rate: ${i.getFormattedRateCourse()}</span>
+                                                        <ul class="cours-star">
+                                                            <c:forEach begin="1" end="5" varStatus="loop">
+                                                                <c:choose>
+                                                                    <c:when test="${loop.index <= Math.floor(i.rate_course)}">
+                                                                        <li class="active">
+                                                                            <i class="fa fa-star"></i>
+                                                                        </li>
+                                                                    </c:when>
+                                                                    <c:when test="${loop.index == Math.ceil(i.rate_course) && i.rate_course % 1 != 0}">
+                                                                        <li class="active">
+                                                                            <i class="fa fa-star-half"></i>
+                                                                        </li>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <li>
+                                                                            <i class="fa fa-star"></i>
+                                                                        </li>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </c:forEach>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="price">
+                                                        <del>$${i.price}</del>
+                                                        <h5>$${i.price - i.price*i.discount/100}</h5>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="cours-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/courses/pic3.jpg" alt="">
-                                                <a href="#" class="btn">Read More</a>
-                                            </div>
-                                            <div class="info-bx text-center">
-                                                <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                <span>Programming</span>
-                                            </div>
-                                            <div class="cours-more-info">
-                                                <div class="review">
-                                                    <span>3 Review</span>
-                                                    <ul class="cours-star">
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="price">
-                                                    <del>$190</del>
-                                                    <h5>$120</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="cours-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/courses/pic4.jpg" alt="">
-                                                <a href="#" class="btn">Read More</a>
-                                            </div>
-                                            <div class="info-bx text-center">
-                                                <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                <span>Programming</span>
-                                            </div>
-                                            <div class="cours-more-info">
-                                                <div class="review">
-                                                    <span>3 Review</span>
-                                                    <ul class="cours-star">
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="price">
-                                                    <del>$190</del>
-                                                    <h5>$120</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <!--Signle Course End-->
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -242,7 +187,9 @@
                                         <h2>Learn a new skill online on <br> your time</h2>
                                         <h4><span class="counter">57,000</span> Online Courses</h4>
                                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                        <a href="#" class="btn button-md">Join Now</a>
+                                        <c:if test="${sessionScope.account == null}">
+                                            <a href="login" class="btn button-md">Join Now</a>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -256,7 +203,9 @@
                                     <h2 class="title-head ">Learn a new skill online<br> <span class="text-primary"> on your time</span></h2>
                                     <h4><span class="counter">57,000</span> Online Courses</h4>
                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.</p>
-                                    <a href="#" class="btn button-md">Join Now</a>
+                                    <c:if test="${sessionScope.account == null}">
+                                        <a href="login" class="btn button-md">Join Now</a>
+                                    </c:if>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="row">
@@ -310,88 +259,7 @@
                         </div>
                     </div>
 
-                    <!-- Testimonials -->
-                    <div class="section-area section-sp1 bg-fix ovbl-dark text-white" style="background-image:url(assets/images/background/bg1.jpg);">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                                    <div class="counter-style-1">
-                                        <div class="text-white">
-                                            <span class="counter">3000</span><span>+</span>
-                                        </div>
-                                        <span class="counter-text">Completed Projects</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                                    <div class="counter-style-1">
-                                        <div class="text-white">
-                                            <span class="counter">2500</span><span>+</span>
-                                        </div>
-                                        <span class="counter-text">Happy Clients</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                                    <div class="counter-style-1">
-                                        <div class="text-white">
-                                            <span class="counter">1500</span><span>+</span>
-                                        </div>
-                                        <span class="counter-text">Questions Answered</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                                    <div class="counter-style-1">
-                                        <div class="text-white">
-                                            <span class="counter">1000</span><span>+</span>
-                                        </div>
-                                        <span class="counter-text">Ordered Coffee's</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Testimonials END -->
-                    <!-- Testimonials ==== -->
-                    <div class="section-area section-sp2">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 heading-bx left">
-                                    <h2 class="title-head text-uppercase">what people <span>say</span></h2>
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
-                                </div>
-                            </div>
-                            <div class="testimonial-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                <div class="item">
-                                    <div class="testimonial-bx">
-                                        <div class="testimonial-thumb">
-                                            <img src="assets/images/testimonials/pic1.jpg" alt="">
-                                        </div>
-                                        <div class="testimonial-info">
-                                            <h5 class="name">Peter Packer</h5>
-                                            <p>-Art Director</p>
-                                        </div>
-                                        <div class="testimonial-content">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="testimonial-bx">
-                                        <div class="testimonial-thumb">
-                                            <img src="assets/images/testimonials/pic2.jpg" alt="">
-                                        </div>
-                                        <div class="testimonial-info">
-                                            <h5 class="name">Peter Packer</h5>
-                                            <p>-Art Director</p>
-                                        </div>
-                                        <div class="testimonial-content">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Testimonials END ==== -->
+
                 </div>
                 <!-- contact area END -->
             </div>

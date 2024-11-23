@@ -135,7 +135,7 @@ public class RegisterController extends HttpServlet {
             }
             request.setAttribute("otp", otp);
             request.setAttribute("startTime", formattedTime);
-            response.sendRedirect("verifyregister");
+            request.getRequestDispatcher("verifyregister.jsp").forward(request, response);
         } else {
             request.setAttribute("mess", "Confirm password is incorrect");
             request.getRequestDispatcher("register.jsp").forward(request, response);

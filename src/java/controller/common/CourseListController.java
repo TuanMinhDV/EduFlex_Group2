@@ -67,6 +67,7 @@ public class CourseListController extends HttpServlet {
         //processRequest(request, response);
         CourseDAO s = new CourseDAO();
         List<Course1> listCE = s.getAllCourse();
+        List<Course1> recentCourse = s.get4NewestCourse();
         List<Category1> listCY = s.getAllCategory1();
         String[] listPrice = {
             "On Sale",
@@ -78,6 +79,7 @@ public class CourseListController extends HttpServlet {
         request.setAttribute("listCY", listCY);
         request.setAttribute("listPrice", listPrice);
         request.setAttribute("listCE", listCE);
+        request.setAttribute("recentCourse", recentCourse);
         request.getRequestDispatcher("courselisthome.jsp").forward(request, response);
     }
 

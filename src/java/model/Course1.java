@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.text.DecimalFormat;
+
 public class Course1 {
 
     private int course_id;
@@ -73,6 +75,7 @@ public class Course1 {
         this.chapter_num = chapter_num;
         this.lesson_num = lesson_num;
     }
+
     public Course1(int course_id, String course_name, String description, String image, float price, float discount, int sold, String created_date, String updated_date, int instructor_id) {
         this.course_id = course_id;
         this.course_name = course_name;
@@ -85,7 +88,7 @@ public class Course1 {
         this.updated_date = updated_date;
         this.instructor_id = instructor_id;
     }
-  
+
     public Course1(int course_id, String course_name, String description, String image, float price, float discount, int sold, String created_date, String updated_date, int instructor_id, String instructor_name, double rate_course, int chapter_num, int lesson_num, int isDisable) {
         this.course_id = course_id;
         this.course_name = course_name;
@@ -112,7 +115,7 @@ public class Course1 {
         this.instructor_email = instructor_email;
     }
 
-   public int getCategory_id() {
+    public int getCategory_id() {
         return category_id;
     }
 
@@ -127,7 +130,7 @@ public class Course1 {
     public void setCategory_name(String category_name) {
         this.category_name = category_name;
     }
-  
+
     public int getCourse_id() {
         return course_id;
     }
@@ -220,6 +223,11 @@ public class Course1 {
         return rate_course;
     }
 
+    public String getFormattedRateCourse() {
+        DecimalFormat df = new DecimalFormat("#.#");
+        return df.format(rate_course);
+    }
+
     public void setRate_course(double rate_course) {
         this.rate_course = rate_course;
     }
@@ -242,25 +250,23 @@ public class Course1 {
 
     @Override
     public String toString() {
-        return "Course{" + "course_id=" + course_id + 
-                "\n course_name=" + course_name + 
-                "\n description=" + description + 
-                "\n image=" + image + 
-                "\n price=" + price + 
-                "\n discount=" + discount + 
-                "\n sold=" + sold + 
-                "\n created_date=" + created_date + 
-                "\n updated_date=" + updated_date + 
-                "\n instructor_id=" + instructor_id + 
-                "\n instructor_name=" + instructor_name + 
-                "\n category_id=" + category_id + 
-                "\n category_name=" + category_name + 
-                "\n rate_course=" + rate_course + 
-                "\n chapter_num=" + chapter_num + 
-                "\n lesson_num=" + lesson_num + 
-                "\n isDisable=" + isDisable + '}';
+        return "Course{" + "course_id=" + course_id
+                + "\n course_name=" + course_name
+                + "\n description=" + description
+                + "\n image=" + image
+                + "\n price=" + price
+                + "\n discount=" + discount
+                + "\n sold=" + sold
+                + "\n created_date=" + created_date
+                + "\n updated_date=" + updated_date
+                + "\n instructor_id=" + instructor_id
+                + "\n instructor_name=" + instructor_name
+                + "\n category_id=" + category_id
+                + "\n category_name=" + category_name
+                + "\n rate_course=" + rate_course
+                + "\n chapter_num=" + chapter_num
+                + "\n lesson_num=" + lesson_num
+                + "\n isDisable=" + isDisable + '}';
     }
 
-
-   
 }

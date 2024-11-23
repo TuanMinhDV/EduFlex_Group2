@@ -95,14 +95,14 @@
                                             <h4 class="price">$${course.price - course.price*course.discount/100}</h4>
                                         </div>	
                                         <div class="course-buy-now text-center">
-                                            <c:if test="${active == 0}">
-                                                <a href="login" class="btn radius-xl text-uppercase">Buy Now This Courses Now</a>
-                                            </c:if>
                                             <c:if test="${active == 1}">
+                                                <a href="" class="disabled btn radius-xl text-uppercase">Enrolled</a>
+                                            </c:if>
+                                            <c:if test="${active == 0}">
                                                 <a href="buycourse?&course_id=${course.course_id}" class="btn radius-xl text-uppercase">Buy Now This Courses</a>
                                             </c:if>
                                             <c:if test="${cookie.course.course_id == cid}">
-                                                <a href="" class="disabled btn radius-xl text-uppercase"> Course Already in Cart </a>
+                                                <a href="" class="disabled btn radius-xl text-uppercase">Course Already in Cart </a>
                                             </c:if>
                                         </div>
                                         <div class="teacher-bx">
@@ -127,7 +127,7 @@
                                         </div>
                                         <div class="cours-more-info">
                                             <div class="review">
-                                                <span>${course.rate_course}</span>
+                                                <span>${course.getFormattedRateCourse()}</span>
                                                 <ul class="cours-star">
                                                     <c:forEach begin="1" end="5" varStatus="loop">
                                                         <c:choose>
@@ -168,7 +168,7 @@
                                 <div class="col-lg-9 col-md-8 col-sm-12">
                                     <div class="courses-post">
                                         <div class="ttr-post-media media-effect">
-                                            <a href="#"><img src="data:image/jpeg;base64,${course.image}" alt="course image not in database" style="border-radius: 15px; max-width: 700px; max-height: 500px;"></a>
+                                            <img src="${course.image}" alt="${course.image}" style="border-radius: 15px; max-width: 700px; max-height: 500px;">
                                         </div>
                                         <div class="ttr-post-info">
                                             <div class="ttr-post-title ">

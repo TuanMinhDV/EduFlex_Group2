@@ -190,13 +190,13 @@ public class CourseDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(query);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
+                //byte[] imageData = rs.getBytes("image");
+                //String base64Image = new String(Base64.getEncoder().encode(imageData));
                 Course1 s = new Course1();
                 s.setCourse_id(rs.getInt("course_id"));
                 s.setCourse_name(rs.getString("course_name"));
                 s.setDescription(rs.getString("description"));
-                s.setImage(base64Image);
+                s.setImage(rs.getString("image"));
                 s.setPrice(rs.getFloat("price"));
                 s.setDiscount(rs.getFloat("discount"));
                 s.setSold(rs.getInt("sold"));
@@ -317,13 +317,13 @@ public class CourseDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(query);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
+                //byte[] imageData = rs.getBytes("image");
+                //String base64Image = new String(Base64.getEncoder().encode(imageData));
                 Course1 s = new Course1();
                 s.setCourse_id(rs.getInt("course_id"));
                 s.setCourse_name(rs.getString("course_name"));
                 s.setDescription(rs.getString("description"));
-                s.setImage(base64Image);
+                s.setImage(rs.getString("image"));
                 s.setPrice(rs.getFloat("price"));
                 s.setDiscount(rs.getFloat("discount"));
                 s.setSold(rs.getInt("sold"));
@@ -339,20 +339,18 @@ public class CourseDAO extends DBContext {
         return list;
     }
 
-    public List<Course1> getTop4NewestCourse() {
+    public List<Course1> get4NewestCourse() {
         List<Course1> list = new ArrayList<>();
         String query = "SELECT TOP 4 * FROM COURSE ORDER BY created_date desc";
         try {
             PreparedStatement st = connection.prepareStatement(query);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
                 Course1 s = new Course1();
                 s.setCourse_id(rs.getInt("course_id"));
                 s.setCourse_name(rs.getString("course_name"));
                 s.setDescription(rs.getString("description"));
-                s.setImage(base64Image);
+                s.setImage(rs.getString("image"));
                 s.setPrice(rs.getFloat("price"));
                 s.setDiscount(rs.getFloat("discount"));
                 s.setSold(rs.getInt("sold"));
@@ -365,58 +363,6 @@ public class CourseDAO extends DBContext {
         }
 
         return list;
-    }
-
-    public boolean updateCourseWithCourseIDByLecturer(String course_name, String description, String image, double discount, double price, int category_id, int course_id) {
-        String query1 = "UPDATE [dbo].[Course]\n"
-                + "   SET [course_name] = ?\n"
-                + "      ,[description] = ? \n"
-                + "      ,[image] = ?\n"
-                + "      ,[discount] = ?\n"
-                + "      ,[price] = ?\n"
-                + "      ,[category_id] = ?\n"
-                + "      ,[updated_date] = getdate()\n"
-                + " WHERE course_id = ?\n";
-
-        String query2 = "UPDATE [dbo].[Course]\n"
-                + "   SET [course_name] = ?\n"
-                + "      ,[description] = ? \n"
-                + "      ,[discount] = ? \n"
-                + "      ,[price] = ? \n"
-                + "      ,[category_id] = ?\n"
-                + "      ,[updated_date] = getdate()\n"
-                + " WHERE course_id = ?\n";
-
-        if (image != null) {
-            File courseImage = new File(Constants.SAVE_PATH + image);
-            try (InputStream courseStream = new FileInputStream(courseImage)) {
-                PreparedStatement st = connection.prepareStatement(query1);
-                st.setString(1, course_name);
-                st.setString(2, description);
-                st.setBinaryStream(3, courseStream);
-                st.setDouble(4, discount);
-                st.setDouble(5, price);
-                st.setInt(6, category_id);
-                st.setInt(7, course_id);
-                st.executeUpdate();
-                return true;
-            } catch (SQLException | IOException e) {
-            }
-        } else {
-            try {
-                PreparedStatement st = connection.prepareStatement(query2);
-                st.setString(1, course_name);
-                st.setString(2, description);
-                st.setDouble(3, discount);
-                st.setDouble(4, price);
-                st.setInt(5, category_id);
-                st.setInt(6, course_id);
-                st.executeUpdate();
-                return true;
-            } catch (SQLException e) {
-            }
-        }
-        return false;
     }
 
     public List<Course1> getAllCourseByInstructorId(int instructor_id) {
@@ -501,38 +447,6 @@ public class CourseDAO extends DBContext {
         return false;
     }
 
-    // add course
-    public boolean addCourse(String course_name, String description, String image, double price, double discount, int category_id, int lecturer_id) {
-        String query1 = "INSERT INTO [dbo].[Course]\n"
-                + "([course_name], "
-                + "[description], "
-                + "[image], "
-                + "[price], "
-                + "[discount], "
-                + "[created_date], "
-                + "[updated_date], "
-                + "[category_id], "
-                + "[lecturer_id])\n"
-                + "VALUES (?,?,?,?,?,getdate(),null,?,?)";
-
-        File courseImage = new File(Constants.SAVE_PATH + image);
-        try (InputStream courseStream = new FileInputStream(courseImage)) {
-            PreparedStatement st = connection.prepareStatement(query1);
-            st.setString(1, course_name);
-            st.setString(2, description);
-            st.setBinaryStream(3, courseStream);
-            st.setDouble(4, price);
-            st.setDouble(5, discount);
-            st.setInt(6, category_id);
-            st.setInt(7, lecturer_id);
-            st.executeUpdate();
-            return true;
-        } catch (SQLException | IOException e) {
-        }
-
-        return false;
-    }
-
     public List<Category1> getAllCategory1() {
         List<Category1> list = new ArrayList<>();
         String sql = "SELECT * FROM [Category]";
@@ -607,13 +521,13 @@ public class CourseDAO extends DBContext {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
+                //byte[] imageData = rs.getBytes("image");
+                //String base64Image = new String(Base64.getEncoder().encode(imageData));
                 Course1 course = new Course1();
                 course.setCourse_id(course_id);
                 course.setCourse_name(rs.getString("course_name"));
                 course.setDescription(rs.getString("description"));
-                course.setImage(base64Image);
+                course.setImage(rs.getString("image"));
                 course.setPrice(rs.getFloat("price"));
                 course.setDiscount(rs.getFloat("discount"));
                 course.setSold(rs.getInt("sold"));
@@ -636,6 +550,6 @@ public class CourseDAO extends DBContext {
 
     public static void main(String[] args) {
         CourseDAO dao = new CourseDAO();
-        System.out.println(dao.getAllCoursesByInsID(6));
+        System.out.println(dao.get4NewestCourse());
     }
 }

@@ -77,7 +77,6 @@
                                             </a>
                                         </c:if>
                                         <c:if test="${sessionScope.account.avatar != null}">
-                                            <!--<a href="avatar"><img src="assets/images/profiles/default_profile_image" alt="profile picture"></a>-->
                                             <div class="avatar" 
                                                  style="width: 20px; height: 20px;
                                                  border-radius: 50%;background-image:
@@ -86,6 +85,25 @@
                                         </c:if>
                                     </li>
                                     <li><a href="logout">Logout</a></li>
+                                    <!--GIỎ HÀNG-->
+                                    <c:if test="${sessionScope.account.role_id == 2}">
+                                        <li class="button-header">
+                                            <c:set var="size" value="${sessionScope.size}"/>
+                                            <div style="display: flex;justify-content: center;align-items: end;padding-top: " id="bag">
+                                                <div>
+                                                    <a style="height: 15px" href="cart.jsp">
+                                                        <img src="assets/images/icon/CART.png" style="height: 20px"alt=""/>
+                                                        <c:if test="${size == null}">
+                                                            (0)
+                                                        </c:if>
+                                                        <c:if test="${size != null}">
+                                                            (${size})
+                                                        </c:if>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </c:if>
                                 </ul>
                             </c:if>
                         </div>
@@ -111,11 +129,7 @@
                                 <a href="home"><img src="EduChamp-Template/assets/images/logo.png" alt=""></a>
                             </div>
                             <ul class="nav navbar-nav">	
-                                <li class="active"><a href="javascript:;">Home <i class="fa fa-chevron-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index.html">Home 1</a></li>
-                                        <li><a href="index-2.html">Home 2</a></li>
-                                    </ul>
+                                <li><a href="home">Home</a>
                                 </li>
                                 <li><a href="javascript:;">Pages <i class="fa fa-chevron-down"></i></a>
                                     <ul class="sub-menu">
@@ -149,34 +163,17 @@
                                         <li><a href="error-404.html">404 Page</a></li>
                                     </ul>
                                 </li>
-                                <li class="add-mega-menu"><a href="javascript:;">Our Courses <i class="fa fa-chevron-down"></i></a>
-                                    <ul class="sub-menu add-menu">
-                                        <li class="add-menu-left">
-                                            <h5 class="menu-adv-title">Our Courses</h5>
-                                            <ul>
-                                                <li><a href="courselist">Courses </a></li>
-                                                <li><a href="courses-details.html">Courses Details</a></li>
-                                                <li><a href="profile.html">Instructor Profile</a></li>
-                                                <li><a href="event.html">Upcoming Event</a></li>
-                                                <li><a href="membership.html">Membership</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="add-menu-right">
-                                            <img src="assets/images/adv/adv.jpg" alt=""/>
-                                        </li>
-                                    </ul>
+                                <li>
+                                    <a href="courselist">Our Courses</a>
                                 </li>
-                                <li><a href="javascript:;">Blog <i class="fa fa-chevron-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog-classic-grid.html">Blog Classic</a></li>
-                                        <li><a href="blog-classic-sidebar.html">Blog Classic Sidebar</a></li>
-                                        <li><a href="blog-list-sidebar.html">Blog List Sidebar</a></li>
-                                        <li><a href="blog-standard-sidebar.html">Blog Standard Sidebar</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                    </ul>
+                                <li>
+                                    <a href="bloglist">Blog</a>
                                 </li>
-                                <li><a href="mycourse">My Course <i class="fa fa-chevron-down"></i></a>
-                                </li>
+                                <c:if test="${sessionScope.account.role_id == 2}">
+                                    <li>
+                                        <a href="mycourse">My Course</a>
+                                    </li>
+                                </c:if>
                                 <li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
                                     <ul class="sub-menu">
                                         <li><a href="admin/index.html">Dashboard</a></li>

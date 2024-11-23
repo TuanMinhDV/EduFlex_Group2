@@ -100,7 +100,7 @@
                             <c:forEach items="${requestScope.listLC}" var="m">
                                 <div class="blog-post blog-md clearfix">
                                     <div class="ttr-post-media"> 
-                                        <a href="#"><img src="data:image/jpeg;base64,${m.image}" alt=""></a> 
+                                        <a href="#"><img src="${m.image}" alt=""></a> 
                                     </div>
                                     <div class="ttr-post-info">
                                         <ul class="media-post">

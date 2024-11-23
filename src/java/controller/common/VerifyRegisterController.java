@@ -102,7 +102,7 @@ public class VerifyRegisterController extends HttpServlet {
                 if (otpInput.equals(otp)) {
                     ad.register(username, password, fullname, dob, email);
                     request.setAttribute("mess", "You can login now");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                    //request.getRequestDispatcher("login.jsp").forward(request, response);
                     response.sendRedirect("login");
 
                 } else {

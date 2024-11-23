@@ -468,10 +468,8 @@ public class SliderDAO extends DBContext {
                 ls.setCourse_name(rs.getString("course_name"));
 
                 // Handle image data efficiently:
-                byte[] imageData = rs.getBytes("image");
-                if (imageData != null) {
-                    ls.setImage(new String(Base64.getEncoder().encode(imageData)));
-                }
+                //byte[] imageData = rs.getBytes("image");
+                ls.setImage(rs.getString("image"));
 
                 ls.setInstructor_id(rs.getInt("instructor_id"));
                 ls.setInstructor_name(rs.getString("instructor_name"));
@@ -479,17 +477,16 @@ public class SliderDAO extends DBContext {
 
                 list.add(ls);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
         }
 
         return list;
     }
 
-
     public static void main(String[] args) {
         SliderDAO dao = new SliderDAO();
         try {
-            List<Learner_Course> ls1 = dao.getAllMyCourse(2+"");
+            List<Learner_Course> ls1 = dao.getAllMyCourse(2 + "");
             System.out.println(ls1);
         } catch (SQLException ex) {
             Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -497,6 +494,5 @@ public class SliderDAO extends DBContext {
         Slider s2 = dao.getSliderByID("1");
         List<Slider> ls3 = dao.getAllSliderDiscount();
 
-        
     }
 }

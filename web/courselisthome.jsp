@@ -118,66 +118,69 @@
                                                 <li><a href="#">Technology</a></li>
                                             </ul>
                                         </div>
+                                    <c:if test="${sessionScope.account == null}">
                                         <div class="widget">
-                                            <a href="#"><img src="assets/images/adv/adv.jpg" alt=""/></a>
+                                            <a href="login"><img src="assets/images/adv/adv.jpg" alt=""/></a>
                                         </div>
-                                        <!--Recent Course-->
-                                        <div class="widget recent-posts-entry widget-courses">
-                                            <h5 class="widget-title style-1">Recent Courses</h5>
-                                            <div class="widget-post-bx">
+                                    </c:if>
+
+                                    <!--Recent Course-->
+
+                                    <div class="widget recent-posts-entry widget-courses">
+                                        <h5 class="widget-title style-1">Recent Courses</h5>
+                                        <div class="widget-post-bx">
+                                            <c:forEach var="k" items="${requestScope.recentCourse}" >
                                                 <div class="widget-post clearfix">
-                                                    <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic1.jpg" width="200" height="143" alt=""> </div>
+                                                    <div class="ttr-post-media"> <img src="${k.image}" width="200" height="143" alt=""> </div>
                                                     <div class="ttr-post-info">
                                                         <div class="ttr-post-header">
-                                                            <h6 class="post-title"><a href="#">Introduction EduChamp</a></h6>
+                                                            <h6 class="post-title"><a href="coursedetail?course_id=${k.course_id}">${k.course_name}</a></h6>
                                                         </div>
                                                         <div class="ttr-post-meta">
                                                             <ul>
                                                                 <li class="price">
-                                                                    <del>$190</del>
-                                                                    <h5>$120</h5>
+                                                                    <c:if test="${k.price == 0}">
+                                                                        <h5 class="free">Free</h5>
+                                                                    </c:if>
+                                                                    <c:if test="${k.price != 0}">
+                                                                        <c:if test="${k.price == k.price - k.price*k.discount/100}">
+                                                                            <h5>$${k.price}</h5>
+                                                                        </c:if>
+                                                                        <c:if test="${k.price != k.price - k.price*k.discount/100}">
+                                                                            <del>$${k.price}</del>
+                                                                            <h5>$${k.price - k.price*k.discount/100}</h5>
+                                                                        </c:if>
+                                                                    </c:if>
+
                                                                 </li>
-                                                                <li class="review">03 Review</li>
+                                                                <!--<li class="review">By ${k.instructor_name}</li>-->
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="widget-post clearfix">
-                                                    <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic3.jpg" width="200" height="160" alt=""> </div>
-                                                    <div class="ttr-post-info">
-                                                        <div class="ttr-post-header">
-                                                            <h6 class="post-title"><a href="#">English For Tommorow</a></h6>
-                                                        </div>
-                                                        <div class="ttr-post-meta">
-                                                            <ul>
-                                                                <li class="price">
-                                                                    <h5 class="free">Free</h5>
-                                                                </li>
-                                                                <li class="review">07 Review</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            </c:forEach>
+
                                         </div>
                                     </div>
-                                    <div class="col-lg-9 col-md-8 col-sm-12">
-                                        <div class="row">
+
+                                </div>
+                                <div class="col-lg-9 col-md-8 col-sm-12">
+                                    <div class="row">
                                         <c:forEach var="i" items="${requestScope.listCE}" >
                                             <!--Single Course Start-->
                                             <div class="col-md-6 col-lg-4 col-sm-6 m-b30">
                                                 <div class="cours-bx">
                                                     <div class="action-box">
-                                                        <img src="data:image/jpeg;base64,${i.image}" alt="${i.image}">
+                                                        <img src="${i.image}" alt="${i.image}" style="height: 200px">
                                                         <a href="coursedetail?course_id=${i.course_id}" class="btn">Read More</a>
                                                     </div>
                                                     <div class="info-bx text-center align-content-center">
-                                                        <h5><a href="#" class="limited-height">${i.course_name}</a></h5>
-                                                        <span>Programming</span>
+                                                        <h5><a href="coursedetail?course_id=${i.course_id}" class="limited-height">${i.course_name}</a></h5>
+                                                        <span>By ${i.instructor_name}</span>
                                                     </div>
                                                     <div class="cours-more-info">
                                                         <div class="review">
-                                                            <span>Course rate: ${i.rate_course}</span>
+                                                            <span>Course rate: ${i.getFormattedRateCourse()}</span>
 
                                                             <ul class="cours-star">
                                                                 <c:forEach begin="1" end="5" varStatus="loop">
