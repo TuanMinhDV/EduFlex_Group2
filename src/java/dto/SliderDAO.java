@@ -443,12 +443,12 @@ public class SliderDAO extends DBContext {
 
     public List<Learner_Course> getAllMyCourse(String learner_id) throws SQLException {
         List<Learner_Course> list = new ArrayList<>();
-        String sql = "SELECT lc.*, a.account_id, a.fullname, s.course_name, s.image, s.instructor_id, accsub.fullname AS instructor_name "
-                + "FROM Learner_Course lc "
-                + "INNER JOIN Course s ON lc.course_id = s.course_id "
-                + "INNER JOIN Account a ON a.account_id = lc.learner_id "
-                + "INNER JOIN Account accsub ON accsub.account_id = s.instructor_id "
-                + "WHERE lc.active = 1 AND lc.learner_id = ?";
+        String sql = "SELECT lc.*, a.account_id, a.fullname, s.course_name, s.image, s.instructor_id, s.description, accsub.fullname AS instructor_name \n"
+                + "FROM Learner_Course lc \n"
+                + "INNER JOIN Course s ON lc.course_id = s.course_id \n"
+                + "INNER JOIN Account a ON a.account_id = lc.learner_id \n"
+                + "INNER JOIN Account accsub ON accsub.account_id = s.instructor_id \n"
+                + "WHERE lc.active = 1 AND lc.learner_id = ?;";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, learner_id);
@@ -466,11 +466,8 @@ public class SliderDAO extends DBContext {
                 ls.setAccount_id(rs.getInt("account_id"));
                 ls.setFullname(rs.getString("fullname"));
                 ls.setCourse_name(rs.getString("course_name"));
-
-                // Handle image data efficiently:
-                //byte[] imageData = rs.getBytes("image");
                 ls.setImage(rs.getString("image"));
-
+                ls.setDescription(rs.getString("description"));
                 ls.setInstructor_id(rs.getInt("instructor_id"));
                 ls.setInstructor_name(rs.getString("instructor_name"));
                 ls.setRate(rs.getInt("rate"));

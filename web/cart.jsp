@@ -105,10 +105,10 @@
 
                                                     <img 
                                                         <c:if test="${item.orderCourse.image eq null}">
-                                                            src="data:image/jpeg;base64,${item.orderCourse.image}"
+                                                            src="${item.orderCourse.image}"
                                                         </c:if>
                                                         <c:if test="${item.orderCourse.image ne null}">
-                                                            src="data:image/jpeg;base64,${item.orderCourse.image}"
+                                                            src="${item.orderCourse.image}"
                                                         </c:if> 
                                                         class="d-block ui-w-40 ui-bordered mr-4" alt="Course Image">
 

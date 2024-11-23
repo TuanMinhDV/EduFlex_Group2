@@ -10,307 +10,171 @@
 <html class="no-js" lang="zxx">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>HoLaLearn | My Courses</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
 
-        <!-- CSS here -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="assets/css/slicknav.css">
-        <link rel="stylesheet" href="assets/css/animate.min.css">
-        <link rel="stylesheet" href="assets/css/hamburgers.min.css">
-        <link rel="stylesheet" href="assets/css/magnific-popup.css">
-        <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="assets/css/themify-icons.css">
-        <link rel="stylesheet" href="assets/css/themify-icons.css">
-        <link rel="stylesheet" href="assets/css/slick.css">
-        <link rel="stylesheet" href="assets/css/nice-select.css">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="stylesheet" href="assets/css/responsive.css">
-        <link rel="stylesheet" href="./css/slider.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
+        <!-- DESCRIPTION -->
+        <meta name="description" content="EduChamp : Education HTML Template" />
+
+        <!-- OG -->
+        <meta property="og:title" content="EduChamp : Education HTML Template" />
+        <meta property="og:description" content="EduChamp : Education HTML Template" />
+        <meta property="og:image" content="" />
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- FAVICONS ICON ============================================= -->
+        <link rel="icon" href="../error-404.html" type="image/x-icon" />
+        <link rel="shortcut icon" type="image/x-icon" href="admin/assets/images/favicon.png" />
+
+        <!-- PAGE TITLE HERE ============================================= -->
+        <title>EduFlex : My Enrolled Courses </title>
+
+        <!-- MOBILE SPECIFIC ============================================= -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- All PLUGINS CSS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/vendors/calendar/fullcalendar.css">
 
         <!-- TYPOGRAPHY ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/typography.css">
 
         <!-- SHORTCODES ============================================= -->
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/shortcodes/shortcodes.css">
 
         <!-- STYLESHEETS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets/css/style1.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="admin/assets/css/color/color-1.css">
     </head>
-    <body>
-        <jsp:include page="header.jsp"></jsp:include>  
-
-            <!-- Header End -->
-            <main id="main">
-                <!--? slider Area Start-->
-                <section class="slider-area slider-area2">
-                    <div class="slider-active">
-                        <!-- Single Slider -->
-                        <div class="single-slider slider-height2">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-xl-8 col-lg-11 col-md-12">
-                                        <div class="hero__caption hero__caption2">
-                                            <h1 data-animation="bounceIn" data-delay="0.2s">My Course</h1>
-                                            <!-- breadcrumb Start-->
-                                            <nav aria-label="breadcrumb">
-                                                <ol class="breadcrumb">
-                                                    <li class="breadcrumb-item"><a href="home">Home</a></li>
-                                                    <li class="breadcrumb-item"><a href="">My Course</a></li> 
-                                                </ol>
-                                            </nav>
-                                            <!-- breadcrumb End -->
-                                        </div>
-                                    </div>
+    <body class="ttr-opened-sidebar ttr-pinned-sidebar">
+        <jsp:include page="header2.jsp"></jsp:include>  
+        <jsp:include page="sidebarleft.jsp"></jsp:include>  
+            <main class="ttr-wrapper">
+                <div class="container-fluid">
+                    <div class="db-breadcrumb">
+                        <ul class="db-breadcrumb-list">
+                            <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+                            <li>My Courses</li>
+                        </ul>
+                    </div>	
+                    <div class="row">
+                        <!-- Your Profile Views Chart -->
+                        <div class="col-lg-12 m-b30">
+                            <div class="widget-box">
+                                <div class="wc-title">
+                                    <h4>My Enrolled Courses</h4>
                                 </div>
-                            </div>          
-                        </div>
-                    </div>
-                </section>
-                <!--? Blog Area Start-->
-
-                <section class="blog_area section-padding">  
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-8 mb-5 mb-lg-0">
-                                <div class="single-element-widget mt-30">
-                                    <div class="row d-flex align-items-center">
-                                        <div class="col-md-6">
-                                            <h3 class="mb-30">Order by:</h3>
-                                            <div class="default-select" id="sort">
-                                                <select id="sortSelect">
-                                                    <option value="default" class="default">Default</option>
-                                                    <option value="enddate" class="date">End Date</option>
-                                                    <option value="subjectname" class="title">Subject Name</option>
-                                                    <option value="enrolldate" class="author">Author</option>
-                                                </select>
+                                <div class="widget-inner">
+                                <c:forEach var="m" items="${requestScope.listLC}" >
+                                    <div class="card-courses-list bookmarks-bx">
+                                        <div class="card-courses-media">
+                                            <img src="${m.image}" alt="${m.image}"/>
+                                        </div>
+                                        <div class="card-courses-full-dec">
+                                            <div class="card-courses-title">
+                                                <h4 class="m-b5">${m.course_name}</h4>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            <c:forEach items="${requestScope.listLC}" var="m">
-                                <div class="blog-post blog-md clearfix">
-                                    <div class="ttr-post-media"> 
-                                        <a href="#"><img src="${m.image}" alt=""></a> 
-                                    </div>
-                                    <div class="ttr-post-info">
-                                        <ul class="media-post">
-                                            <li><a href="#"><i class="fa fa-calendar"></i>${m.enrolled_date}</a></li>
-                                            <li><a href="#"><i class="fa fa-user">${m.instructor_name}</i></a></li>
-                                        </ul>
-                                        <h5 class="post-title"><a href="">${m.course_name}</a></h5>
-                                        <p></p>
-                                        <div class="post-extra">
-                                            <c:if test="${m.status == 1}">
-                                                <a href="" class="btn-link">View Certificate</a>
-                                                <a href="coursedetail?course_id=${m.course_id}" class="comments-bx">Review</a>
-                                            </c:if>
-                                            <c:if test="${m.status != 1}">
-                                                <a href="coursedetail?course_id=${m.course_id}" class="comments-bx">Continue</a>
-                                            </c:if>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
-
-
-
-                            <!--<div class="blog_left_sidebar" id="content">
-                                    List Blog Here
-                            </div>-->
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="blog_right_sidebar">
-                                <aside class="single_sidebar_widget search_widget">
-                                    <form action="mycourse">
-                                        <div class="form-group">
-                                            <div class="input-group mb-3">
-
-                                                <input type="text" name="key" class="form-control search_key_name" placeholder='Search Keyword'
-                                                       onfocus="this.placeholder = ''"
-                                                       onblur="this.placeholder = 'Search Keyword'">
-                                                <div class="input-group-append">
-                                                    <button class="btns" type="button"><i class="ti-search"></i></button>
+                                            <div class="card-courses-list-bx">
+                                                <ul class="card-courses-view">
+                                                    <li class="card-courses-categories">
+                                                        <h5><i class="fa fa-calendar"></i> ${m.enrolled_date}</h5>
+                                                        <h4>By ${m.instructor_name}</h4>
+                                                    </li>
+                                                    <li class="card-courses-review">
+                                                        <h5>My Rating: ${m.rate}</h5>
+                                                        <ul class="cours-star">
+                                                            <c:forEach begin="1" end="5" varStatus="loop">
+                                                                <c:choose>
+                                                                    <c:when test="${loop.index <= Math.floor(m.rate)}">
+                                                                        <li class="active">
+                                                                            <i class="fa fa-star"></i>
+                                                                        </li>
+                                                                    </c:when>
+                                                                    <c:when test="${loop.index == Math.ceil(m.rate) && m.rate % 1 != 0}">
+                                                                        <li class="active">
+                                                                            <i class="fa fa-star-half"></i>
+                                                                        </li>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <li>
+                                                                            <i class="fa fa-star"></i>
+                                                                        </li>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </c:forEach>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="row card-courses-dec">
+                                                <div class="col-md-12">
+                                                    <p>${m.description}</p>	
                                                 </div>
-
+                                                <div class="col-md-12">
+                                                    <c:if test="${m.status == 1}">
+                                                        <a href="" class="btn-link">View Certificate</a>
+                                                        <a href="coursedetail?course_id=${m.course_id}" class="btn radius-xl">Review</a>
+                                                    </c:if>
+                                                    <c:if test="${m.status != 1}">
+                                                        <a href="coursedetail?course_id=${m.course_id}" class="btn radius-xl">Continue</a>
+                                                    </c:if>
+                                                </div>
                                             </div>
+
                                         </div>
-                                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
-                                                type="submit">Search</button>
-                                    </form>
-                                </aside>
-
-
-
+                                    </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
+                    <!-- Your Profile Views Chart END-->
                 </div>
-            </section>
-            <!-- Blog Area End -->
-        </main>
-        <footer>
-            <div class="footer-wrappper footer-bg">
-                <!-- Footer Start-->
-                <div class="footer-area footer-padding">
-                    <div class="container">
-                        <div class="row justify-content-between">
-                            <div class="col-xl-4 col-lg-5 col-md-4 col-sm-6">
-                                <div class="single-footer-caption mb-50">
-                                    <div class="single-footer-caption mb-30">
-                                        <!-- logo -->
-                                        <div class="footer-logo mb-25">
-                                            <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
-                                        </div>
-                                        <div class="footer-tittle">
-                                            <div class="footer-pera">
-                                                <p>The automated process starts as soon as your clothes go into the machine.</p>
-                                            </div>
-                                        </div>
-                                        <!-- social -->
-                                        <div class="footer-social">
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                            <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                            <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5">
-                                <div class="single-footer-caption mb-50">
-                                    <div class="footer-tittle">
-                                        <h4>Our solutions</h4>
-                                        <ul>
-                                            <li><a href="#">Design & creatives</a></li>
-                                            <li><a href="#">Telecommunication</a></li>
-                                            <li><a href="#">Restaurant</a></li>
-                                            <li><a href="#">Programing</a></li>
-                                            <li><a href="#">Architecture</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-                                <div class="single-footer-caption mb-50">
-                                    <div class="footer-tittle">
-                                        <h4>Support</h4>
-                                        <ul>
-                                            <li><a href="#">Design & creatives</a></li>
-                                            <li><a href="#">Telecommunication</a></li>
-                                            <li><a href="#">Restaurant</a></li>
-                                            <li><a href="#">Programing</a></li>
-                                            <li><a href="#">Architecture</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="single-footer-caption mb-50">
-                                    <div class="footer-tittle">
-                                        <h4>Company</h4>
-                                        <ul>
-                                            <li><a href="#">Design & creatives</a></li>
-                                            <li><a href="#">Telecommunication</a></li>
-                                            <li><a href="#">Restaurant</a></li>
-                                            <li><a href="#">Programing</a></li>
-                                            <li><a href="#">Architecture</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- footer-bottom area -->
-                <div class="footer-bottom-area">
-                    <div class="container">
-                        <div class="footer-border">
-                            <div class="row d-flex align-items-center">
-                                <div class="col-xl-12 ">
-                                    <div class="footer-copy-right text-center">
-                                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Footer End-->
             </div>
-        </footer> 
+        </main>
+        <div class="ttr-overlay"></div>
+    </main>
+    <!-- Scroll Up -->
+    <div id="back-top" >
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+    <!-- JS here -->
+    <script src="admin/assets/js/jquery.min.js"></script>
+    <script src="admin/assets/vendors/bootstrap/js/popper.min.js"></script>
+    <script src="admin/assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="admin/assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="admin/assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+    <script src="admin/assets/vendors/magnific-popup/magnific-popup.js"></script>
+    <script src="admin/assets/vendors/counter/waypoints-min.js"></script>
+    <script src="admin/assets/vendors/counter/counterup.min.js"></script>
+    <script src="admin/assets/vendors/imagesloaded/imagesloaded.js"></script>
+    <script src="admin/assets/vendors/masonry/masonry.js"></script>
+    <script src="admin/assets/vendors/masonry/filter.js"></script>
+    <script src="admin/assets/vendors/owl-carousel/owl.carousel.js"></script>
+    <script src='admin/assets/vendors/scroll/scrollbar.min.js'></script>
+    <script src="admin/assets/js/functions.js"></script>
+    <script src="admin/assets/vendors/chart/chart.min.js"></script>
+    <script src="admin/assets/js/admin.js"></script>
 
-        <!-- Scroll Up -->
-        <div id="back-top" >
-            <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-        </div>
-        <!-- JS here -->
+</body>
+<script>
+    $(".custom-carousel").owlCarousel({
+        autoWidth: true,
+        loop: true
+    });
+    $(document).ready(function () {
+        $(".custom-carousel .item").click(function () {
+            $(".custom-carousel .item").not($(this)).removeClass("active");
+            $(this).toggleClass("active");
+        });
+    });
 
-        <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-
-        <!-- Jquery, Popper, Bootstrap -->
-        <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="./assets/js/popper.min.js"></script>
-        <script src="./assets/js/bootstrap.min.js"></script>
-        <!-- Jquery Mobile Menu -->
-        <script src="./assets/js/jquery.slicknav.min.js"></script>
-
-        <!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="./assets/js/owl.carousel.min.js"></script>
-        <script src="./assets/js/slick.min.js"></script>
-
-        <!-- One Page, Animated-HeadLin -->
-        <script src="./assets/js/wow.min.js"></script>
-        <script src="./assets/js/animated.headline.js"></script>
-        <script src="./assets/js/jquery.magnific-popup.js"></script>
-
-        <!-- Date Picker -->
-        <script src="./assets/js/gijgo.min.js"></script>
-        <!-- Nice-select, sticky -->
-        <script src="./assets/js/jquery.nice-select.min.js"></script>
-        <script src="./assets/js/jquery.sticky.js"></script>
-
-        <!-- counter , waypoint,Hover Direction -->
-        <script src="./assets/js/jquery.counterup.min.js"></script>
-        <script src="./assets/js/waypoints.min.js"></script>
-        <script src="./assets/js/jquery.countdown.min.js"></script>
-        <script src="./assets/js/hover-direction-snake.min.js"></script>
-
-        <!-- contact js -->
-        <script src="./assets/js/contact.js"></script>
-        <script src="./assets/js/jquery.form.js"></script>
-        <script src="./assets/js/jquery.validate.min.js"></script>
-        <script src="./assets/js/mail-script.js"></script>
-        <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-        <!--        <script src="./assets/js/mycourse.js"></script>-->
-
-        <!-- Jquery Plugins, main Jquery -->	
-        <script src="./assets/js/plugins.js"></script>
-        <script src="./assets/js/main.js"></script>
-        <!--        <script src="js/blog.js"></script>-->
-
-    </body>
-    <script>
-                                                $(".custom-carousel").owlCarousel({
-                                                    autoWidth: true,
-                                                    loop: true
-                                                });
-                                                $(document).ready(function () {
-                                                    $(".custom-carousel .item").click(function () {
-                                                        $(".custom-carousel .item").not($(this)).removeClass("active");
-                                                        $(this).toggleClass("active");
-                                                    });
-                                                });
-
-    </script>
+</script>
 </html>

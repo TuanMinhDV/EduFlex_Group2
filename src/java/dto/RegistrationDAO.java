@@ -57,15 +57,9 @@ public class RegistrationDAO extends DBContext {
             ps.setInt(1, course_id);
             rs = ps.executeQuery();
             if (rs.next()) {
-                byte[] imageData = null;
-                String base64Image = "";
-                if (rs.getString("image") != null) {
-                    imageData = rs.getBytes("image");
-                    base64Image = new String(Base64.getEncoder().encode(imageData));
-                }
                 OrderCourse sub = new OrderCourse(rs.getInt("course_id"),
                         rs.getString("course_name"),
-                        base64Image,
+                        rs.getString("image"),
                         rs.getDouble("price"));
                 sub.setDiscount(rs.getDouble("discount"));
                 return sub;

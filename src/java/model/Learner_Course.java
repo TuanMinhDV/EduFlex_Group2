@@ -17,6 +17,7 @@ public class Learner_Course {
     private String fullname;
     private String course_name;
     private String image;
+    private String description;
     private int instructor_id;
     private String instructor_name;
     private int category_id;
@@ -24,6 +25,26 @@ public class Learner_Course {
     private float rate;
 
     public Learner_Course() {
+    }
+
+    public Learner_Course(int id, int learner_id, int course_id, String enrolled_date, String end_date, int active, int status, int account_id, String fullname, String course_name, String image, String description, int instructor_id, String instructor_name, int category_id, String enroll_date, float rate) {
+        this.id = id;
+        this.learner_id = learner_id;
+        this.course_id = course_id;
+        this.enrolled_date = enrolled_date;
+        this.end_date = end_date;
+        this.active = active;
+        this.status = status;
+        this.account_id = account_id;
+        this.fullname = fullname;
+        this.course_name = course_name;
+        this.image = image;
+        this.description = description;
+        this.instructor_id = instructor_id;
+        this.instructor_name = instructor_name;
+        this.category_id = category_id;
+        this.enroll_date = enroll_date;
+        this.rate = rate;
     }
 
     public Learner_Course(int id, int learner_id, int course_id, String enrolled_date, String end_date, int active, int status, 
@@ -133,6 +154,14 @@ public class Learner_Course {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getInstructor_id() {

@@ -48,7 +48,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
     </head>
     <body>
         <!-- Header Top ==== -->
@@ -70,18 +69,20 @@
                                 <ul>
                                     <li>
                                         <c:if test="${sessionScope.account.avatar == null}">
-                                            <a class="avatar">
+                                            <a class="avatar" href="profile">
                                                 <img src="EduChamp-Template/assets/images/profile/default_profile_image.png" 
                                                      alt="profile picture" 
                                                      style="width:20px; height: 20px; border-radius: 50%">
                                             </a>
                                         </c:if>
                                         <c:if test="${sessionScope.account.avatar != null}">
-                                            <div class="avatar" 
-                                                 style="width: 20px; height: 20px;
-                                                 border-radius: 50%;background-image:
-                                                 url('data:image/jpeg;base64,${sessionScope.account.avatar}')">
-                                            </div>
+                                            <a href="profile">
+                                                <div class="avatar" 
+                                                     style="width: 20px; height: 20px;
+                                                     border-radius: 50%;background-image:
+                                                     url('data:image/jpeg;base64,${sessionScope.account.avatar}')">
+                                                </div>
+                                            </a>
                                         </c:if>
                                     </li>
                                     <li><a href="logout">Logout</a></li>
