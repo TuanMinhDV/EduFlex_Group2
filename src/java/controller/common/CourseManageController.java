@@ -170,6 +170,14 @@ public class CourseManageController extends HttpServlet {
                 request.setAttribute("listCourse", listCourse);
                 request.getRequestDispatcher("ManageCoursesByIns.jsp").forward(request, response);
             }
+            case "search" -> {
+                String searchInput = request.getParameter("searchName");
+                List<Course> listCourse = dao.searchCourseByInstructor(acLogin.getAccount_id(), searchInput);
+                List<Category> listCate = dao.getAllCategory();
+                request.setAttribute("listCategory", listCate);
+                request.setAttribute("listCourse", listCourse);
+                request.getRequestDispatcher("ManageCoursesByIns.jsp").forward(request, response);
+            }
             default ->
                 throw new AssertionError();
         }

@@ -339,8 +339,11 @@
                                     <div class="widget courses-search-bx placeani">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <label>Search Courses</label>
-                                                <input name="dzName" type="text" required class="form-control">
+                                                <form action="courseManage" method="POST" style="display: flex; align-items: center; gap: 10px;">
+                                                    <input type="hidden" name="type" value="search">
+                                                    <input id="searchInput" name="searchName" type="text" required class="form-control" placeholder="Enter course name">
+                                                    <button type="submit" class="btn btn-primary">Search</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -348,7 +351,7 @@
                                         <h5 class="widget-title style-1">Categories</h5>
                                         <ul>
                                             <li><a href="courseManage">All</a></li>
-                                            <c:forEach items="${listCategory}" var="cate">
+                                                <c:forEach items="${listCategory}" var="cate">
                                                 <li><a href="courseManage?cateID=${cate.id}">${cate.name}</a></li>
                                                 </c:forEach>
                                         </ul>

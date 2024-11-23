@@ -103,7 +103,10 @@ public class CourseDAO extends DBContext {
                 String img = resultSet.getString("image");
                 String des = resultSet.getString("description");
                 Course c = new Course();
-                c.setId(idC); c.setName(name); c.setImage(img); c.setDescription(des);
+                c.setId(idC);
+                c.setName(name);
+                c.setImage(img);
+                c.setDescription(des);
                 return c;
             }
         } catch (SQLException e) {
@@ -183,8 +186,8 @@ public class CourseDAO extends DBContext {
             System.out.println(e);
         }
     }
-    
-    public void deleteCourseByInstructor(int id){
+
+    public void deleteCourseByInstructor(int id) {
         String sql = """
                      UPDATE [dbo].[Course]
                         SET [isDisable] = ? WHERE course_id = ?""";
@@ -197,9 +200,8 @@ public class CourseDAO extends DBContext {
             System.out.println(e);
         }
     }
-    
-    // End DungBT
 
+    // End DungBT
     public List<Course1> getAllCourse() {
         List<Course1> list = new ArrayList<>();
         String query = "WITH CourseRatings AS (\n"
@@ -626,8 +628,44 @@ public class CourseDAO extends DBContext {
         return null;
     }
 
+    // DungBT
+    public List<Course> searchCourseByInstructor(int ins_ID, String searchName) {
+        List<Course> listAll = new ArrayList<>();
+        String sql = """
+                     SELECT c.course_id, c.course_name, c.description, c.image, c.created_date, c.updated_date, c.instructor_id, c.isDisable, cat.category_name
+                                                               FROM 
+                                                                   course c
+                                                               LEFT JOIN 
+                                                                   course_category cc ON c.course_id = cc.course_id
+                                                               LEFT JOIN 
+                                                                   category cat ON cc.category_id = cat.category_id where instructor_id = ? and course_name like ?""";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, ins_ID);
+            statement.setString(2, "%" + searchName + "%");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("course_id");
+                String name = resultSet.getString("course_name");
+                String img = resultSet.getString("image");
+                Date createDate = resultSet.getDate("created_date");
+                Date updateDate = resultSet.getDate("updated_date");
+                int instructor_id = resultSet.getInt("instructor_id");
+                String des = resultSet.getString("description");
+                int isDisable = resultSet.getInt("isDisable");
+                Course c = new Course(id, name, des, img, createDate, updateDate, instructor_id, isDisable);
+                String cateName = resultSet.getString("category_name");
+                c.setCate_name(cateName);
+                listAll.add(c);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return listAll;
+    }
+
     public static void main(String[] args) {
         CourseDAO dao = new CourseDAO();
-        System.out.println(dao.getCourseByID(16).getDescription());
+        System.out.println(dao.searchCourseByInstructor(6, "big"));
     }
 }
