@@ -33,7 +33,7 @@ public class CourseDAO extends DBContext {
     protected PreparedStatement statement;
     protected ResultSet resultSet;
 
-    public List<Category> getAllCategory(){
+    public List<Category> getAllCategory() {
         List<Category> listAll = new ArrayList<>();
         String sql = """
                      SELECT * from Category""";
@@ -51,7 +51,7 @@ public class CourseDAO extends DBContext {
         }
         return listAll;
     }
-    
+
     public List<Course> getAllCoursesByInsID(int ins_id) {
         List<Course> listAll = new ArrayList<>();
         String sql = """
@@ -84,6 +84,32 @@ public class CourseDAO extends DBContext {
             System.out.println(e);
         }
         return listAll;
+    }
+
+    public Course getCourseByID(int id) {
+        String sql = """
+                     SELECT [course_id]
+                           ,[course_name]
+                           ,[description]
+                           ,[image]
+                       FROM [dbo].[Course] where course_id = ?""";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int idC = resultSet.getInt("course_id");
+                String name = resultSet.getString("course_name");
+                String img = resultSet.getString("image");
+                String des = resultSet.getString("description");
+                Course c = new Course();
+                c.setId(idC); c.setName(name); c.setImage(img); c.setDescription(des);
+                return c;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
     public List<Course> getAllCoursesByInsId_CateID(int ins_id, int cateID) {
@@ -122,27 +148,59 @@ public class CourseDAO extends DBContext {
         }
         return listAll;
     }
-    
+
     public void addCourseByInstructor(Course c) {
         String sql = """
                      INSERT INTO [dbo].[Course]
                                 ([course_name]
                                 ,[description]
-                                ,[image])
+                                ,[image], [instructor_id])
                           VALUES 
-                                (?, ?, ?)""";
+                                (?, ?, ?, ?)""";
         try {
             statement = connection.prepareStatement(sql);
             statement.setString(1, c.getName());
             statement.setString(2, c.getDescription());
             statement.setString(3, c.getImage());
+            statement.setInt(4, c.getInstructor_id());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
+
+    public void updateCourseByInstructor(Course c) {
+        String sql = "UPDATE [dbo].[Course] SET [course_name] = ? ,[description] = ? ,[image] = ? WHERE course_id = ?";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, c.getName());
+            statement.setString(2, c.getDescription());
+            statement.setString(3, c.getImage());
+            statement.setInt(4, c.getId());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     
-     public List<Course1> getAllCourse() {
+    public void deleteCourseByInstructor(int id){
+        String sql = """
+                     UPDATE [dbo].[Course]
+                        SET [isDisable] = ? WHERE course_id = ?""";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setBoolean(1, true);
+            statement.setInt(2, id);
+            resultSet = statement.executeQuery();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    // End DungBT
+
+    public List<Course1> getAllCourse() {
         List<Course1> list = new ArrayList<>();
         String query = "WITH CourseRatings AS (\n"
                 + "    SELECT\n"
@@ -634,6 +692,6 @@ public class CourseDAO extends DBContext {
 
     public static void main(String[] args) {
         CourseDAO dao = new CourseDAO();
-        System.out.println(dao.getAllCoursesByInsID(6));
+        System.out.println(dao.getCourseByID(16).getDescription());
     }
 }

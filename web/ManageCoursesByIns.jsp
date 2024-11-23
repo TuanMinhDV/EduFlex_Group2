@@ -347,8 +347,9 @@
                                     <div class="widget widget_archive">
                                         <h5 class="widget-title style-1">Categories</h5>
                                         <ul>
+                                            <li><a href="courseManage">All</a></li>
                                             <c:forEach items="${listCategory}" var="cate">
-                                                <li><a href="#">${cate.name}</a></li>
+                                                <li><a href="courseManage?cateID=${cate.id}">${cate.name}</a></li>
                                                 </c:forEach>
                                         </ul>
                                     </div>
@@ -359,25 +360,31 @@
                                 <div class="col-lg-9 col-md-8 col-sm-12">
                                     <div class="row">
                                         <c:forEach items="${listCourse}" var="course">
-                                            <div class="col-md-6 col-lg-4 col-sm-6 m-b30">
-                                                <div class="cours-bx" style="height: 370px">
-                                                    <div class="action-box">
-                                                        <img src="${course.image}" alt="">
-                                                        <a href="#" class="btn">Read More</a>
+                                            <c:if test="${course.isDisable != 1}">
+                                                <div class="col-md-6 col-lg-4 col-sm-6 m-b30">
+                                                    <div class="cours-bx" style="height: 370px">
+                                                        <div class="action-box">
+                                                            <img src="${course.image}" alt="">
+                                                            <a href="#" class="btn">Read More</a>
+                                                        </div>
+                                                        <div class="info-bx text-center">
+                                                            <h5><a href="#">${course.name}</a></h5>
+                                                            <span>${course.cate_name != null ? course.cate_name : 'Not classified yet'}</span>
+                                                        </div>
+                                                        <div class="cours-more-info">
+                                                            <button style="background-color: blue;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editCourseModal" onclick="fillCourseData('${course.id}', '${course.name}', '${course.description}', '${course.image}')">
+                                                                Edit Course
+                                                            </button>
+                                                            <form action="courseManage" method="post">
+                                                                <input type="hidden" name="type" value="delete">
+                                                                <input type="hidden" name="courseID" value="${course.id}">
+                                                                <button style="background-color: red; margin-left: 10px;" type="submit" class="btn btn-danger btn-lg" onclick="return confirmDelete()" >Archive</button>
+                                                            </form>
+                                                        </div>
+                                                        <button style="display: block; margin-top: 10px" type="button" class="btn btn-primary btn-lg">Manage Chapters</button>
                                                     </div>
-                                                    <div class="info-bx text-center">
-                                                        <h5><a href="#">${course.name}</a></h5>
-                                                        <span>${course.cate_name != null ? course.cate_name : 'Not classified yet'}</span>
-                                                    </div>
-                                                    <div class="cours-more-info">
-                                                        <button style="background-color: blue;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editCourseModal" onclick="fillCourseData('${course.name}', '${course.description}', '${course.image}')">
-                                                            Edit Course
-                                                        </button>
-                                                        <button style="background-color: red; margin-left: 10px;" type="button" class="btn btn-danger btn-lg"  data-toggle="modal" data-target="#archiveCourseModal">Archive</button>
-                                                    </div>
-                                                    <button style="display: block; margin-top: 10px" type="button" class="btn btn-primary btn-lg">Manage Chapters</button>
                                                 </div>
-                                            </div>
+                                            </c:if>
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -400,6 +407,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <h2 style="color: red;">${error}</h2>
                             <form id="addCourseForm" action="courseManage" method="post">
                                 <input type="hidden" name="type" value="add"/>
                                 <!--<input type="hidden" name="type" value="add"/>-->
@@ -437,14 +445,17 @@
                         </div>
                         <div class="modal-body">
                             <!-- Edit Course Form -->
-                            <form>
+                            <h2 style="color: red;">${error}</h2>
+                            <form action="courseManage" method="post">
+                                <input type="hidden" name="type" value="edit">
+                                <input type="hidden" name="courseID" id="courseIDEdit">
                                 <div class="form-group">
                                     <label for="courseName">Course Name</label>
                                     <input type="text" class="form-control" id="courseNameEdit" name="courseName" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="courseCategory">Description</label>
-                                    <textarea class="form-control" id="courseCategoryEdit" name="courseCategory" required></textarea>
+                                    <textarea class="form-control" id="courseCategoryEdit" name="courseDescription" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="courseImage">Course Image URL</label>
@@ -455,28 +466,6 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal for Archive Confirmation -->
-            <div class="modal fade" id="archiveCourseModal" tabindex="-1" role="dialog" aria-labelledby="archiveCourseModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="archiveCourseModalLabel">Confirm Archive</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to archive this course? This action cannot be undone.
-                        </div>
-                        <div class="modal-footer">
-                            <!-- Cancel and Confirm Buttons -->
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger" id="confirmArchiveBtn">Yes, Archive</button>
                         </div>
                     </div>
                 </div>
@@ -502,21 +491,26 @@
         <script src='assets/vendors/switcher/switcher.js'></script>
         <script>
 
-                                                            // Function to fill the form with course data
-                                                            function fillCourseData(courseName, courseCategory, courseImage) {
-                                                                document.getElementById('courseNameEdit').value = courseName;
-                                                                document.getElementById('courseCategoryEdit').value = courseCategory;
-                                                                document.getElementById('courseImageEdit').value = courseImage;
-                                                            }
+                                                                    // Function to fill the form with course data
+                                                                    function fillCourseData(courseID, courseName, courseCategory, courseImage) {
+                                                                        document.getElementById('courseIDEdit').value = courseID;
+                                                                        document.getElementById('courseNameEdit').value = courseName;
+                                                                        document.getElementById('courseCategoryEdit').value = courseCategory;
+                                                                        document.getElementById('courseImageEdit').value = courseImage;
+                                                                    }
 
-                                                            // Event handler for the Archive confirmation button
-                                                            document.getElementById('confirmArchiveBtn').addEventListener('click', function () {
-                                                                // Logic to handle archiving (e.g., calling API, hiding the course, etc.)
-                                                                alert('Course archived successfully!');
-                                                                $('#archiveCourseModal').modal('hide'); // Close the modal after archiving
-                                                            });
+                                                                    // Event handler for the Archive confirmation button
+                                                                    document.getElementById('confirmArchiveBtn').addEventListener('click', function () {
+                                                                        // Logic to handle archiving (e.g., calling API, hiding the course, etc.)
+                                                                        alert('Course archived successfully!');
+                                                                        $('#archiveCourseModal').modal('hide'); // Close the modal after archiving
+                                                                    });
         </script>
-
+        <script type="text/javascript">
+            function confirmDelete() {
+                return confirm("Do you want to archive this course?");
+            }
+        </script>
     </body>
 
 </html>
