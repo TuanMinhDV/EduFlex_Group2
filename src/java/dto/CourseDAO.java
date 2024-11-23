@@ -133,6 +133,20 @@ public class CourseDAO extends DBContext {
             System.out.println(e);
         }
     }
+    
+    public void updateCourseByInstructor(Course c) {
+        String sql = "UPDATE [dbo].[Course] SET [course_name] = ? ,[description] = ? ,[image] = ? WHERE course_id = ?";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, c.getName());
+            statement.setString(2, c.getDescription());
+            statement.setString(3, c.getImage());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 
     public static void main(String[] args) {
         CourseDAO dao = new CourseDAO();
