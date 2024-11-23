@@ -11,7 +11,7 @@ public class DBContext {
     public DBContext()
     {
         try {
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=EduFlex2.6";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=EduFlex2.5";
             String username = "sa";
             String password = "123";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
