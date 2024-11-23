@@ -67,7 +67,7 @@ public class CourseListController extends HttpServlet {
         //processRequest(request, response);
         CourseDAO s = new CourseDAO();
         List<Course1> listCE = s.getAllCourse();
-        List<Course1> recentCourse = s.get4NewestCourse();
+        List<Course1> recentCourse = s.getTop4NewestCourse();
         List<Category1> listCY = s.getAllCategory1();
         String[] listPrice = {
             "On Sale",

@@ -258,6 +258,68 @@
                             </div>
                         </div>
                     </div>
+                     <!-- Popular Courses -->
+                    <div class="section-area section-sp2 popular-courses-bx">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 heading-bx left">
+                                    <h2 class="title-head">Recent <span>Courses</span></h2>
+                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
+                                    <c:forEach var="i" items="${s.top4NewestCourse}">
+                                        <!--Single Course-->
+                                        <div class="item">
+                                            <div class="cours-bx">
+                                                <div class="action-box">
+                                                    <img src="${i.image}" alt="Image: ${i.image}" style="height: 200px">
+                                                    <a href="coursedetail?course_id=${i.course_id}" class="btn">Read More</a>
+                                                </div>
+                                                <div class="info-bx text-center">
+                                                    <h5><a href="coursedetail?course_id=${i.course_id}" class="limited-height">${i.course_name}</a></h5>
+                                                    <span>By ${i.instructor_name}</span>
+                                                </div>
+                                                <div class="cours-more-info">
+                                                    <div class="review">
+                                                        <span>Course rate: ${i.getFormattedRateCourse()}</span>
+                                                        <ul class="cours-star">
+                                                            <c:forEach begin="1" end="5" varStatus="loop">
+                                                                <c:choose>
+                                                                    <c:when test="${loop.index <= Math.floor(i.rate_course)}">
+                                                                        <li class="active">
+                                                                            <i class="fa fa-star"></i>
+                                                                        </li>
+                                                                    </c:when>
+                                                                    <c:when test="${loop.index == Math.ceil(i.rate_course) && i.rate_course % 1 != 0}">
+                                                                        <li class="active">
+                                                                            <i class="fa fa-star-half"></i>
+                                                                        </li>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <li>
+                                                                            <i class="fa fa-star"></i>
+                                                                        </li>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </c:forEach>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="price">
+                                                        <del>$${i.price}</del>
+                                                        <h5>$${i.price - i.price*i.discount/100}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Signle Course End-->
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Popular Courses END -->
 
 
                 </div>

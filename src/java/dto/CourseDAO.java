@@ -339,9 +339,27 @@ public class CourseDAO extends DBContext {
         return list;
     }
 
-    public List<Course1> get4NewestCourse() {
+    public List<Course1> getTop4NewestCourse() {
         List<Course1> list = new ArrayList<>();
-        String query = "SELECT TOP 4 * FROM COURSE ORDER BY created_date desc";
+        String query = "  WITH CourseRatings AS (\n"
+                + "  SELECT\n"
+                + "    c.course_id,\n"
+                + "    AVG(lc.rate) AS course_rate\n"
+                + "  FROM\n"
+                + "    Course c\n"
+                + "  LEFT JOIN Learner_Course lc ON c.course_id = lc.course_id\n"
+                + "  GROUP BY\n"
+                + "    c.course_id\n"
+                + ")\n"
+                + "SELECT TOP 4 \n"
+                + "  c.*, \n"
+                + "  a.fullname, \n"
+                + "  COALESCE(cr.course_rate, 0) AS course_rate \n"
+                + "FROM\n"
+                + "  Course c\n"
+                + "INNER JOIN Account a ON c.instructor_id = a.account_id\n"
+                + "LEFT JOIN CourseRatings cr ON c.course_id = cr.course_id\n"
+                + "ORDER BY c.created_date DESC;";
         try {
             PreparedStatement st = connection.prepareStatement(query);
             ResultSet rs = st.executeQuery();
@@ -357,6 +375,8 @@ public class CourseDAO extends DBContext {
                 s.setCreated_date(rs.getString("created_date"));
                 s.setUpdated_date(rs.getString("updated_date"));
                 s.setInstructor_id(rs.getInt("instructor_id"));
+                s.setInstructor_name(rs.getString("fullname"));
+                s.setRate_course(rs.getDouble("course_rate"));
                 list.add(s);
             }
         } catch (SQLException e) {
@@ -550,6 +570,6 @@ public class CourseDAO extends DBContext {
 
     public static void main(String[] args) {
         CourseDAO dao = new CourseDAO();
-        System.out.println(dao.get4NewestCourse());
+        System.out.println(dao.getTop4NewestCourse());
     }
 }
