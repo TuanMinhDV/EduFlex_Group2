@@ -25,19 +25,17 @@ public class BlogDAO extends DBContext {
 
     public List<Blog> getAllBlog() {
         List<Blog> listB = new ArrayList<>();
-        String sql = "select b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname from Blog b \n"
-                + "join Account a on b.marketer_id = a.account_id\n"
-                + "where a.role_id = 4\n"
-                + "and b.status = 1\n"
-                + "order by created_date desc";
+        String sql = "SELECT b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname from Blog b \n"
+                + "JOIN Account a on b.marketer_id = a.account_id\n"
+                + "WHERE a.role_id = 4\n"
+                + "AND b.status = 1\n"
+                + "ORDER BY created_date DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
                 listB.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), base64Image, rs.getString(6),
+                        rs.getString(4), rs.getString("image"), rs.getString(6),
                         rs.getString(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getString(11)));
             }
             return listB;
