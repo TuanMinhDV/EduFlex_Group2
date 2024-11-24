@@ -174,7 +174,7 @@
                                                 <div class="input-group">
                                                     <form action="courseManage" method="POST" style="display: flex; align-items: center; gap: 10px;">
                                                         <input type="hidden" name="type" value="search">
-                                                        <input id="searchInput" name="searchName" type="text" required class="form-control" placeholder="Enter course name">
+                                                        <input id="searchInput" name="searchName" type="text" class="form-control" placeholder="Enter course name">
                                                         <button type="submit" class="btn btn-primary">Search</button>
                                                     </form>
                                                 </div>
