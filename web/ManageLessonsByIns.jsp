@@ -120,7 +120,7 @@
                                                             data-document="${lesson.document}">
                                                         Edit
                                                     </button>
-                                                    <form action="listLession" method="post" style="display:inline;">
+                                                    <form action="lessonManage" method="post" style="display:inline;">
                                                         <input type="hidden" name="type" value="delete">
                                                         <input type="hidden" name="lessonId" value="${lesson.id}">
                                                         <input type="hidden" name="chapterId" value="${chapter.id}"/>
