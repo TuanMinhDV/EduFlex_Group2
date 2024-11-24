@@ -1,428 +1,531 @@
-
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="com.google.gson.Gson" %>
-<%@ page import="model.Account" %>
 <!DOCTYPE html>
 <html lang="en">
+
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
     <head>
+
+        <!-- META ============================================= -->
         <meta charset="utf-8">
-        <title>OCMS - Your profile</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
+
+        <!-- DESCRIPTION -->
+        <meta name="description" content="EduChamp : Education HTML Template" />
+
+        <!-- OG -->
+        <meta property="og:title" content="EduChamp : Education HTML Template" />
+        <meta property="og:description" content="EduChamp : Education HTML Template" />
+        <meta property="og:image" content="" />
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- FAVICONS ICON ============================================= -->
+        <link rel="icon" href="../error-404.html" type="image/x-icon" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+
+        <!-- PAGE TITLE HERE ============================================= -->
+        <title>EduFlex : Profile </title>
+
+        <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-                integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossorigin="anonymous"></script>   
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
-        <style type="text/css">
-            body{
-                background: #f5f5f5;
-                margin-top:20px;
-            }
-            #image_profile{
-                cursor: pointer;
-            }
-            #overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.7);
-                z-index: 9999;
-            }
-            #imageModal {
-                display: none;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 10000;
-            }
-            .error {
-                color: red;
-                display: none;
-                font-size: 12px;
-            }
+        <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
 
-            .ui-w-80 {
-                width: 80px !important;
-                height: auto;
-            }
+        <!-- All PLUGINS CSS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="assets/vendors/calendar/fullcalendar.css">
 
-            .ui-w-140 {
-                width: 140px !important;
-                height: auto;
-            }
+        <!-- TYPOGRAPHY ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
 
-            .btn-default {
-                border-color: rgba(24,28,33,0.1);
-                background: rgba(0,0,0,0);
-                color: #4E5155;
-            }
+        <!-- SHORTCODES ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
 
-            label.btn {
-                margin-bottom: 0;
-            }
+        <!-- STYLESHEETS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 
-            .btn-outline-primary {
-                border-color: #26B4FF;
-                background: transparent;
-                color: #26B4FF;
-            }
-
-            .btn {
-                cursor: pointer;
-            }
-
-            .text-light {
-                color: #babbbc !important;
-            }
-
-            .btn-facebook {
-                border-color: rgba(0,0,0,0);
-                background: #3B5998;
-                color: #fff;
-            }
-
-            .btn-instagram {
-                border-color: rgba(0,0,0,0);
-                background: #000;
-                color: #fff;
-            }
-
-            .card {
-                background-clip: padding-box;
-                box-shadow: 0 1px 4px rgba(24,28,33,0.012);
-            }
-
-            .row-bordered {
-                overflow: hidden;
-            }
-
-            .account-settings-fileinput {
-                position: absolute;
-                visibility: hidden;
-                width: 1px;
-                height: 1px;
-                opacity: 0;
-            }
-            .account-settings-links .list-group-item.active {
-                font-weight: bold !important;
-            }
-            html:not(.dark-style) .account-settings-links .list-group-item.active {
-                background: transparent !important;
-            }
-            .account-settings-multiselect ~ .select2-container {
-                width: 100% !important;
-            }
-            .light-style .account-settings-links .list-group-item {
-                padding: 0.85rem 1.5rem;
-                border-color: rgba(24, 28, 33, 0.03) !important;
-            }
-            .light-style .account-settings-links .list-group-item.active {
-                color: #4e5155 !important;
-            }
-            .material-style .account-settings-links .list-group-item {
-                padding: 0.85rem 1.5rem;
-                border-color: rgba(24, 28, 33, 0.03) !important;
-            }
-            .material-style .account-settings-links .list-group-item.active {
-                color: #4e5155 !important;
-            }
-            .dark-style .account-settings-links .list-group-item {
-                padding: 0.85rem 1.5rem;
-                border-color: rgba(255, 255, 255, 0.03) !important;
-            }
-            .dark-style .account-settings-links .list-group-item.active {
-                color: #fff !important;
-            }
-            .light-style .account-settings-links .list-group-item.active {
-                color: #4E5155 !important;
-            }
-            .light-style .account-settings-links .list-group-item {
-                padding: 0.85rem 1.5rem;
-                border-color: rgba(24,28,33,0.03) !important;
-            }
-
-
-
-        </style>
     </head>
+    <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
-    <body>
-        <div class="container light-style flex-grow-1 container-p-y">
-            <h4 class="font-weight-bold py-2 mb-2">
-                Your Profile
-            </h4>
-            <div class="card overflow-hidden">
-                <div class="row no-gutters row-bordered row-border-light">
-                    <div class="col-md-2 pt-0">
-                        <div class="list-group list-group-flush account-settings-links">
-                            <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
-                        </div>
+        <!-- header start -->
+        <header class="ttr-header">
+            <div class="ttr-header-wrapper">
+                <!--sidebar menu toggler start -->
+                <div class="ttr-toggle-sidebar ttr-material-button">
+                    <i class="ti-close ttr-open-icon"></i>
+                    <i class="ti-menu ttr-close-icon"></i>
+                </div>
+                <!--sidebar menu toggler end -->
+                <!--logo start -->
+                <div class="ttr-logo-box">
+                    <div>
+                        <a href="index.html" class="ttr-logo">
+                            <img alt="" class="ttr-logo-mobile" src="assets/images/logo-mobile.png" width="30" height="30">
+                            <img alt="" class="ttr-logo-desktop" src="assets/images/logo-white.png" width="160" height="27">
+                        </a>
                     </div>
-                    <div class="col-md-10">
-                        <div class="tab-content">
-                            <div class="tab-pane fade active show" id="account-general">
-                                <form action="profile" id="profileForm" method="post"  enctype="multipart/form-data">
-                                    <div class="card-body media align-items-center">
-                                        <div style="height: 140px; width: 140px; overflow: hidden">
-                                            <img src="" alt="Image" class="d-block ui-w-140 rounded" id="image_profile" style="width: 100%; height: 100%; object-fit: cover"/>
+                </div>
+                <!--logo end -->
+                <div class="ttr-header-menu">
+                    <!-- header left menu start -->
+                    <ul class="ttr-header-navigation">
+                        <li>
+                            <a href="../index.html" class="ttr-material-button ttr-submenu-toggle">HOME</a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="../courses.html">Our Courses</a></li>
+                                    <li><a href="../event.html">New Event</a></li>
+                                    <li><a href="../membership.html">Membership</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- header left menu end -->
+                </div>
+                <div class="ttr-header-right ttr-with-seperator">
+                    <!-- header right menu start -->
+                    <ul class="ttr-header-navigation">
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a>
+                            <div class="ttr-header-submenu noti-menu">
+                                <div class="ttr-notify-header">
+                                    <span class="ttr-notify-text-top">9 New</span>
+                                    <span class="ttr-notify-text">User Notifications</span>
+                                </div>
+                                <div class="noti-box-list">
+                                    <ul>
+                                        <li>
+                                            <span class="notification-icon dashbg-gray">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <span>Sneha Jogi</span> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 02:14</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-yellow">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <a href="#">Your order is placed</a> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 7 Min</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-red">
+                                                <i class="fa fa-bullhorn"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <span>Your item is shipped</span> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 2 May</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-green">
+                                                <i class="fa fa-comments-o"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <a href="#">Sneha Jogi</a> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 14 July</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-primary">
+                                                <i class="fa fa-file-word-o"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <span>Sneha Jogi</span> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 15 Min</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="user-profile.html">My profile</a></li>
+                                    <li><a href="list-view-calendar.html">Activity</a></li>
+                                    <li><a href="mailbox.html">Messages</a></li>
+                                    <li><a href="../login.html">Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="ttr-hide-on-mobile">
+                            <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
+                            <div class="ttr-header-submenu ttr-extra-menu">
+                                <a href="#">
+                                    <i class="fa fa-music"></i>
+                                    <span>Musics</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-youtube-play"></i>
+                                    <span>Videos</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-envelope"></i>
+                                    <span>Emails</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-book"></i>
+                                    <span>Reports</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-smile-o"></i>
+                                    <span>Persons</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-picture-o"></i>
+                                    <span>Pictures</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- header right menu end -->
+                </div>
+                <!--header search panel start -->
+                <div class="ttr-search-bar">
+                    <form class="ttr-search-form">
+                        <div class="ttr-search-input-wrapper">
+                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
+                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
+                        </div>
+                        <span class="ttr-search-close ttr-search-toggle">
+                            <i class="ti-close"></i>
+                        </span>
+                    </form>
+                </div>
+                <!--header search panel end -->
+            </div>
+        </header>
+        <!-- header end -->
+        <!-- Left sidebar menu start -->
+        <div class="ttr-sidebar">
+            <div class="ttr-sidebar-wrapper content-scroll">
+                <!-- side menu logo start -->
+                <div class="ttr-sidebar-logo">
+                    <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+                    <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
+                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
+                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
+                    </div> -->
+                    <div class="ttr-sidebar-toggle-button">
+                        <i class="ti-arrow-left"></i>
+                    </div>
+                </div>
+                <!-- side menu logo end -->
+                <!-- sidebar menu start -->
+                <nav class="ttr-sidebar-navi">
+                    <ul>
+                        <li>
+                            <a href="index.html" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-home"></i></span>
+                                <span class="ttr-label">Dashborad</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="courses.html" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-book"></i></span>
+                                <span class="ttr-label">Courses</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-email"></i></span>
+                                <span class="ttr-label">Mailbox</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="mailbox.html" class="ttr-material-button"><span class="ttr-label">Mail Box</span></a>
+                                </li>
+                                <li>
+                                    <a href="mailbox-compose.html" class="ttr-material-button"><span class="ttr-label">Compose</span></a>
+                                </li>
+                                <li>
+                                    <a href="mailbox-read.html" class="ttr-material-button"><span class="ttr-label">Mail Read</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-calendar"></i></span>
+                                <span class="ttr-label">Calendar</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="basic-calendar.html" class="ttr-material-button"><span class="ttr-label">Basic Calendar</span></a>
+                                </li>
+                                <li>
+                                    <a href="list-view-calendar.html" class="ttr-material-button"><span class="ttr-label">List View</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="bookmark.html" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-bookmark-alt"></i></span>
+                                <span class="ttr-label">Bookmarks</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="review.html" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-comments"></i></span>
+                                <span class="ttr-label">Review</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="add-listing.html" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-layout-accordion-list"></i></span>
+                                <span class="ttr-label">Add listing</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-user"></i></span>
+                                <span class="ttr-label">My Profile</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="user-profile.html" class="ttr-material-button"><span class="ttr-label">User Profile</span></a>
+                                </li>
+                                <li>
+                                    <a href="teacher-profile.html" class="ttr-material-button"><span class="ttr-label">Teacher Profile</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ttr-seperate"></li>
+                    </ul>
+                    <!-- sidebar menu end -->
+                </nav>
+                <!-- sidebar menu end -->
+            </div>
+        </div>
+        <!-- Left sidebar menu end -->
+
+        <!--Main container start -->
+        <main class="ttr-wrapper">
+            <div class="container-fluid">
+                <div class="db-breadcrumb">
+                    <h4 class="breadcrumb-title">User Profile</h4>
+                    <ul class="db-breadcrumb-list">
+                        <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+                        <li>User Profile</li>
+                    </ul>
+                </div>	
+                <div class="row">
+                    <!-- Your Profile Views Chart -->
+                    <div class="col-lg-12 m-b30">
+                        <div class="widget-box">
+                            <div class="wc-title">
+                                <h4>User Profile</h4>
+                            </div>
+                            <div class="widget-inner">
+                                <form class="edit-profile m-b30">
+                                    <div class="">
+                                        <div class="form-group row">
+                                            <div class="col-sm-10  ml-auto">
+                                                <h3>1. Personal Details</h3>
+                                            </div>
                                         </div>
-                                        <div class="media-body ml-4" id="profile_div" style="display: none">
-                                            <label class="btn btn-outline-primary">
-                                                Change avatar
-                                                <input type="file" name="image" id="changeProfile_button" class="account-settings-fileinput">
-                                            </label> &nbsp;
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Full Name</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="Mark Andre">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Occupation</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="CTO">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Company Name</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="EduChamp">
+                                                <span class="help">If you want your invoices addressed to a company. Leave blank to use your full name.</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Phone No.</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="+120 012345 6789">
+                                            </div>
+                                        </div>
+
+                                        <div class="seperator"></div>
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-10 ml-auto">
+                                                <h3>2. Address</h3>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Address</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="5-S2-20 Dummy City, UK">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">City</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="US">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">State</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="California">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Postcode</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="000702">
+                                            </div>
+                                        </div>
+
+                                        <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-10 ml-auto">
+                                                <h3 class="m-form__section">3. Social Links</h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Linkedin</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="www.linkedin.com">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Facebook</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="www.facebook.com">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Twitter</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="www.twitter.com">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Instagram</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="text" value="www.instagram.com">
+                                            </div>
                                         </div>
                                     </div>
-                                    <hr class="border-light m-0">
-                                    <div class="card-body">
-                                        <div class="row">
+                                    <div class="">
+                                        <div class="">
                                             <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label class="form-label">Username</label>
-                                                        <input class="form-control" type="text" name="username" value="" readonly id="username">
-                                                    </div>
+                                                <div class="col-sm-2">
                                                 </div>
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label class="form-label">E-mail</label>
-                                                        <input class="form-control email" type="email" name="email" value="" readonly id="email"> 
-                                                    </div>
+                                                <div class="col-sm-7">
+                                                    <button type="reset" class="btn">Save changes</button>
+                                                    <button type="reset" class="btn-secondry">Cancel</button>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label class="form-label">Full name</label>
-                                                        <input class="form-control" type="text" name="fullname" value="" id="fullname" disabled="disabled">
-                                                        <span id="fullnameError" class="error"></span><br>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label class="form-label">Birthday</label>
-                                                        <input class="form-control" type="date" name="birthday" placeholder="" value="" id="birthdate" disabled="disabled">
-                                                        <span id="birthdateError" class="error"></span><br>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label class="form-label">Phone</label>
-                                                        <input class="form-control" type="number" name="phone" disabled="disabled" value="" id="phone">
-                                                        <span id="phoneError" class="error"></span><br>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="text-center mt-2 mb-4">
-                                                <button type="button" class="btn btn-default md-btn-flat text-lg-left" id="reset_profile" style="float: left; display: none">Reset</button>
-                                                <input type="submit" id="save_profile" class="btn btn-primary text-lg-left" style="float: left; display: none" value="Save">&nbsp;
-                                                <input type="button" id="update_profile" class="btn btn-primary text-lg-left" style="float: left" value="Update">&nbsp;
-                                                <a href="home" class="btn btn-default text-lg-right" style="float: right;">Back to Homepage</a>
                                             </div>
                                         </div>
                                     </div>
-                                </form> 
-                                <!--Thieu dong the form-->
+                                </form>
+                                <form class="edit-profile">
+                                    <div class="">
+                                        <div class="form-group row">
+                                            <div class="col-sm-10 ml-auto">
+                                                <h3>4. Password</h3>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Current Password</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="password" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">New Password</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="password" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Re Type Password</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-control" type="password" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <button type="reset" class="btn">Save changes</button>
+                                            <button type="reset" class="btn-secondry">Cancel</button>
+                                        </div>
+                                    </div>
+
+                                </form>
                             </div>
                         </div>
                     </div>
+                    <!-- Your Profile Views Chart END-->
                 </div>
             </div>
-        </div>
-        <div id="overlay"></div>
-        <div id="imageModal">
-            <img src="" id="full_avatar" alt="Ảnh lớn">
-        </div>
+        </main>
+        <div class="ttr-overlay"></div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-            <%
-             Account acc = (Account) session.getAttribute("account");
-             String jsonProfile = new Gson().toJson(acc);
-            %>
-                var profile1 = '<%= jsonProfile%>';
-                profile1 = JSON.parse(profile1);
-                $('img#image_profile').attr('src', 'data:image/jpeg;base64,' + profile1.avatar);
-                $('input[id="username"]').val(profile1.username);
-                $('input[id="email"]').val(profile1.email);
-                $('input[id="fullname"]').val(profile1.fullname);
-                $('input[id="birthdate"]').val(profile1.dob);
-                $('input[id="phone"]').val(profile1.phone);
-
-
-                function validateBirthdate(birthdate) {
-                    var present = new Date();
-                    return (present.getFullYear() - birthdate.getFullYear()) >= 5;
-                }
-
-                function validatePhoneNumber(phoneNumber) {
-                    var phoneNumberPattern = /^\d{1,11}$/;
-                    return phoneNumberPattern.test(phoneNumber);
-                }
-
-                function validateFullname(fullname) {
-                    return (fullname !== null && fullname.trim() !== '');
-                }
-
-                function validateInput(inputElement, errorElement, isValid, errorMessage) {
-                    if (isValid) {
-                        inputElement.css('border-color', '');
-                        errorElement.text('').hide();
-                    } else {
-                        inputElement.css('border-color', 'red');
-                        errorElement.text(errorMessage).show();
-                    }
-                }
-
-                function validateForm() {
-                    var birthdate = new Date($('#birthdate').val());
-                    var phoneNumber = $('#phone').val();
-                    var fullname = $('#fullname').val();
-
-                    var isBirthdateValid = validateBirthdate(birthdate);
-                    var isPhoneNumberValid = validatePhoneNumber(phoneNumber);
-                    var isFullnameValid = validateFullname(fullname);
-
-                    validateInput($('#birthdate'), $('#birthdateError'), isBirthdateValid, 'Your birthday must be greater or equal 5.');
-                    validateInput($('#phone'), $('#phoneError'), isPhoneNumberValid, 'Your phone number must not exceed 11 digits.');
-                    validateInput($('#fullname'), $('#fullnameError'), isFullnameValid, 'Your full name can\'t be empty.');
-
-                    $('#save_profile').prop('disabled', !(isBirthdateValid && isPhoneNumberValid && isFullnameValid));
-                }
-
-                $('#birthdate, #phone, #fullname').on('input', function () {
-                    validateForm();
-                });
-
-                $('#reset_profile').click(function () {
-                    $('#birthdate, #phone, #fullname').css('border-color', '');
-                    $('#birthdateError, #phoneError, #fullnameError').text('').hide();
-                    $('#save_profile').prop('disabled', false);
-                    $('img#image_profile').attr('src', 'data:image/jpeg;base64,' + profile1.avatar);
-                    $('input[id="fullname"]').val(profile1.fullname);
-                    $('input[id="birthdate"]').val(profile1.dob);
-                    $('input[id="phone"]').val(profile1.phone);
-                });
-
-                $('#update_profile').click(function () {
-                    $('#save_profile, #reset_profile, #profile_div').show();
-                    $('#update_profile').hide();
-                    $('#fullname, #birthdate, #phone').removeAttr('disabled');
-
-                });
-
-                $('#save_profile').click(function (e) {
-                    e.preventDefault();
-                    var formData = new FormData($('#profileForm')[0]);
-
-                    $.ajax({
-                        url: '/EduFlex_Demo3_1_1/profile',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (response) {
-                            var profile = JSON.parse(response.profile);
-                            profile1 = JSON.parse(response.profile);
-                            //profile = JSON.parse(response.profile);
-                            var status = JSON.parse(response.status);
-                            //Update
-                            $('img#image_profile').attr('src', 'data:image/jpeg;base64,' + profile.avatar);
-                            $('input[id="username"]').val(profile.username);
-                            $('input[id="email"]').val(profile.email);
-                            $('input[id="fullname"]').val(profile.fullname);
-                            $('input[id="birthdate"]').val(profile.dob);
-                            $('input[id="phone"]').val(profile.phone);
-                            //Hien Thi ??
-                            //profile1 = profile;
-                            $('#save_profile, #reset_profile, #profile_div').hide();
-                            $('#update_profile').show();
-                            $('#fullname, #birthdate, #phone').attr('disabled', 'disabled');
-                            if (status === 'success') {
-                                showSuccessMessage("Cap nhat thanh cong", "Thanh cong");
-                            } else if (status === 'failed') {
-                                showErrorMessage("Cap nhat that bai", "That bai");
-                            }
-                        }
-                    });
-                });
-
-                $('#changeProfile_button').on('change', function () {
-                    let reader = new FileReader();
-
-                    // Lấy danh sách các tệp đã chọn
-                    let files = $('#changeProfile_button').prop('files');
-
-                    if (files.length > 0) {
-                        // Đọc tệp đầu tiên trong danh sách
-                        reader.readAsDataURL(files[0]);
-
-                        // Xử lý sự kiện khi tệp đã được đọc
-                        reader.onload = () => {
-                            $('#image_profile').attr('src', reader.result);
-                        };
-
-                        $('#image_profile').click(function () {
-                            $('#full_avatar').attr('src', reader.result);
-                            $("#overlay").show();
-                            $("#imageModal").show();
-                        });
-
-                    }
-                });
-
-                $('#image_profile').click(function () {
-                    $('#full_avatar').attr('src', 'data:image/jpeg;base64,' + profile1.avatar);
-                    $("#overlay").show();
-                    $("#imageModal").show();
-                });
-
-                $("#overlay").click(function () {
-                    $("#overlay").hide();
-                    $("#imageModal").hide();
-                });
-
-
-
-                function showSuccessMessage(message, title) {
-                    toastr.success(message, title, {showMethod: 'slideDown',
-                        hideMethod: 'slideUp'});
-                }
-
-                function showErrorMessage(message, title) {
-                    toastr.error(message, title, {showMethod: 'slideDown',
-                        hideMethod: 'slideUp'});
-                }
-
-                function showWarningMessage(message, title) {
-                    toastr.warning(message, title, {showMethod: 'slideDown',
-                        hideMethod: 'slideUp'});
-                }
-
-                toastr.options = {
-                    preventDuplicates: false,
-                    closeButton: true, // Hiển thị nút đóng thông báo
-                    progressBar: true, // Hiển thị thanh tiến trình
-                    positionClass: "toast-top-right", // Vị trí hiển thị thông báo
-                    timeOut: 2500 // Thời gian tự động ẩn thông báo (2.5 giây)
-                };
-
-            });
-        </script>
+        <!-- External JavaScripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets/vendors/counter/waypoints-min.js"></script>
+        <script src="assets/vendors/counter/counterup.min.js"></script>
+        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets/vendors/masonry/masonry.js"></script>
+        <script src="assets/vendors/masonry/filter.js"></script>
+        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='assets/vendors/scroll/scrollbar.min.js'></script>
+        <script src="assets/js/functions.js"></script>
+        <script src="assets/vendors/chart/chart.min.js"></script>
+        <script src="assets/js/admin.js"></script>
     </body>
+
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
 </html>

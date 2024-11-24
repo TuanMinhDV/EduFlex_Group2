@@ -91,7 +91,7 @@ public class LoginController extends HttpServlet {
         if (a == null) {
             request.setAttribute("mess", "Username or Password is incorrect!!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else if (a.getActive() == 2) {
+        } else if (a.getActive() == 0) {
             request.setAttribute("mess", "Your account has been BLOCKED");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
