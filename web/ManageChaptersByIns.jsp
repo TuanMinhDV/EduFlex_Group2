@@ -154,7 +154,7 @@
                             <input type="hidden" name="courseId" value="${course.id}"/>
                             <div class="form-group">
                                 <label for="chapter-name">Chapter Name</label>
-                                <input type="text" class="form-control" name="chapterName" id="chapter-name"/>
+                                <input type="text" class="form-control" name="chapterName" id="chapter-name" required/>
                             </div>
                         </div>
                         <div class="modal-footer">
