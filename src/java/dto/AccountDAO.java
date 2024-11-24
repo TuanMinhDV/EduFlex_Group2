@@ -11,7 +11,9 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
@@ -639,19 +641,18 @@ public class AccountDAO extends DBContext {
         return account;
     }
 
-    // Update account status
-    public boolean updateAccountStatus(int accountId, boolean newStatus) {
-        String sql = "UPDATE Account SET active = ? WHERE account_id = ?";
-        try (PreparedStatement stm = connection.prepareStatement(sql)) {
-            stm.setBoolean(1, newStatus);
-            stm.setInt(2, accountId);
-            int rowsUpdated = stm.executeUpdate();
-            return rowsUpdated > 0; // Return true if one or more rows were updated
-        } catch (SQLException e) {
-            System.out.println("Error in updateAccountStatus: " + e.getMessage());
-        }
-        return false; // Return false if an error occurred
+   public boolean updateAccountStatus(int accountId, boolean newStatus) {
+    String sql = "UPDATE Account SET active = ? WHERE account_id = ?";
+    try (PreparedStatement stm = connection.prepareStatement(sql)) {
+        stm.setBoolean(1, newStatus); // true = 1, false = 0
+        stm.setInt(2, accountId);
+        int rowsUpdated = stm.executeUpdate();
+        return rowsUpdated > 0; // Trả về true nếu ít nhất 1 hàng được cập nhật
+    } catch (SQLException e) {
+        System.out.println("Error in updateAccountStatus: " + e.getMessage());
     }
+    return false; // Trả về false nếu có lỗi xảy ra
+}
 
     public boolean isWithinOneMinute(LocalDateTime startTime, int seconds) {
         LocalDateTime now = LocalDateTime.now();
@@ -659,30 +660,25 @@ public class AccountDAO extends DBContext {
         return !now.isAfter(endTime);
     }
 
-    public static void main(String[] args) {
-        AccountDAO dao = new AccountDAO();
-        LocalDateTime currentTime = LocalDateTime.now();
+  public static void main(String[] args) {
+    // Khởi tạo DAO
+    AccountDAO accountDAO = new AccountDAO();
 
-        LocalDateTime startTime = LocalDateTime.now();
-        LocalDateTime endTime = startTime.plusSeconds(10);
-        System.out.println("startTime" + startTime);
-        System.out.println("endTime" + endTime);
-        boolean before = dao.isWithinOneMinute(currentTime, 60);
-        System.out.println(before);
+    // ID của tài khoản để test
+    int testAccountId = 1; // Đảm bảo ID này tồn tại trong database để kiểm tra
+    boolean newStatus = false; // Giá trị trạng thái mới cần cập nhật
 
-        // Kiểm tra liên tục trong vòng lặp (ví dụ)
-//        while (dao.isWithinOneMinute(currentTime, 60)) {
-//            System.out.println("Còn thời gian trong vòng 1 phút");
-//            // Thực hiện các tác vụ khác...
-//            try {
-//                Thread.sleep(1000); // Ngừng 1 giây
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        System.out.println("Đã hết 1 phút");
+    // Gọi phương thức updateAccountStatus
+    boolean isUpdated = accountDAO.updateAccountStatus(testAccountId, newStatus);
+
+    // Kiểm tra kết quả
+    if (isUpdated) {
+        System.out.println("Account status updated successfully for Account ID: " + testAccountId);
+    } else {
+        System.out.println("Failed to update account status for Account ID: " + testAccountId);
     }
+}
+
 
     public ArrayList<Role> getRoleList() {
         ArrayList<Role> roleList = new ArrayList<>();
@@ -750,5 +746,29 @@ public class AccountDAO extends DBContext {
         }
         return null; // Trả về null nếu không tìm thấy
     }
+    
+
+
+public Map<String, Integer> getAccountCountByRole() {
+    Map<String, Integer> roleCounts = new HashMap<>();
+    String sql = "SELECT r.role_name, COUNT(a.account_id) AS total "
+               + "FROM Account a "
+               + "JOIN Role r ON a.role_id = r.role_id "
+               + "GROUP BY r.role_name";
+    try (PreparedStatement ps = connection.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+            String roleName = rs.getString("role_name");
+            int count = rs.getInt("total");
+            roleCounts.put(roleName, count);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return roleCounts;
+}
+
 
 }
+
+

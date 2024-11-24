@@ -9,112 +9,114 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+        <style>
+            /* CSS cho giao diện cố định */
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+
+            .ttr-sidebar {
+                position: fixed; /* Fix sidebar tại chỗ */
+                top: 0;
+                left: 0;
+                width: 250px; /* Chiều rộng sidebar cố định */
+                height: 100%; /* Chiều cao full màn hình */
+                background-color: #fff; /* Sidebar màu trắng */
+                color: #000; /* Màu chữ đen */
+                overflow-y: auto; /* Cuộn nếu nội dung dài */
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng đổ bóng */
+            }
+
+            .ttr-sidebar-logo {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 15px;
+                border-bottom: 1px solid #ddd; /* Đường viền ngăn cách */
+            }
+
+            .ttr-sidebar-logo img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .ttr-sidebar-navi {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .ttr-sidebar-navi ul {
+                padding: 0;
+            }
+
+            .ttr-sidebar-navi li {
+                padding: 15px;
+                border-bottom: 1px solid #ddd; /* Đường viền giữa các mục */
+            }
+
+            .ttr-sidebar-navi li a {
+                text-decoration: none;
+                color: #000; /* Màu chữ đen */
+                font-size: 16px;
+                display: block;
+            }
+
+            .content {
+                margin-left: 250px; /* Chừa khoảng trống cho sidebar */
+                padding: 20px;
+            }
+        </style>
     </head>
     <body>
         <!-- Left sidebar menu start -->
-	<div class="ttr-sidebar">
-		<div class="ttr-sidebar-wrapper content-scroll">
-			<!-- side menu logo start -->
-			<div class="ttr-sidebar-logo">
-				<a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-				<!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-					<i class="material-icons ttr-fixed-icon">gps_fixed</i>
-					<i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-				</div> -->
-				<div class="ttr-sidebar-toggle-button">
-					<i class="ti-arrow-left"></i>
-				</div>
-			</div>
-			<!-- side menu logo end -->
-			<!-- sidebar menu start -->
-			<nav class="ttr-sidebar-navi">
-				<ul>
-					<li>
-						<a href="index.html" class="ttr-material-button">
-							<span class="ttr-icon"><i class="ti-home"></i></span>
-		                	<span class="ttr-label">Dashborad</span>
-		                </a>
-		            </li>
-					<li>
-						<a href="courses.html" class="ttr-material-button">
-							<span class="ttr-icon"><i class="ti-book"></i></span>
-		                	<span class="ttr-label">Courses</span>
-		                </a>
-		            </li>
-					<li>
-						<a href="#" class="ttr-material-button">
-							<span class="ttr-icon"><i class="ti-email"></i></span>
-		                	<span class="ttr-label">Mailbox</span>
-		                	<span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-		                </a>
-		                <ul>
-		                	<li>
-		                		<a href="mailbox.html" class="ttr-material-button"><span class="ttr-label">Mail Box</span></a>
-		                	</li>
-		                	<li>
-		                		<a href="mailbox-compose.html" class="ttr-material-button"><span class="ttr-label">Compose</span></a>
-		                	</li>
-							<li>
-		                		<a href="mailbox-read.html" class="ttr-material-button"><span class="ttr-label">Mail Read</span></a>
-		                	</li>
-		                </ul>
-		            </li>
-					<li>
-						<a href="#" class="ttr-material-button">
-							<span class="ttr-icon"><i class="ti-calendar"></i></span>
-		                	<span class="ttr-label">Calendar</span>
-		                	<span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-		                </a>
-		                <ul>
-		                	<li>
-		                		<a href="basic-calendar.html" class="ttr-material-button"><span class="ttr-label">Basic Calendar</span></a>
-		                	</li>
-		                	<li>
-		                		<a href="list-view-calendar.html" class="ttr-material-button"><span class="ttr-label">List View</span></a>
-		                	</li>
-		                </ul>
-		            </li>
-					<li>
-						<a href="bookmark.html" class="ttr-material-button">
-							<span class="ttr-icon"><i class="ti-bookmark-alt"></i></span>
-		                	<span class="ttr-label">Bookmarks</span>
-		                </a>
-		            </li>
-					<li>
-						<a href="review.html" class="ttr-material-button">
-							<span class="ttr-icon"><i class="ti-comments"></i></span>
-		                	<span class="ttr-label">Review</span>
-		                </a>
-		            </li>
-					<li>
-						<a href="add-listing.html" class="ttr-material-button">
-							<span class="ttr-icon"><i class="ti-layout-accordion-list"></i></span>
-		                	<span class="ttr-label">Add listing</span>
-		                </a>
-		            </li>
-					<li>
-						<a href="#" class="ttr-material-button">
-							<span class="ttr-icon"><i class="ti-user"></i></span>
-		                	<span class="ttr-label">My Profile</span>
-		                	<span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-		                </a>
-		                <ul>
-		                	<li>
-		                		<a href="user-profile.html" class="ttr-material-button"><span class="ttr-label">User Profile</span></a>
-		                	</li>
-		                	<li>
-		                		<a href="teacher-profile.html" class="ttr-material-button"><span class="ttr-label">Teacher Profile</span></a>
-		                	</li>
-		                </ul>
-		            </li>
-		            <li class="ttr-seperate"></li>
-				</ul>
-				<!-- sidebar menu end -->
-			</nav>
-			<!-- sidebar menu end -->
-		</div>
-	</div>
-	<!-- Left sidebar menu end -->
+        <div class="ttr-sidebar">
+            <div class="ttr-sidebar-logo">
+                <a href="#"><img alt="Logo" src="assets/images/logo.png" width="122" height="27"></a>
+            </div>
+            <!-- Sidebar menu -->
+            <nav class="ttr-sidebar-navi">
+                <ul>
+                    <li>
+                        <a href="homeadmincontroller" class="ttr-material-button">
+                            <span class="ttr-label">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="accountcontrollerbyadmin" class="ttr-material-button">
+                            <span class="ttr-label">View Account List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="viewcategorylistbyadmin" class="ttr-material-button">
+                            <span class="ttr-label">View Category List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="accountcontrollerbyadmin" class="ttr-material-button">
+                            <span class="ttr-label">View Comment List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="accountcontrollerbyadmin" class="ttr-material-button">
+                            <span class="ttr-label">View OrderCourse List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="accountcontrollerbyadmin" class="ttr-material-button">
+                            <span class="ttr-label">View Revenue</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Left sidebar menu end -->
+
+        <!-- Main content -->
+        <div class="content">
+            <h1>Welcome to Admin Dashboard</h1>
+            <p>Here is your main content area.</p>
+        </div>
     </body>
 </html>
