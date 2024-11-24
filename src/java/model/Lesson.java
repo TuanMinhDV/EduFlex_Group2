@@ -20,6 +20,16 @@ public class Lesson {
     public Lesson() {
     }
 
+    
+    
+    public Lesson(String name, String video, String document, String description, int chapter_id) {
+        this.name = name;
+        this.video = video;
+        this.document = document;
+        this.description = description;
+        this.chapter_id = chapter_id;
+    }
+
     public Lesson(int id, String name, String video, String document, String description, int chapter_id, int isDisable) {
         this.id = id;
         this.name = name;

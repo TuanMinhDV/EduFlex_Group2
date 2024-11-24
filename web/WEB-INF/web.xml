@@ -16,6 +16,10 @@
         <servlet-name>ChapterManageController</servlet-name>
         <servlet-class>controller.common.ChapterManageController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LessonManageController</servlet-name>
+        <servlet-class>controller.common.LessonManageController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CourseManageController</servlet-name>
         <url-pattern>/courseManage</url-pattern>
@@ -27,5 +31,9 @@
     <servlet-mapping>
         <servlet-name>ChapterManageController</servlet-name>
         <url-pattern>/chapterManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LessonManageController</servlet-name>
+        <url-pattern>/lessonManage</url-pattern>
     </servlet-mapping>
 </web-app>
