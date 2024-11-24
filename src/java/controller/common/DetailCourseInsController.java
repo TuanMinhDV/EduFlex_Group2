@@ -63,6 +63,7 @@ public class DetailCourseInsController extends HttpServlet {
         Course course = daoCourse.getCourseByID(courseID);
         ChapterDAO daoChapter = new ChapterDAO();
         List<Chapter> listChapters = daoChapter.getChaptersByCourseID(course.getId());
+        request.setAttribute("numOfChap", daoCourse.countNumOfChapter(course.getId()));
         request.setAttribute("course", course);
         request.setAttribute("listChap", listChapters);
         request.getRequestDispatcher("CourseDetailByIns.jsp").forward(request, response);

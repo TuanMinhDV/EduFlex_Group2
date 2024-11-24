@@ -20,6 +20,7 @@ import java.util.List;
 import model.Account;
 import model.Category;
 import model.Category1;
+import model.Chapter;
 import model.Constants;
 import model.Course;
 import model.Course1;
@@ -662,6 +663,27 @@ public class CourseDAO extends DBContext {
             System.out.println(ex);
         }
         return listAll;
+    }
+    
+    public int countNumOfChapter(int courseID) {
+        int i = 0;
+        String sql = """
+                     SELECT [chapter_id]
+                           ,[chapter_name]
+                           ,[course_id]
+                           ,[isDisable]
+                       FROM [dbo].[Chapter] where course_id = ?""";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, courseID);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                i++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return i;
     }
 
     public static void main(String[] args) {

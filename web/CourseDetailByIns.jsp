@@ -101,7 +101,7 @@
                                         <div class="row">
                                             <div class="col-md-12 col-lg-4">
                                                 <ul class="course-features">
-                                                    <li><i class="ti-book"></i> <span class="label">Chapter</span> <span class="value">8</span></li>
+                                                    <li><i class="ti-book"></i> <span class="label">Chapter</span> <span class="value">${numOfChap}</span></li>
                                                     <li><i class="ti-smallcap"></i> <span class="label">Language</span> <span class="value">English</span></li>
                                                 </ul>
                                             </div>
