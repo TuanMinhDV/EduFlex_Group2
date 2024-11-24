@@ -81,24 +81,27 @@
                                         <div id="masonry" class="ttr-blog-grid-3 row">
                                         <c:forEach items="${listBlog}" var="m">
                                             <div class="post action-card col-xl-6 col-lg-6 col-md-12 col-xs-12 m-b40">
-                                            <div class="recent-news">
-                                                <div class="action-box">
-                                                    <img src="${m.image}" alt="postimageURL">
-                                                </div>
-                                                <div class="info-bx">
-                                                    <ul class="media-post">
-                                                        <li><a href="#"><i class="fa fa-calendar"></i>${m.created_date}</a></li>
-                                                        <li><a href="#"><i class="fa fa-user"></i>By William</a></li>
-                                                    </ul>
-                                                    <h5 class="post-title"><a href="blogdetail?id=${m.id}">${m.title}</a></h5>
-                                                    <p>${m.description}</p>
-                                                    <div class="post-extra">
-                                                        <a href="blogdetail?id=${m.id}" class="btn-link">READ MORE</a>
-                                                        <!--<a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>20 Comment</a>-->
+                                                <div class="recent-news">
+                                                    <div class="action-box">
+                                                        <img src="${m.image}" alt="postimageURL" style="height: 200px;">
+                                                    </div>
+                                                    <div class="info-bx">
+                                                        <ul class="media-post">
+                                                            <li><i class="fa fa-calendar"></i> ${m.created_date}</li>
+                                                            <li><i class="fa fa-user"></i> By ${m.fullname}</li>
+                                                        </ul>
+                                                        <div  style="height: 250px">
+                                                            <h5 class="post-title"><a href="blogdetail?id=${m.id}">${m.title}</a></h5>
+                                                            <p>${m.description}</p>
+                                                        </div>
+
+                                                        <div class="post-extra">
+                                                            <a href="blogdetail?id=${m.id}" class="btn-link">READ MORE</a>
+                                                            <!--<a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>20 Comment</a>-->
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         </c:forEach>  
                                     </div>
                                     <!-- blog grid END -->
@@ -134,42 +137,24 @@
                                         <div class="widget recent-posts-entry">
                                             <h6 class="widget-title">Recent Posts</h6>
                                             <div class="widget-post-bx">
-                                                <div class="widget-post clearfix">
-                                                    <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic1.jpg" width="200" height="143" alt=""> </div>
-                                                    <div class="ttr-post-info">
-                                                        <div class="ttr-post-header">
-                                                            <h6 class="post-title"><a href="blog-details.html">This Story Behind Education Will Haunt You Forever.</a></h6>
+
+                                                <c:forEach items="${listRecentBlog}" var="m">
+                                                    <div class="widget-post clearfix">
+                                                        <div class="ttr-post-media">
+                                                            <img src="${m.image}" width="200" height="143" alt=""/>
                                                         </div>
-                                                        <ul class="media-post">
-                                                            <li><a href="#"><i class="fa fa-calendar"></i>Oct 23 2019</a></li>
-                                                            <li><a href="#"><i class="fa fa-comments-o"></i>15 Comment</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-post clearfix">
-                                                    <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic2.jpg" width="200" height="160" alt=""> </div>
-                                                    <div class="ttr-post-info">
-                                                        <div class="ttr-post-header">
-                                                            <h6 class="post-title"><a href="blog-details.html">What Will Education Be Like In The Next 50 Years?</a></h6>
+                                                        <div class="ttr-post-info">
+                                                            <div class="ttr-post-header">
+                                                                <h6 class="post-title"><a href="blogdetail?id=${m.id}">${m.title}</a></h6>
+                                                            </div>
+                                                            <ul class="media-post">
+                                                                <li><i class="fa fa-calendar"></i> ${m.created_date}</li>
+                                                                <li><i class="fa fa-comments-o"></i> By ${m.fullname}</li>
+                                                            </ul> 
                                                         </div>
-                                                        <ul class="media-post">
-                                                            <li><a href="#"><i class="fa fa-calendar"></i>May 14 2019</a></li>
-                                                            <li><a href="#"><i class="fa fa-comments-o"></i>23 Comment</a></li>
-                                                        </ul>
                                                     </div>
-                                                </div>
-                                                <div class="widget-post clearfix">
-                                                    <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic3.jpg" width="200" height="160" alt=""> </div>
-                                                    <div class="ttr-post-info">
-                                                        <div class="ttr-post-header">
-                                                            <h6 class="post-title"><a href="blog-details.html">Eliminate Your Fears And Doubts About Education.</a></h6>
-                                                        </div>
-                                                        <ul class="media-post">
-                                                            <li><a href="#"><i class="fa fa-calendar"></i>June 12 2019</a></li>
-                                                            <li><a href="#"><i class="fa fa-comments-o"></i>27 Comment</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                                </c:forEach> 
+
                                             </div>
                                         </div>
                                     </aside>
@@ -205,16 +190,16 @@
         <script src="EduChamp-Template/assets/js/contact.js"></script>
     </body>
     <script>
-                                                    $(".custom-carousel").owlCarousel({
-                                                        autoWidth: true,
-                                                        loop: true
-                                                    });
-                                                    $(document).ready(function () {
-                                                        $(".custom-carousel .item").click(function () {
-                                                            $(".custom-carousel .item").not($(this)).removeClass("active");
-                                                            $(this).toggleClass("active");
-                                                        });
-                                                    });
+        $(".custom-carousel").owlCarousel({
+            autoWidth: true,
+            loop: true
+        });
+        $(document).ready(function () {
+            $(".custom-carousel .item").click(function () {
+                $(".custom-carousel .item").not($(this)).removeClass("active");
+                $(this).toggleClass("active");
+            });
+        });
 
     </script>
 </html>

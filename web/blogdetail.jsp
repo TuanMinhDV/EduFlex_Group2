@@ -9,315 +9,272 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
+        <!-- META ============================================= -->
         <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Blog | Detail</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
 
-        <!-- CSS here -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="assets/css/slicknav.css">
-        <link rel="stylesheet" href="assets/css/animate.min.css">
-        <link rel="stylesheet" href="assets/css/hamburgers.min.css">
-        <link rel="stylesheet" href="assets/css/magnific-popup.css">
-        <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="assets/css/themify-icons.css">
-        <link rel="stylesheet" href="assets/css/slick.css">
-        <link rel="stylesheet" href="assets/css/nice-select.css">
-        <link rel="stylesheet" href="assets/css/style.css">
+        <!-- DESCRIPTION -->
+        <meta name="description" content="EduChamp : Education HTML Template" />
+
+        <!-- OG -->
+        <meta property="og:title" content="EduChamp : Education HTML Template" />
+        <meta property="og:description" content="EduChamp : Education HTML Template" />
+        <meta property="og:image" content="" />
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- FAVICONS ICON ============================================= -->
+        <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+
+        <!-- PAGE TITLE HERE ============================================= -->
+        <title>EduFlex : Blog Details </title>
+
+        <!-- MOBILE SPECIFIC ============================================= -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- All PLUGINS CSS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
+
+        <!-- TYPOGRAPHY ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+
+        <!-- SHORTCODES ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
+
+        <!-- STYLESHEETS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
     </head>
 
-    <body>
-        <jsp:include page="header.jsp"></jsp:include> 
+    <body id="bg">
+        <div class="page-wraper">
+            <div id="loading-icon-bx"></div>
+            <jsp:include page="header.jsp"></jsp:include> 
 
-            <!-- Header End -->
-            <main>
-                <!--? slider Area Start-->
-                <section class="slider-area slider-area2">
-                    <div class="slider-active">
-                        <!-- Single Slider -->
-                        <div class="single-slider slider-height2">
+                <!-- Content -->
+                <div class="page-content bg-white">
+                    <!-- inner page banner -->
+                    <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner2.jpg);">
+                        <div class="container">
+                            <div class="page-banner-entry">
+                                <h1 class="text-white">Blog Details</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Breadcrumb row -->
+                    <div class="breadcrumb-row">
+                        <div class="container">
+                            <ul class="list-inline">
+                                <li><a href="#">Home</a></li>
+                                <li>Blog Details</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Breadcrumb row END -->
+                    <div class="content-block">
+                        <div class="section-area section-sp1">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-xl-8 col-lg-11 col-md-12">
-                                        <div class="hero__caption hero__caption2">
-                                            <h1 data-animation="bounceIn" data-delay="0.2s">Blog Detail</h1>
-                                            <!-- breadcrumb Start-->
-                                            <nav aria-label="breadcrumb">
-                                                <ol class="breadcrumb">
-                                                    <li class="breadcrumb-item"><a href="home">Home</a></li>
-                                                    <li class="breadcrumb-item"><a href="bloglist">Blog</a></li> 
+                                    <!-- Left part start -->
+                                    <div class="col-lg-8 col-xl-8">
+                                        <!-- blog start -->
+                                        <div class="recent-news blog-lg">
+                                            <div class="action-box blog-lg">
+                                                <img src="${detail.image}" alt="">
+                                        </div>
+                                        <div class="info-bx">
+                                            <ul class="media-post">
+                                                <li><a href="#"><i class="fa fa-calendar"></i>${detail.created_date}</a></li>
+                                                <li><a href="#">By ${detail.fullname}</a></li>
+                                            </ul>
+                                            <h5 class="post-title"><a href="#">${detail.title}</a></h5>
+                                            <p>${detail.description}</p>
+                                            <p>${detail.content}</p>
+                                            <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
+                                            <div class="widget_tag_cloud">
+                                                <h6>TAGS</h6>
+                                                <div class="tagcloud"> 
+                                                    <a href="#">Design</a> 
+                                                    <a href="#">User interface</a> 
+                                                    <a href="#">SEO</a> 
+                                                    <a href="#">WordPress</a> 
+                                                </div>
+                                            </div>
+                                            <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
+                                            <h6>SHARE </h6>
+                                            <ul class="list-inline contact-social-bx">
+                                                <li><a href="#" class="btn outline radius-xl"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#" class="btn outline radius-xl"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#" class="btn outline radius-xl"><i class="fa fa-linkedin"></i></a></li>
+                                                <li><a href="#" class="btn outline radius-xl"><i class="fa fa-google-plus"></i></a></li>
+                                            </ul>
+                                            <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="clear" id="comment-list">
+                                        <div class="comments-area" id="comments">
+                                            <h2 class="comments-title">8 Comments</h2>
+                                            <div class="clearfix m-b20">
+                                                <!-- comment list END -->
+                                                <ol class="comment-list">
+                                                    <li class="comment">
+                                                        <div class="comment-body">
+                                                            <div class="comment-author vcard"> <img  class="avatar photo" src="assets/images/testimonials/pic1.jpg" alt=""> <cite class="fn">John Doe</cite> <span class="says">says:</span> </div>
+                                                            <div class="comment-meta"> <a href="#">December 02, 2019 at 10:45 am</a> </div>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae neqnsectetur adipiscing elit. Nam viae neqnsectetur adipiscing elit.
+                                                                Nam vitae neque vitae sapien malesuada aliquet. </p>
+                                                            <div class="reply"> <a href="#" class="comment-reply-link">Reply</a> </div>
+                                                        </div>
+                                                        <ol class="children">
+                                                            <li class="comment odd parent">
+                                                                <div class="comment-body">
+                                                                    <div class="comment-author vcard"> <img  class="avatar photo" src="assets/images/testimonials/pic2.jpg" alt=""> <cite class="fn">John Doe</cite> <span class="says">says:</span> </div>
+                                                                    <div class="comment-meta"> <a href="#">December 02, 2019 at 10:45 am</a> </div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae neque vitae sapien malesuada aliquet. 
+                                                                        In viverra dictum justo in vehicula. Fusce et massa eu ante ornare molestie. Sed vestibulum sem felis, 
+                                                                        ac elementum ligula blandit ac.</p>
+                                                                    <div class="reply"> <a href="#" class="comment-reply-link">Reply</a> </div>
+                                                                </div>
+                                                                <ol class="children">
+                                                                    <li class="comment odd parent">
+                                                                        <div class="comment-body">
+                                                                            <div class="comment-author vcard"> <img  class="avatar photo" src="assets/images/testimonials/pic3.jpg" alt=""> <cite class="fn">John Doe</cite> <span class="says">says:</span> </div>
+                                                                            <div class="comment-meta"> <a href="#">December 02, 2019 at 10:45 am</a> </div>
+                                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae neque vitae sapien malesuada aliquet. 
+                                                                                In viverra dictum justo in vehicula. Fusce et massa eu ante ornare molestie. Sed vestibulum sem felis, 
+                                                                                ac elementum ligula blandit ac.</p>
+                                                                            <div class="reply"> <a href="#" class="comment-reply-link">Reply</a> </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ol>
+                                                                <!-- list END -->
+                                                            </li>
+                                                        </ol>
+                                                        <!-- list END -->
+                                                    </li>
+
                                                 </ol>
-                                            </nav>
-                                            <!-- breadcrumb End -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>          
-                        </div>
-                    </div>
-                </section>
-                <!--? Blog Area Start -->
-                <section class="blog_area single-post-area section-padding">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-8 posts-list">
-                                <div class="single-post">
-                                    <h1 style="color: #2d2d2d;">${detail.title}
-                                </h1>
-                                <div class="feature-img">
-                                    <img class="img-fluid" src="data:image/jpeg;base64,${detail.image}" alt="">
-                                </div>
-                                <div class="blog_details">
-                                    <h2 style="color: #2d2d2d;">${detail.description}
-                                    </h2>
-                                    <ul class="blog-info-link mt-3 mb-4">
-                                        <li><a href="#"><i class="fa fa-user"></i>${detail.fullname}</a></li>
-                                        <li><a href="#"> ${detail.created_date}</a></li>
-                                        <li><a href="#"> ${detail.tag}</a></li>
-                                    </ul>
-                                    <p class="excert">
-                                        ${detail.content}
-                                    </p>
-
-                                </div>
-                            </div>
-                            <div class="navigation-top">
-                                <div class="d-sm-flex justify-content-between text-center">
-                                    <p class="like-info"><span class="align-middle"><i class="fa fa-heart"></i></span> </p>
-                                    <div class="col-sm-4 text-center my-2 my-sm-0">
-                                        <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
-                                    </div>
-                                    <ul class="social-icons">
-                                        <li><a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-behance"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="navigation-area">
-                                    <div class="row">
-                                        <div
-                                            class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-                                            <c:if test="${detail.id > 1}">
-                                                <div class="thumb">                      
-                                                    <a href="blogdetail?id=${preblog.id}">
-                                                        <img class="img-fluid" src="assets/img/post/black.png" alt="" style="height: 60px; width: 60px">
-                                                    </a>
-
+                                                <!-- comment list END -->
+                                                <!-- Form -->
+                                                <div class="comment-respond" id="respond">
+                                                    <h4 class="comment-reply-title" id="reply-title">Leave a Reply <small> <a style="display:none;" href="#" id="cancel-comment-reply-link" rel="nofollow">Cancel reply</a> </small> </h4>
+                                                    <form class="comment-form" id="commentform" method="post">
+                                                        <p class="comment-form-author">
+                                                            <label for="author">Name <span class="required">*</span></label>
+                                                            <input type="text" value="" name="Author"  placeholder="Author" id="author">
+                                                        </p>
+                                                        <p class="comment-form-email">
+                                                            <label for="email">Email <span class="required">*</span></label>
+                                                            <input type="text" value="" placeholder="Email" name="email" id="email">
+                                                        </p>
+                                                        <p class="comment-form-url">
+                                                            <label for="url">Website</label>
+                                                            <input type="text"  value=""  placeholder="Website"  name="url" id="url">
+                                                        </p>
+                                                        <p class="comment-form-comment">
+                                                            <label for="comment">Comment</label>
+                                                            <textarea rows="8" name="comment" placeholder="Comment" id="comment"></textarea>
+                                                        </p>
+                                                        <p class="form-submit">
+                                                            <input type="submit" value="Submit Comment" class="submit" id="submit" name="submit">
+                                                        </p>
+                                                    </form>
                                                 </div>
-                                                <div class="arrow">
-                                                    <a href="blogdetail?id=${preblog.id}">
-                                                        <span class="lnr text-white ti-arrow-left"></span>
-                                                    </a>
-                                                </div>
-                                                <div class="detials">
-                                                    <p>Prev Post</p>
-                                                    <a href="blogdetail?id=${preblog.id}">
-                                                        <h4 style="color: #2d2d2d;"></h4>
-                                                    </a>
-                                                </div>
-                                            </c:if>
-                                        </div>
-                                        <div
-                                            class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                                            
-                                            <c:if test="${detail.id < maxId}">
-                                                <div class="detials">
-                                                    <p>Next Post</p>
-                                                    <a href="blogdetail?id=${nextblog.id}">
-                                                        <h4 style="color: #2d2d2d;"></h4>
-                                                    </a>
-                                                </div>
-                                                <div class="arrow">
-                                                    <a href="blogdetail?id=${nextblog.id}">
-                                                        <span class="lnr text-white ti-arrow-right"></span>
-                                                    </a>
-                                                </div>
-                                                <div class="thumb">
-                                                    <a href="blogdetail?id=${nextblog.id}">
-                                                        <img class="img-fluid" src="assets/img/post/black.png" alt="" style="height: 60px; width: 60px">
-                                                    </a>
-                                                </div>
-                                            </c:if>
-                                            <c:if test="${detail.id == maxId}">
-                                                Hello
-                                            </c:if>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="blog_right_sidebar">
-
-                                <aside class="single_sidebar_widget popular_post_widget">
-                                    <h3 class="widget_title" style="color: #2d2d2d;">Recent Post</h3>
-                                    <c:forEach items="${listB1}" var="m">
-                                        <div class="media post_item">
-                                            <img src="data:image/jpeg;base64,${m.image}" alt="post" style="height: 50%; width: 15%">
-                                            <div class="media-body">                  
-                                                <a href="blogdetail?id=${m.id}">
-                                                    <h3 style="color: #2d2d2d;">${m.title}</h3>
-                                                </a>
-                                                <p>${m.created_date}</p>                 
+                                                <!-- Form -->
                                             </div>
                                         </div>
-                                    </c:forEach>                      
+                                    </div>
+                                    <!-- blog END -->
+                                    <div class="col-lg-12 m-b20">
+                                        <div class="pagination-bx rounded-sm gray clearfix">
+                                            <ul class="pagination">
+                                                <c:if test="${detail.id > 1}">
+                                                    <li class="previous"><a href="blogdetail?id=${preblog.id}"><i class="ti-arrow-left"></i> Prev</a></li>
+                                                    </c:if>
+                                                    <c:if test="${detail.id < total}">
+                                                    <li class="next"><a href="blogdetail?id=${nextblog.id}">Next <i class="ti-arrow-right"></i></li>
+                                                    </c:if>
+                                                    <c:if test="${detail.id == total}">
+                                                    Hello
+                                                </c:if>
+                                            </ul>
 
-                                </aside>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Blog Area End -->
-        </main>
-        <footer>
-            <div class="footer-wrappper footer-bg">
-                <!-- Footer Start-->
-                <div class="footer-area footer-padding">
-                    <div class="container">
-                        <div class="row justify-content-between">
-                            <div class="col-xl-4 col-lg-5 col-md-4 col-sm-6">
-                                <div class="single-footer-caption mb-50">
-                                    <div class="single-footer-caption mb-30">
-                                        <!-- logo -->
-                                        <div class="footer-logo mb-25">
-                                            <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
                                         </div>
-                                        <div class="footer-tittle">
-                                            <div class="footer-pera">
-                                                <p>The automated process starts as soon as your clothes go into the machine.</p>
+
+                                    </div>
+
+                                </div>
+                                <!-- Left part END -->
+                                <!-- Side bar start -->
+                                <div class="col-lg-4 col-xl-4">
+                                    <aside  class="side-bar sticky-top">
+                                        <div class="widget">
+                                            <h6 class="widget-title">Search</h6>
+                                            <div class="search-bx style-1">
+                                                <form role="search" method="post">
+                                                    <div class="input-group">
+                                                        <input name="text" class="form-control" placeholder="Enter your keywords..." type="text">
+                                                        <span class="input-group-btn">
+                                                            <button type="submit" class="fa fa-search text-primary"></button>
+                                                        </span> 
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                        <!-- social -->
-                                        <div class="footer-social">
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                            <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                        <div class="widget recent-posts-entry">
+                                            <h6 class="widget-title">Recent Posts</h6>
+                                            <div class="widget-post-bx">
+                                                <c:forEach items="${listB1}" var="m">
+                                                    <div class="widget-post clearfix">
+                                                        <div class="ttr-post-media">
+                                                            <img src="${m.image}" width="200" height="143" alt=""/>
+                                                        </div>
+                                                        <div class="ttr-post-info">
+                                                            <div class="ttr-post-header">
+                                                                <h6 class="post-title"><a href="blogdetail?id=${m.id}">${m.title}</a></h6>
+                                                            </div>
+                                                            <ul class="media-post">
+                                                                <li><i class="fa fa-calendar"></i> ${m.created_date}</li>
+                                                                <li><i class="fa fa-comments-o"></i> By ${m.fullname}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>  
+
+                                            </div>
                                         </div>
-                                    </div>
+
+                                    </aside>
                                 </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5">
-                                <div class="single-footer-caption mb-50">
-                                    <div class="footer-tittle">
-                                        <h4>Our solutions</h4>
-                                        <ul>
-                                            <li><a href="#">Design & creatives</a></li>
-                                            <li><a href="#">Telecommunication</a></li>
-                                            <li><a href="#">Restaurant</a></li>
-                                            <li><a href="#">Programing</a></li>
-                                            <li><a href="#">Architecture</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-                                <div class="single-footer-caption mb-50">
-                                    <div class="footer-tittle">
-                                        <h4>Support</h4>
-                                        <ul>
-                                            <li><a href="#">Design & creatives</a></li>
-                                            <li><a href="#">Telecommunication</a></li>
-                                            <li><a href="#">Restaurant</a></li>
-                                            <li><a href="#">Programing</a></li>
-                                            <li><a href="#">Architecture</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="single-footer-caption mb-50">
-                                    <div class="footer-tittle">
-                                        <h4>Company</h4>
-                                        <ul>
-                                            <li><a href="#">Design & creatives</a></li>
-                                            <li><a href="#">Telecommunication</a></li>
-                                            <li><a href="#">Restaurant</a></li>
-                                            <li><a href="#">Programing</a></li>
-                                            <li><a href="#">Architecture</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <!-- Side bar END -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- footer-bottom area -->
-                <div class="footer-bottom-area">
-                    <div class="container">
-                        <div class="footer-border">
-                            <div class="row d-flex align-items-center">
-                                <div class="col-xl-12 ">
-                                    <div class="footer-copy-right text-center">
-                                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Footer End-->
             </div>
-        </footer> 
-        <!-- Scroll Up -->
+            <!-- Content END-->
 
-        <div id="back-top" >
-            <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+
+            <!-- scroll top button -->
+            <button class="back-to-top fa fa-chevron-up" ></button>
         </div>
-
-        <!-- JS here -->
-
-        <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-        <!-- Jquery, Popper, Bootstrap -->
-        <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="./assets/js/popper.min.js"></script>
-        <script src="./assets/js/bootstrap.min.js"></script>
-        <!-- Jquery Mobile Menu -->
-        <script src="./assets/js/jquery.slicknav.min.js"></script>
-
-        <!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="./assets/js/owl.carousel.min.js"></script>
-        <script src="./assets/js/slick.min.js"></script>
-        <!-- One Page, Animated-HeadLin -->
-        <script src="./assets/js/wow.min.js"></script>
-        <script src="./assets/js/animated.headline.js"></script>
-        <script src="./assets/js/jquery.magnific-popup.js"></script>
-
-        <!-- Date Picker -->
-        <script src="./assets/js/gijgo.min.js"></script>
-        <!-- Nice-select, sticky -->
-        <script src="./assets/js/jquery.nice-select.min.js"></script>
-        <script src="./assets/js/jquery.sticky.js"></script>
-
-        <!-- counter , waypoint,Hover Direction -->
-        <script src="./assets/js/jquery.counterup.min.js"></script>
-        <script src="./assets/js/waypoints.min.js"></script>
-        <script src="./assets/js/jquery.countdown.min.js"></script>
-        <script src="./assets/js/hover-direction-snake.min.js"></script>
-
-        <!-- contact js -->
-        <script src="./assets/js/contact.js"></script>
-        <script src="./assets/js/jquery.form.js"></script>
-        <script src="./assets/js/jquery.validate.min.js"></script>
-        <script src="./assets/js/mail-script.js"></script>
-        <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-
-        <!-- Jquery Plugins, main Jquery -->	
-        <script src="./assets/js/plugins.js"></script>
-        <script src="./assets/js/main.js"></script>
-
+        <!-- External JavaScripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets/vendors/counter/waypoints-min.js"></script>
+        <script src="assets/vendors/counter/counterup.min.js"></script>
+        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets/vendors/masonry/masonry.js"></script>
+        <script src="assets/vendors/masonry/filter.js"></script>
+        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src="assets/js/functions.js"></script>
+        <script src="assets/js/contact.js"></script>
     </body>
 </html>
