@@ -102,7 +102,7 @@
                                                 <td>${quiz.name}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-view-questions" data-id="${quiz.quiz_id}">
-                                                        <a href="quizManage?quizzID=${quiz.quiz_id}" style="color: white">View Questions</a>
+                                                        <a href="questionManage?quizzID=${quiz.quiz_id}" style="color: white">View Questions</a>
                                                     </button>
                                                     <button type="button" class="btn btn-success btn-edit-quiz" data-id="${quiz.quiz_id}" data-title="${quiz.name}">Edit</button>
                                                     <form action="quizManage" method="post" style="display:inline;">
