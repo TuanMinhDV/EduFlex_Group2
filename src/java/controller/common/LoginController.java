@@ -97,9 +97,14 @@ public class LoginController extends HttpServlet {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("account", a);
-            //1000 giây reset
-            session.setMaxInactiveInterval(15 * 60);
-            response.sendRedirect("home");
+            if (a.getRole_id() == 3) {
+                response.sendRedirect("courseManage");
+            } else {
+                //1000 giây reset
+                session.setMaxInactiveInterval(15 * 60);
+                response.sendRedirect("home");
+            }
+
         }
     }
 

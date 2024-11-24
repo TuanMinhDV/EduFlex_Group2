@@ -149,7 +149,7 @@
                     <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
                         <div class="container">
                             <div class="page-banner-entry">
-                                <h1 class="text-white">Our Courses</h1>
+                                <h1 class="text-white">Manage Courses</h1>
                             </div>
                         </div>
                     </div>
@@ -157,7 +157,6 @@
                     <div class="breadcrumb-row">
                         <div class="container">
                             <ul class="list-inline">
-                                <li><a href="home">Home</a></li>
                                 <li>Manage Courses</li>
                             </ul>
                         </div>
