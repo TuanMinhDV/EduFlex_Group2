@@ -33,101 +33,103 @@
                 <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
                     <div class="container">
                         <div class="page-banner-entry">
-                            <h1 class="text-white">Chapters of ${course.name}</h1>
+                            <h1 class="text-white">Manage Lessons of Chapter: ${chapter.name}</h1>
                     </div>
                 </div>
             </div>
+                
             <!-- Breadcrumb row -->
             <div class="breadcrumb-row">
                 <div class="container">
                     <ul class="list-inline">
                         <li><a href="#">Home</a></li>
                         <li><a href="courseManage">Courses</a></li>
-                        <li>Chapters</li>
+                        <li><a href="courseManage">Chapters</a></li>
+                        <li><a href="">Lessons</a></li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <main class="main">
-            <div class="row mb-4">
-                <div class="col-lg-6 mx-auto">
-                    <form class="input-group" method="post" action="chapterManage">
-                        <input type="hidden" name="type" value="search"/>
-                        <input type="hidden" name="courseId" value="${course.id}"/>
-                        <input type="text" class="form-control" placeholder="Search for a Chapter..." name="nameSearch" aria-label="Search">
-                        <button class="btn btn-primary" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-            <!-- End of Search Form -->
-
-            <section id="chapters" class="chapters section">
+            <section class="lessons section">
                 <div class="container">
-
-                    <!-- Add Chapter Button -->
+                    <!-- Add Lesson Button -->
                     <div class="row mb-4">
                         <div class="col-lg-12 text-center">
-                            <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#add-chapter-modal">Add Chapter</button>
+                            <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#add-lesson-modal">Add Lesson</button>
                         </div>
                     </div>
 
-                    <!-- Add Chapter Modal -->
-                    <div id="add-chapter-modal" class="modal fade" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
+                    <!-- Add Lesson Modal -->
+                    <div id="add-lesson-modal" class="modal fade" tabindex="-1">
+                        <div class="modal-dialog">
                             <div class="modal-content">
-                                <form method="post" action="chapterManage">
+                                <form method="post" action="lessonManage">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Thêm Chapter Mới</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h5 class="modal-title">Thêm Lesson Mới</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                     </div>
                                     <div class="modal-body">
                                         <input type="hidden" name="type" value="add"/>
-                                        <input type="hidden" name="courseId" value="${course.id}"/>
-                                        <div class="form-group">
-                                            <label for="new-chapter-name">Tên Chapter</label>
-                                            <input type="text" class="form-control" id="new-chapter-name" name="chapterName" required/>
+                                        <input type="hidden" name="chapterId" value="${chapter.id}"/>
+                                        <div class="form-group mb-3">
+                                            <label for="lesson-name">Tên Lesson</label>
+                                            <input type="text" class="form-control" id="lesson-name" name="lessonName" required/>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="video-file">Upload Video</label>
+                                            <input type="text" class="form-control" id="video-file" name="videoFile" accept="video/*"/>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="document-file">Upload Document</label>
+                                            <input type="text" class="form-control" id="document-file" name="documentFile" accept=".pdf,.doc,.docx"/>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                        <button type="submit" class="btn btn-primary">Thêm Chapter</button>
+                                        <button type="submit" class="btn btn-primary">Thêm Lesson</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Chapter List Table -->
+                    <!-- Lesson List Table -->
                     <div class="row">
                         <div class="col-lg-12">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Chapter no</th>
-                                        <th>Chapter Name</th>
+                                        <th>Lesson no</th>
+                                        <th>Lesson Name</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${listChapters}" var="ch" varStatus="status">
-                                        <c:if test="${ch.isDisable != 1}">
+                                    <c:forEach items="${listLesson}" var="lesson" varStatus="status">
+                                        <c:if test="${lesson.isDisable != 1}">
                                             <tr>
                                                 <td>${status.index + 1}</td>
-                                                <td><a href="lessonManage?chID=${ch.id}">${ch.name}</a></td>
+                                                <td><a href="${lesson.video}">${lesson.name}</a></td>
                                                 <td>
-                                                    <form action="listChapters" method="post" style="display:inline;">
-                                                        <input type="hidden" name="courseId" value="${course.id}"/>
+                                                    <button type="button" class="btn btn-primary btn-edit-lesson" 
+                                                            data-id="${lesson.id}" 
+                                                            data-name="${lesson.name}" 
+                                                            data-video="${lesson.video}" 
+                                                            data-document="${lesson.document}">
+                                                        Edit
+                                                    </button>
+                                                    <form action="listLession" method="post" style="display:inline;">
                                                         <input type="hidden" name="type" value="delete">
-                                                        <input type="hidden" name="chapterId" value="${ch.id}">
+                                                        <input type="hidden" name="lessonId" value="${lesson.id}">
+                                                        <input type="hidden" name="chapterId" value="${chapter.id}"/>
                                                         <button type="submit" class="btn btn-danger" onclick="return confirmDelete();">Delete</button>
                                                     </form>
-                                                    <button type="button" class="btn btn-primary btn-edit-chapter" data-id="${ch.id}" data-name="${ch.name}">Edit</button>
-                                                    <button type="button" class="btn btn-primary"><a style="color: white" href="listQuizz?chapID=${ch.id}">Manage Quizz</a></button>
+                                                    <!-- Delete form -->
                                                 </td>
                                             </tr>
                                         </c:if>
-
                                     </c:forEach>
                                 </tbody>
                             </table>
@@ -137,24 +139,35 @@
             </section>
         </main>
 
-        <!-- Popup chỉnh sửa chapter -->
-        <div id="edit-chapter-popup" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
+        <!-- Edit Lesson Modal -->
+        <div id="edit-lesson-modal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" action="chapterManage">
+                    <form method="post" action="lessonManage">
                         <div class="modal-header">
-                            <h5 class="modal-title">Chỉnh sửa Chapter</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h5 class="modal-title">Chỉnh sửa Lesson</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="type" value="edit"/>
-                            <input type="hidden" name="chapterId" id="chapter-id"/>
-                            <input type="hidden" name="courseId" value="${course.id}"/>
-                            <div class="form-group">
-                                <label for="chapter-name">Chapter Name</label>
-                                <input type="text" class="form-control" name="chapterName" id="chapter-name"/>
+                            <input type="hidden" name="lessonId" id="edit-lesson-id"/>
+                            <input type="hidden" name="chapterId" value="${chapter.id}"/>
+                            <!-- Display Lesson Name -->
+                            <div class="form-group mb-3">
+                                <label for="edit-lesson-name">Lesson Name</label>
+                                <input type="text" class="form-control" name="lessonName" id="edit-lesson-name"/>
+                            </div>
+
+                            <!-- Display Video String -->
+                            <div class="form-group mb-3">
+                                <label for="edit-lesson-video">Video</label>
+                                <input type="text" class="form-control" name="lessonVideo" id="edit-lesson-video"/>
+                            </div>
+
+                            <!-- Display Document String -->
+                            <div class="form-group mb-3">
+                                <label for="edit-lesson-document">Document</label>
+                                <input type="text" class="form-control" name="lessonDocument" id="edit-lesson-document"/>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -199,21 +212,29 @@
 
         <script type="text/javascript">
                                                             $(document).ready(function () {
-                                                                $('.btn-edit-chapter').on('click', function () {
-                                                                    var chapterId = $(this).data('id');
-                                                                    var chapterName = $(this).data('name');
-                                                                    $('#edit-chapter-popup #chapter-id').val(chapterId);
-                                                                    $('#edit-chapter-popup #chapter-name').val(chapterName);
-                                                                    $('#edit-chapter-popup').modal('show');
-                                                                });
-                                                                $('.btn-secondary').on('click', function () {
-                                                                    e.preventDefault();
-                                                                    $('#edit-chapter-popup').modal('hide');
+                                                                $('.btn-edit-lesson').on('click', function () {
+                                                                    var lessonId = $(this).data('id');
+                                                                    var lessonName = $(this).data('name');
+                                                                    var lessonVideo = $(this).data('video');
+                                                                    var lessonDocument = $(this).data('document');
+
+                                                                    // Set values in the modal
+                                                                    $('#edit-lesson-modal #edit-lesson-id').val(lessonId);
+                                                                    $('#edit-lesson-modal #edit-lesson-name').val(lessonName);
+                                                                    $('#edit-lesson-modal #edit-lesson-video').val(lessonVideo);
+                                                                    $('#edit-lesson-modal #edit-lesson-document').val(lessonDocument);
+
+                                                                    // Show the modal
+                                                                    $('#edit-lesson-modal').modal('show');
                                                                 });
                                                             });
 
                                                             function confirmDelete() {
-                                                                return confirm("Are you sure you want to delete this chapter?");
+                                                                return confirm("Are you sure you want to delete this lesson?");
+                                                            }
+
+                                                            function goBack() {
+                                                                window.history.back();
                                                             }
         </script>
     </body>
