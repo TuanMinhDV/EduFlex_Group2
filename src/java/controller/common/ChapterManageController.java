@@ -5,6 +5,7 @@
 package controller.common;
 
 import dto.ChapterDAO;
+import dto.CourseDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.Chapter;
+import model.Course;
 
 /**
  *
@@ -59,11 +61,13 @@ public class ChapterManageController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int courseID = Integer.parseInt(request.getParameter("cID"));
+        CourseDAO daoCourse = new CourseDAO();
+        Course course = daoCourse.getCourseByID(courseID);
         ChapterDAO dao = new ChapterDAO();
         List<Chapter> listChap = dao.getChaptersByCourseID(courseID);
+        request.setAttribute("course", course);
         request.setAttribute("listChapters", listChap);
         request.getRequestDispatcher("ManageChaptersByIns.jsp").forward(request, response);
-//        request.getRequestDispatcher("test.jsp").forward(request, response);
     }
 
     /**
@@ -77,7 +81,51 @@ public class ChapterManageController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        ChapterDAO dao = new ChapterDAO();
+        String type = request.getParameter("type");
+        if (type.equalsIgnoreCase("add")) {
+            int courseID = Integer.parseInt(request.getParameter("courseId"));
+            String nameC = request.getParameter("chapterName");
+            Chapter chapNew = new Chapter(nameC, courseID);
+            dao.addChapter(chapNew);
+            loadDBwithCourseID(courseID, request, response);
+        } else if (type.equalsIgnoreCase("edit")) {
+            int chapter_id = Integer.parseInt(request.getParameter("chapterId"));
+            String newName = request.getParameter("chapterName");
+            if (!newName.isEmpty()) {
+                Chapter chap = dao.getChapterByChapterID(chapter_id);
+                chap.setName(newName);
+                dao.editChapter(chap);
+                int courseID = Integer.parseInt(request.getParameter("courseId"));
+                loadDBwithCourseID(courseID, request, response);
+            }
+        } else if (type.equalsIgnoreCase("delete")) {
+            int courseID = Integer.parseInt(request.getParameter("courseId"));
+            int chapter_id = Integer.parseInt(request.getParameter("chapterId"));
+            if (dao.getChapterByChapterID(chapter_id)!=null){
+                dao.deleteChapter(chapter_id);
+                loadDBwithCourseID(courseID, request, response);
+            }
+        } else if (type.equalsIgnoreCase("search")) {
+            CourseDAO courseDAO = new CourseDAO();
+            int courseID = Integer.parseInt(request.getParameter("courseId"));
+            String txt = request.getParameter("nameSearch");
+            List<Chapter> listC = dao.searchByName(txt, courseID);
+            request.setAttribute("course", courseDAO.getCourseByID(courseID));
+            request.setAttribute("listChapters", listC);
+            request.getRequestDispatcher("ManageChaptersByIns.jsp").forward(request, response);
+        }
+        
+    }
+    
+    public void loadDBwithCourseID(int courseID, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CourseDAO daoCourse = new CourseDAO();
+        Course course = daoCourse.getCourseByID(courseID);
+        ChapterDAO dao = new ChapterDAO();
+        List<Chapter> listChap = dao.getChaptersByCourseID(courseID);
+        request.setAttribute("course", course);
+        request.setAttribute("listChapters", listChap);
+        request.getRequestDispatcher("ManageChaptersByIns.jsp").forward(request, response);
     }
 
     /**
