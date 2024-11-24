@@ -24,7 +24,7 @@
         <link href="DungBT/assets/css/main.css" rel="stylesheet">
 
         <!-- All PLUGINS CSS ============================================= -->
-        
+
         <style>
             /* Custom styling */
             .quiz-page {
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-                
+
             <!-- Breadcrumb row -->
             <div class="breadcrumb-row">
                 <div class="container">
@@ -252,11 +252,12 @@
                                                             });
                                                             function goBack() {
                                                                 window.history.back();
-                                                            };
+                                                            }
+                                                            ;
                                                             function confirmDelete() {
                                                                 return confirm("Are you sure you want to delete this lesson?");
                                                             }
-                                                            
+
         </script>
     </body>
 </html>
