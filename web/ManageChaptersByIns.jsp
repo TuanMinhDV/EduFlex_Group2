@@ -33,27 +33,28 @@
                 <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
                     <div class="container">
                         <div class="page-banner-entry">
-                            <h1 class="text-white">Our Courses</h1>
-                        </div>
-                    </div>
-                </div>
-                <!-- Breadcrumb row -->
-                <div class="breadcrumb-row">
-                    <div class="container">
-                        <ul class="list-inline">
-                            <li><a href="#">Home</a></li>
-                            <li>Manage Courses</li>
-                        </ul>
+                            <h1 class="text-white">Chapters of ${course.name}</h1>
                     </div>
                 </div>
             </div>
+            <!-- Breadcrumb row -->
+            <div class="breadcrumb-row">
+                <div class="container">
+                    <ul class="list-inline">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="courseManage">Courses</a></li>
+                        <li>Chapters</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-            <main class="main">
-                <div class="row mb-4">
-                    <div class="col-lg-6 mx-auto">
-                        <form class="input-group" method="post" action="listChapter">
-                            <input type="hidden" name="type" value="search"/>
-                            <input type="hidden" name="courseId" value="${course.course_id}"/>
+        <main class="main">
+            <div class="row mb-4">
+                <div class="col-lg-6 mx-auto">
+                    <form class="input-group" method="post" action="chapterManage">
+                        <input type="hidden" name="type" value="search"/>
+                        <input type="hidden" name="courseId" value="${course.id}"/>
                         <input type="text" class="form-control" placeholder="Search for a Chapter..." name="nameSearch" aria-label="Search">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </form>
@@ -75,14 +76,14 @@
                     <div id="add-chapter-modal" class="modal fade" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <form method="post" action="listChapter">
+                                <form method="post" action="chapterManage">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Thêm Chapter Mới</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <input type="hidden" name="type" value="add"/>
-                                        <input type="hidden" name="courseId" value="${course.course_id}"/>
+                                        <input type="hidden" name="courseId" value="${course.id}"/>
                                         <div class="form-group">
                                             <label for="new-chapter-name">Tên Chapter</label>
                                             <input type="text" class="form-control" id="new-chapter-name" name="chapterName" required/>
@@ -115,10 +116,10 @@
                                                 <td>${status.index + 1}</td>
                                                 <td><a href="listLession">${ch.name}</a></td>
                                                 <td>
-                                                    <form action="listChapter" method="post" style="display:inline;">
-                                                        <input type="hidden" name="courseId" value="${course.course_id}"/>
+                                                    <form action="chapterManage" method="post" style="display:inline;">
+                                                        <input type="hidden" name="courseId" value="${course.id}"/>
                                                         <input type="hidden" name="type" value="delete">
-                                                        <input type="hidden" name="chapterId" value="${ch.name}">
+                                                        <input type="hidden" name="chapterId" value="${ch.id}">
                                                         <button type="submit" class="btn btn-danger" onclick="return confirmDelete();">Delete</button>
                                                     </form>
                                                     <button type="button" class="btn btn-primary btn-edit-chapter" data-id="${ch.id}" data-name="${ch.name}">Edit</button>
@@ -140,7 +141,7 @@
         <div id="edit-chapter-popup" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form method="post" action="listChapter">
+                    <form method="post" action="chapterManage">
                         <div class="modal-header">
                             <h5 class="modal-title">Chỉnh sửa Chapter</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -150,7 +151,7 @@
                         <div class="modal-body">
                             <input type="hidden" name="type" value="edit"/>
                             <input type="hidden" name="chapterId" id="chapter-id"/>
-                            <input type="hidden" name="courseId" value="${course.course_id}"/>
+                            <input type="hidden" name="courseId" value="${course.id}"/>
                             <div class="form-group">
                                 <label for="chapter-name">Chapter Name</label>
                                 <input type="text" class="form-control" name="chapterName" id="chapter-name"/>
@@ -169,8 +170,8 @@
             <div class="container-fluid">
                 <div class="footer-top">
                     <div class="row">
-                        <div class="col-lg-4 footer-contact">
-                            <h3>Course Management</h3>
+                        <div class="col-lg-4 footer-contact text-center">
+                            <h3>Edu Flex</h3>
                         </div>
                     </div>
                 </div>

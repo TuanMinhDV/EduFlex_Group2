@@ -24,6 +24,11 @@ public class Chapter {
         this.isDisable = isDisable;
     }
 
+    public Chapter(String name, int course_id) {
+        this.name = name;
+        this.course_id = course_id;
+    }
+
     public int getId() {
         return id;
     }
