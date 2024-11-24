@@ -67,6 +67,7 @@ public class ProfileController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("account");
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
 
@@ -114,7 +115,7 @@ public class ProfileController extends HttpServlet {
             status = "failed";
         }
         if ("success".equals(status)) {
-            //ad.updateProfile(fullname, birthday, phone, imageName, acc.getAccount_id());
+            ad.updateProfile(fullname, birthday, phone, imageName, acc.getAccount_id());
             session.removeAttribute("account");
             session.setAttribute("account", ad.getAccountById(acc.getAccount_id()));
             Account profileAccount = ad.getAccountProfile(acc.getAccount_id());
