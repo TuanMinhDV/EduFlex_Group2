@@ -79,7 +79,7 @@
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="video-file">Upload Video</label>
-                                            <input type="text" class="form-control" id="video-file" name="videoFile" accept="video/*"/>
+                                            <input type="text" class="form-control" id="video-file" name="videoFile" accept="video/*" required/>
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="document-file">Upload Document</label>
