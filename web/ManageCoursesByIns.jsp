@@ -218,7 +218,7 @@
                                                                 <button style="background-color: red; margin-left: 10px;" type="submit" class="btn btn-danger btn-lg" onclick="return confirmDelete()" >Archive</button>
                                                             </form>
                                                         </div>
-                                                        <button style="display: block; margin-top: 10px" type="button" class="btn btn-primary btn-lg">Manage Chapters</button>
+                                                        <a href="chapterManage?cID=${course.id}" style="display: block; margin-top: 10px" type="button" class="btn btn-primary btn-lg">Manage Chapters</a>
                                                     </div>
                                                 </div>
                                             </c:if>
