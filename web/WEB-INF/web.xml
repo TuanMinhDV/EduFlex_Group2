@@ -8,8 +8,16 @@
         <servlet-name>CourseManageController</servlet-name>
         <servlet-class>controller.common.CourseManageController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DetailCourseInsController</servlet-name>
+        <servlet-class>controller.common.DetailCourseInsController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CourseManageController</servlet-name>
         <url-pattern>/courseManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailCourseInsController</servlet-name>
+        <url-pattern>/detailCourseIns</url-pattern>
     </servlet-mapping>
 </web-app>
