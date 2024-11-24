@@ -13,6 +13,6 @@
     </head>
     <body>
         test
-        <h1>${error}</h1>
+        <h1>${listChapters}</h1>
     </body>
 </html>
