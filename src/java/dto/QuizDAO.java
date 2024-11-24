@@ -33,8 +33,7 @@ public class QuizDAO extends DBContext{
                 + "      ,[course_id]\n"
                 + "      ,[quiz_id]\n"
                 + "      ,[level]\n"
-                + "      ,[isDisable]\n"
-                + "  FROM [EduFlex2.2].[dbo].[Question] where quiz_id = ?";
+                + "  FROM [dbo].[Question] where quiz_id = ?";
         try {
             statement = connection.prepareStatement(sql);
             statement.setInt(1, quizID);
@@ -49,9 +48,8 @@ public class QuizDAO extends DBContext{
                 int answer = resultSet.getInt("answer");
                 int quiz_id = resultSet.getInt("quiz_id");
                 int level = resultSet.getInt("level");
-                int isDisable = resultSet.getInt("isDisable");
 
-                Question ques = new Question(id, content, option1, option2, option3, option4, answer, quiz_id, level, isDisable);
+                Question ques = new Question(id, content, option1, option2, option3, option4, answer, quiz_id, level);
                 listQues.add(ques);
             }
         } catch (SQLException e) {
@@ -123,7 +121,7 @@ public class QuizDAO extends DBContext{
     
     public List<Question> searchByName(String txt, int quizzID) {
         List<Question> listQues = new ArrayList<>();
-        String sql = "SELECT * from [dbo].[Course] where course_name like ?";
+        String sql = "SELECT * from [dbo].[Question] where course_name like ?";
         try {
             statement = connection.prepareStatement(sql);
             statement.setString(1, "%" + txt + "%");
@@ -138,9 +136,8 @@ public class QuizDAO extends DBContext{
                 int answer = resultSet.getInt("answer");
                 int quiz_id = resultSet.getInt("quiz_id");
                 int level = resultSet.getInt("level");
-                int isDisable = resultSet.getInt("isDisable");
 
-                Question ques = new Question(id, content, option1, option2, option3, option4, answer, quiz_id, level, isDisable);
+                Question ques = new Question(id, content, option1, option2, option3, option4, answer, quiz_id, level);
                 listQues.add(ques);
             }
         } catch (SQLException ex) {
@@ -221,5 +218,10 @@ public class QuizDAO extends DBContext{
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }
+    
+    public static void main(String[] args) {
+        QuizDAO dao = new QuizDAO();
+        System.out.println(dao.getAllQuestionsByQuizID(1));
     }
 }

@@ -116,4 +116,7 @@ public class QuizManageController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public static void main(String[] args) {
+        
+    }
 }
