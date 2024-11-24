@@ -132,4 +132,7 @@ public class LessonManageController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public static void main(String[] args) {
+        
+    }
 }
