@@ -157,7 +157,7 @@
                     <div class="breadcrumb-row">
                         <div class="container">
                             <ul class="list-inline">
-                                <li><a href="#">Home</a></li>
+                                <li><a href="home">Home</a></li>
                                 <li>Manage Courses</li>
                             </ul>
                         </div>
@@ -205,7 +205,7 @@
                                                             <a href="detailCourseIns?cID=${course.id}" class="btn">Read More</a>
                                                         </div>
                                                         <div class="info-bx text-center">
-                                                            <h5><a href="#">${course.name}</a></h5>
+                                                            <h5><a href="detailCourseIns?cID=${course.id}">${course.name}</a></h5>
                                                             <span>${course.cate_name != null ? course.cate_name : 'Not classified yet'}</span>
                                                         </div>
                                                         <div class="cours-more-info">

@@ -165,7 +165,12 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="courselist">Our Courses</a>
+                                    <c:if test="${sessionScope.account.role_id == 3}">
+                                        <a href="courseManage">Manage Courses</a>
+                                    </c:if>
+                                    <c:if test="${sessionScope.account.role_id != 3}">
+                                        <a href="courselist">Our Courses</a>
+                                    </c:if>
                                 </li>
                                 <li>
                                     <a href="bloglist">Blog</a>
