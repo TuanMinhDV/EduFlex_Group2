@@ -56,49 +56,56 @@ public class LoginController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    AccountDAO ad = new AccountDAO();
-    String username = request.getParameter("user");
-    String password = request.getParameter("pass");
-    String remember = request.getParameter("remember");
-    Cookie cuser = new Cookie("cuser", username);
-    Cookie cpass = new Cookie("cpass", password);
-    Cookie crem = new Cookie("crem", remember);
-    if (remember != null) {
-        cuser.setMaxAge(3600 * 24);
-        cpass.setMaxAge(3600 * 24);
-        crem.setMaxAge(3600 * 24);
-    } else {
-        cuser.setMaxAge(0);
-        cpass.setMaxAge(0);
-        crem.setMaxAge(0);
-    }
-    response.addCookie(cuser);
-    response.addCookie(cpass);
-    response.addCookie(crem);
-
-    Account a = ad.login(username, password);
-    if (a == null) {
-        request.setAttribute("mess", "Username or Password is incorrect!!");
-        request.getRequestDispatcher("login.jsp").forward(request, response);
-    } else if (a.getActive() == 0) {
-        request.setAttribute("mess", "Your account has been BLOCKED");
-        request.getRequestDispatcher("login.jsp").forward(request, response);
-    } else {
-        HttpSession session = request.getSession();
-        session.setAttribute("account", a);
-        session.setMaxInactiveInterval(15 * 60); // Session timeout: 15 minutes
-
-        // Kiểm tra role của tài khoản
-        if (a.getRole_id() == 1) { // Nếu role = 1
-            response.sendRedirect("homeadmincontroller");
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        AccountDAO ad = new AccountDAO();
+        String username = request.getParameter("user");
+        String password = request.getParameter("pass");
+        String remember = request.getParameter("remember");
+        Cookie cuser = new Cookie("cuser", username);
+        Cookie cpass = new Cookie("cpass", password);
+        Cookie crem = new Cookie("crem", remember);
+        if (remember != null) {
+            cuser.setMaxAge(3600 * 24);
+            cpass.setMaxAge(3600 * 24);
+            crem.setMaxAge(3600 * 24);
         } else {
-            response.sendRedirect("home");
+            cuser.setMaxAge(0);
+            cpass.setMaxAge(0);
+            crem.setMaxAge(0);
+        }
+        response.addCookie(cuser);
+        response.addCookie(cpass);
+        response.addCookie(crem);
+
+        Account a = ad.login(username, password);
+        if (a == null) {
+            request.setAttribute("mess", "Username or Password is incorrect!!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else if (a.getActive() == 0) {
+            request.setAttribute("mess", "Your account has been BLOCKED");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("account", a);
+            session.setMaxInactiveInterval(15 * 60); // Session timeout: 15 minutes
+            // Kiểm tra role của tài khoản
+            switch (a.getRole_id()) {
+                case 1:
+                    // Nếu role = 1
+                    response.sendRedirect("homeadmincontroller");
+                    break;
+                case 3:
+                    // Nếu role = 3
+                    response.sendRedirect("courseManage");
+                    break;
+                default:
+                    response.sendRedirect("home");
+                    break;
+            }
         }
     }
-}
 
     /**
      * Returns a short description of the servlet.

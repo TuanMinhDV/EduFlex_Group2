@@ -149,7 +149,7 @@
                                         <a href="mycourse">My Course</a>
                                     </li>
                                 </c:if>
-                                <c:if test="${sessionScope.account.role_id == 3}">
+                                <c:if test="${sessionScope.account.role_id != 3}">
                                     <li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
                                         <ul class="sub-menu">
                                             <li><a href="admin/index.html">Dashboard</a></li>
