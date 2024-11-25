@@ -664,7 +664,7 @@ public class CourseDAO extends DBContext {
         }
         return listAll;
     }
-    
+
     public int countNumOfChapter(int courseID) {
         int i = 0;
         String sql = """
@@ -684,6 +684,32 @@ public class CourseDAO extends DBContext {
             System.out.println(e);
         }
         return i;
+    }
+
+    public int getTotalCourse() {
+        int totalCourses = 0;
+        String query = "SELECT COUNT(*) AS total FROM [Course]";
+        try {
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                totalCourses = resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error closing resources: " + ex.getMessage());
+            }
+        }
+        return totalCourses;
     }
 
     public static void main(String[] args) {

@@ -3,21 +3,84 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>Order Detail</title>
+        <!-- META -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
+
+        <!-- DESCRIPTION -->
+        <meta name="description" content="EduChamp : Education HTML Template" />
+
+        <!-- OG -->
+        <meta property="og:title" content="EduChamp : Education HTML Template" />
+        <meta property="og:description" content="EduChamp : Education HTML Template" />
+        <meta property="og:image" content="" />
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- FAVICONS ICON -->
+        <link rel="icon" href="../error-404.html" type="image/x-icon" />
+        <link rel="shortcut icon" type="image/x-icon" href="admin/assets/images/favicon.png" />
+
+        <!-- PAGE TITLE -->
+        <title>EduChamp : Education HTML Template </title>
+
+        <!-- MOBILE SPECIFIC -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- All PLUGINS CSS -->
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/vendors/calendar/fullcalendar.css">
+
+        <!-- TYPOGRAPHY -->
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/typography.css">
+
+        <!-- SHORTCODES -->
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/shortcodes/shortcodes.css">
+
+        <!-- STYLESHEETS -->
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="admin/assets/css/color/color-1.css">
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 20px;
-                background-color: #f9f9f9;
+            /* Bố cục grid layout */
+            .layout {
+                display: grid;
+                grid-template-areas: 
+                    "header header"
+                    "sidebar main";
+                grid-template-columns: 250px 1fr;
+                grid-template-rows: auto 1fr;
+                height: 100vh;
             }
-            h1 {
+            .header {
+                grid-area: header;
+                background-color: #f4f4f4;
+                padding: 10px;
                 text-align: center;
-                color: #333;
-                margin-bottom: 20px;
             }
+            .sidebar {
+                grid-area: sidebar;
+                background-color: #333;
+                color: white;
+                padding: 10px;
+                overflow-y: auto;
+            }
+            .main-content {
+                grid-area: main;
+                padding: 20px;
+                background-color: #fff;
+                overflow-y: auto;
+            }
+            /* Chi tiết đơn hàng */
             .order-container {
-                width: 60%;
+                max-width: 800px;
                 margin: 0 auto;
                 background: #fff;
                 border: 1px solid #ddd;
@@ -25,25 +88,23 @@
                 padding: 20px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
-            .order-info, .course-list {
-                margin-bottom: 20px;
+            h1, h2 {
+                text-align: center;
+                color: #333;
             }
-            .order-info table, .course-list table {
+            table {
                 width: 100%;
                 border-collapse: collapse;
+                margin: 20px 0;
             }
-            .order-info th, .course-list th {
-                text-align: left;
+            th, td {
                 padding: 10px;
-                border-bottom: 2px solid #ddd;
-                font-weight: bold;
+                border: 1px solid #ddd;
+                text-align: left;
             }
-            .order-info td, .course-list td {
-                padding: 8px;
-                border-bottom: 1px solid #ddd;
-            }
-            .course-list th {
+            th {
                 background-color: #f4f4f4;
+                font-weight: bold;
             }
             .total-money {
                 font-weight: bold;
@@ -57,14 +118,12 @@
                 margin-top: 30px;
             }
             .back-button a {
-                display: inline-block;
                 padding: 10px 20px;
                 background-color: #007BFF;
                 color: #fff;
                 text-decoration: none;
                 border-radius: 5px;
                 font-size: 14px;
-                font-weight: bold;
             }
             .back-button a:hover {
                 background-color: #0056b3;
@@ -72,68 +131,79 @@
         </style>
     </head>
     <body>
-        <div class="order-container">
-            <h1>Order Detail</h1>
-            <c:if test="${not empty orderDetail}">
-                <!-- Thông tin đơn hàng -->
-                <div class="order-info">
-                    <table>
-                        <tr>
-                            <th>Order ID</th>
-                            <td>${orderDetail.orderId}</td>
-                        </tr>
-                        <tr>
-                            <th>Username</th>
-                            <td>${orderDetail.username}</td>
-                        </tr>
-                        <tr>
-                            <th>Full Name</th>
-                            <td>${orderDetail.fullName}</td>
-                        </tr>
-                        <tr>
-                            <th>Role</th>
-                            <td>${orderDetail.roleName}</td>
-                        </tr>
-                        <tr>
-                            <th>Order Date</th>
-                            <td>${orderDetail.orderDate}</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <!-- Danh sách sản phẩm -->
-                <div class="course-list">
-                    <h2 style="text-align: center;">Course List</h2>
-                    <table>
-                        <thead>
+        <div class="layout">
+            <!-- Header -->
+            <div class="header">
+                <jsp:include page="header3.jsp"></jsp:include>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <jsp:include page="sidebarleft.jsp"></jsp:include>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="order-container">
+                    <h1>Order Detail</h1>
+                    <c:if test="${not empty orderDetail}">
+                        <!-- Thông tin đơn hàng -->
+                        <table>
                             <tr>
-                                <th>Course Name</th>
-                                <th>Price (USD)</th>
+                                <th>Order ID</th>
+                                <td>${orderDetail.orderId}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="course" items="${orderDetail.courses}">
+                            <tr>
+                                <th>Username</th>
+                                <td>${orderDetail.username}</td>
+                            </tr>
+                            <tr>
+                                <th>Full Name</th>
+                                <td>${orderDetail.fullName}</td>
+                            </tr>
+                            <tr>
+                                <th>Role</th>
+                                <td>${orderDetail.roleName}</td>
+                            </tr>
+                            <tr>
+                                <th>Order Date</th>
+                                <td>${orderDetail.orderDate}</td>
+                            </tr>
+                        </table>
+
+                        <!-- Danh sách sản phẩm -->
+                        <h2>Course List</h2>
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td>${course.courseName}</td>
-                                    <td>${course.price}</td>
+                                    <th>Course Name</th>
+                                    <th>Price (USD)</th>
                                 </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="course" items="${orderDetail.courses}">
+                                    <tr>
+                                        <td>${course.courseName}</td>
+                                        <td>${course.price}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
 
-                <!-- Tổng tiền -->
-                <div class="total-money">
-                    Total Money: ${orderDetail.totalMoney} USD
-                </div>
-            </c:if>
-            <c:if test="${empty orderDetail}">
-                <p style="text-align: center; color: red;">Order not found.</p>
-            </c:if>
+                        <!-- Tổng tiền -->
+                        <div class="total-money">
+                            Total Money: ${orderDetail.totalMoney} USD
+                        </div>
+                    </c:if>
+                    <c:if test="${empty orderDetail}">
+                        <p style="text-align: center; color: red;">Order not found.</p>
+                    </c:if>
 
-            <!-- Nút quay lại -->
-            <div class="back-button">
-                <a href="viewordercourselistbyadmin">Back to Order List</a>
+                    <!-- Nút quay lại -->
+                    <div class="back-button">
+                        <a href="viewordercourselistbyadmin">Back to Order List</a>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

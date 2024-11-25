@@ -22,16 +22,29 @@
                 </div>
                 <!--sidebar menu toggler end -->
                 <!--logo start -->
+                <div class="ttr-logo-box">
+                    <div>
+                        <a href="index.html" class="ttr-logo">
+                            <img alt="" class="ttr-logo-mobile" src="assets/images/logo-mobile.png" width="30" height="30">
+                            <img alt="" class="ttr-logo-desktop" src="assets/images/logo-white.png" width="160" height="27">
+                        </a>
+                    </div>
+                </div>
                 <!--logo end -->
                 <div class="ttr-header-menu">
                     <!-- header left menu start -->
                     <ul class="ttr-header-navigation">
-                        <li>
+<!--                        <li>
                             <a href="home" class="ttr-material-button ttr-submenu-toggle">HOME</a>
                         </li>
                         <li>
-                            <a href="courselist" class="ttr-material-button ttr-submenu-toggle">Explore Courses</a>
-                        </li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU 23  <i class="fa fa-angle-down"></i></a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="courselist">Our Courses</a></li>
+                                </ul>
+                            </div>
+                        </li>-->
                     </ul>
                     <!-- header left menu end -->
                 </div>
@@ -40,26 +53,23 @@
                     <ul class="ttr-header-navigation">
 
                         <li>
-                            <c:if test="${sessionScope.account != null}">
-                                <c:if test="${sessionScope.account.avatar == null}">
-                                    <a class="ttr-material-button ttr-submenu-toggle">
-                                        <span class="ttr-user-avatar">
-                                            <img src="EduChamp-Template/assets/images/profile/default_profile_image.png" 
-                                                 alt="profile picture" 
-                                                 style="width:32px; height: 32px; border-radius: 50%">
-                                        </span>
+                            <c:if test="${sessionScope.account.avatar == null}">
+                                <a class="ttr-material-button ttr-submenu-toggle">
+                                    <span class="ttr-user-avatar">
+                                        <img src="EduChamp-Template/assets/images/profile/default_profile_image.png" 
+                                             alt="profile picture" 
+                                             style="width:32px; height: 32px; border-radius: 50%">
+                                    </span>
 
-                                    </a>
-                                </c:if>
-                                <c:if test="${sessionScope.account.avatar != null}">
-                                    <div class="ttr-material-button ttr-submenu-toggle" 
-                                         style="width: 32px; height: 32px;
-                                         border-radius: 50%;background-image:
-                                         url('data:image/jpeg;base64,${sessionScope.account.avatar}')">
-                                    </div>
-                                </c:if>
+                                </a>
                             </c:if>
-
+                            <c:if test="${sessionScope.account.avatar != null}">
+                                <div class="ttr-material-button ttr-submenu-toggle" 
+                                     style="width: 32px; height: 32px;
+                                     border-radius: 50%;background-image:
+                                     url('data:image/jpeg;base64,${sessionScope.account.avatar}')">
+                                </div>
+                            </c:if>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="profile">My profile</a></li>
@@ -67,17 +77,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="ttr-hide-on-mobile">
-                            <a href="cart.jsp" class="ttr-material-button">
-                                <img src="assets/images/icon/CART.png" style="height: 40px"alt=""/>
-                                <c:if test="${size == null}">
-                                    (0)
-                                </c:if>
-                                <c:if test="${size != null}">
-                                    (${size})
-                                </c:if>
-                            </a>
-                        </li>
+                        
                     </ul>
                     <!-- header right menu end -->
                 </div>

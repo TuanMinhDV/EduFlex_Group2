@@ -100,24 +100,24 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
-                                        <div class="widget courses-search-bx placeani">
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <label>Search Courses</label>
-                                                    <input name="dzName" type="text" required class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="widget widget_archive">
-                                            <h5 class="widget-title style-1">All Courses</h5>
-                                            <ul>
-                                                <li class="active"><a href="#">General</a></li>
-                                                <li><a href="#">IT & Software</a></li>
-                                                <li><a href="#">Photography</a></li>
-                                                <li><a href="#">Programming Language</a></li>
-                                                <li><a href="#">Technology</a></li>
-                                            </ul>
-                                        </div>
+                                        <!--                                        <div class="widget courses-search-bx placeani">
+                                                                                    <div class="form-group">
+                                                                                        <div class="input-group">
+                                                                                            <label>Search Courses</label>
+                                                                                            <input name="dzName" type="text" required class="form-control">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="widget widget_archive">
+                                                                                    <h5 class="widget-title style-1">All Courses</h5>
+                                                                                    <ul>
+                                                                                        <li class="active"><a href="#">General</a></li>
+                                                                                        <li><a href="#">IT & Software</a></li>
+                                                                                        <li><a href="#">Photography</a></li>
+                                                                                        <li><a href="#">Programming Language</a></li>
+                                                                                        <li><a href="#">Technology</a></li>
+                                                                                    </ul>
+                                                                                </div>-->
                                     <c:if test="${sessionScope.account == null}">
                                         <div class="widget">
                                             <a href="login"><img src="assets/images/adv/adv.jpg" alt=""/></a>
@@ -215,17 +215,17 @@
                                         </c:forEach>
                                         <input type="hidden" id="account_id" name="account_id" value="${sessionScope.account.account_id}">
                                         <!--Phân trang-->
-                                        <div class="col-lg-12 m-b20">
-                                            <div class="pagination-bx rounded-sm gray clearfix">
-                                                <ul class="pagination">
-                                                    <li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
-                                                    <li class="active"><a href="#">1</a></li>
-                                                    <li><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        <!--                                        <div class="col-lg-12 m-b20">
+                                                                                    <div class="pagination-bx rounded-sm gray clearfix">
+                                                                                        <ul class="pagination">
+                                                                                            <li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
+                                                                                            <li class="active"><a href="#">1</a></li>
+                                                                                            <li><a href="#">2</a></li>
+                                                                                            <li><a href="#">3</a></li>
+                                                                                            <li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>-->
 
                                     </div>
                                 </div>

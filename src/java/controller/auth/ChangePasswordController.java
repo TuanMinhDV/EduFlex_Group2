@@ -66,8 +66,8 @@ public class ChangePasswordController extends BaseRequiredAuthorizationControlle
             AccountDAO ad = new AccountDAO();
             ad.changePassword(username, newPass);
             request.setAttribute("mess", "Your password has been changed successfully");
-            response.sendRedirect("login");
-            //request.getRequestDispatcher("login.jsp").forward(request, response);
+            //response.sendRedirect("login");
+            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         }
 
     }

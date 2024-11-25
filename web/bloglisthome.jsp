@@ -106,34 +106,34 @@
                                     </div>
                                     <!-- blog grid END -->
                                     <!-- Pagination -->
-                                    <div class="pagination-bx rounded-sm gray clearfix">
-                                        <ul class="pagination">
-                                            <li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
-                                            <li class="active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
-                                        </ul>
-                                    </div>
+                                    <!--                                    <div class="pagination-bx rounded-sm gray clearfix">
+                                                                            <ul class="pagination">
+                                                                                <li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
+                                                                                <li class="active"><a href="#">1</a></li>
+                                                                                <li><a href="#">2</a></li>
+                                                                                <li><a href="#">3</a></li>
+                                                                                <li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
+                                                                            </ul>
+                                                                        </div>-->
                                     <!-- Pagination END -->
                                 </div>
                                 <!-- left part END -->
                                 <!-- Side bar start -->
                                 <div class="col-lg-4 col-xl-4 col-md-5 sticky-top">
                                     <aside class="side-bar sticky-top">
-                                        <div class="widget">
-                                            <h6 class="widget-title">Search</h6>
-                                            <div class="search-bx style-1">
-                                                <form role="search" method="post">
-                                                    <div class="input-group">
-                                                        <input name="text" class="form-control" placeholder="Enter your keywords..." type="text">
-                                                        <span class="input-group-btn">
-                                                            <button type="submit" class="fa fa-search text-primary"></button>
-                                                        </span> 
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
+                                        <!--                                        <div class="widget">
+                                                                                    <h6 class="widget-title">Search</h6>
+                                                                                    <div class="search-bx style-1">
+                                                                                        <form role="search" method="post">
+                                                                                            <div class="input-group">
+                                                                                                <input name="text" class="form-control" placeholder="Enter your keywords..." type="text">
+                                                                                                <span class="input-group-btn">
+                                                                                                    <button type="submit" class="fa fa-search text-primary"></button>
+                                                                                                </span> 
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>-->
                                         <div class="widget recent-posts-entry">
                                             <h6 class="widget-title">Recent Posts</h6>
                                             <div class="widget-post-bx">
