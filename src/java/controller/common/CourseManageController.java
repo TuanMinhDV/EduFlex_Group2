@@ -77,9 +77,9 @@ public class CourseManageController extends HttpServlet {
             request.getRequestDispatcher("ManageCoursesByIns.jsp").forward(request, response);
         } else {
             // Create Account
-            AccountDAO daoAccount = new AccountDAO();
-            Account acToLog = daoAccount.login("tamnt", "123");
-            session.setAttribute("account", acToLog);
+//            AccountDAO daoAccount = new AccountDAO();
+//            Account acToLog = daoAccount.login("tamnt", "123");
+//            session.setAttribute("account", acToLog);
 
             Account acLogin = (Account) session.getAttribute("account");
             listCourse = daoC.getAllCoursesByInsID(acLogin.getAccount_id());

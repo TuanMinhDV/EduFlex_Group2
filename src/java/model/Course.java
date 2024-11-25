@@ -23,6 +23,17 @@ public class Course {
     private int instructor_id;
     private int isDisable;
     
+    private int numOfChapters;
+
+    public int getNumOfChapters() {
+        return numOfChapters;
+    }
+
+    public void setNumOfChapters(int numOfChapters) {
+        this.numOfChapters = numOfChapters;
+    }
+    
+    
     private String cate_name;
 
     public String getCate_name() {

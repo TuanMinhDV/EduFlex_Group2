@@ -4,10 +4,6 @@
  */
 package dto;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -69,21 +65,21 @@ public class BlogDAO extends DBContext {
 
     public Blog getBlogByID(String id) {
 
-        String sql = "select b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname from Blog b \n"
-                + "join Account a on b.marketer_id = a.account_id\n"
-                + "where a.role_id = 4 and b.id = ?";
+        String sql = "SELECT b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname FROM Blog b \n"
+                + "JOIN Account a ON b.marketer_id = a.account_id\n"
+                + "WHERE a.role_id = 4 AND b.id = ?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
+                //byte[] imageData = rs.getBytes("image");
+                //String base64Image = new String(Base64.getEncoder().encode(imageData));
                 Account a = new Account();
 
                 return new Blog(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), base64Image, rs.getString(6),
+                        rs.getString(4), rs.getString("image"), rs.getString(6),
                         rs.getString(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getString(11));
             }
         } catch (SQLException e) {
@@ -118,9 +114,9 @@ public class BlogDAO extends DBContext {
 
     public Blog getNextBlogByID(String id) {
 
-        String sql = "select b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname from Blog b \n"
-                + "join Account a on b.marketer_id = a.account_id\n"
-                + "where a.role_id = 4 and b.id > ?";
+        String sql = "SELECT b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname from Blog b \n"
+                + "JOIN Account a on b.marketer_id = a.account_id\n"
+                + "WHERE a.role_id = 4 AND b.id > ?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -129,11 +125,11 @@ public class BlogDAO extends DBContext {
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
+                //byte[] imageData = rs.getBytes("image");
+                // base64Image = new String(Base64.getEncoder().encode(imageData));
                 Account a = new Account();
                 blog = new Blog(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), base64Image, rs.getString(6),
+                        rs.getString(4), rs.getString("image"), rs.getString(6),
                         rs.getString(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getString(11));
                 break;  // Exit loop after finding the first blog with a higher ID
             }
@@ -148,11 +144,11 @@ public class BlogDAO extends DBContext {
 
     public Blog getPreviousBlogByID(String id) {
 
-        String sql = "select b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname from Blog b \n"
-                + "join Account a on b.marketer_id = a.account_id\n"
-                + "where a.role_id = 4 and b.id < ?\n"
-                + "order by b.id desc\n"
-                + "limit 1";
+        String sql = "SELECT b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname\n"
+                + "FROM Blog b\n"
+                + "JOIN Account a ON b.marketer_id = a.account_id\n"
+                + "WHERE a.role_id = 4\n"
+                + "AND b.id = (SELECT MAX(id) FROM Blog WHERE id < ?);";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -161,11 +157,11 @@ public class BlogDAO extends DBContext {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
+                //byte[] imageData = rs.getBytes("image");
+                //String base64Image = new String(Base64.getEncoder().encode(imageData));
                 Account a = new Account();
                 blog = new Blog(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), base64Image, rs.getString(6),
+                        rs.getString(4), rs.getString("image"), rs.getString(6),
                         rs.getString(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getString(11));
             }
 
@@ -205,20 +201,20 @@ public class BlogDAO extends DBContext {
     public List<Blog> getRelatedBlog() {
         List<Blog> listP = new ArrayList<>();
 
-        String sql = "select top 5 b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname from Blog b \n"
-                + "join Account a on b.marketer_id = a.account_id\n"
-                + "where a.role_id = 4\n"
-                + "order by created_date desc";
+        String sql = "SELECT TOP 5 b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname FROM Blog b \n"
+                + "JOIN Account a ON b.marketer_id = a.account_id\n"
+                + "WHERE a.role_id = 4\n"
+                + "ORDER BY created_date DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
+                //byte[] imageData = rs.getBytes("image");
+                //String base64Image = new String(Base64.getEncoder().encode(imageData));
                 Account a = new Account();
 
                 listP.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), base64Image, rs.getString(6),
+                        rs.getString(4), rs.getString("image"), rs.getString(6),
                         rs.getString(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getString(11)));
             }
         } catch (SQLException e) {
@@ -230,21 +226,21 @@ public class BlogDAO extends DBContext {
     public List<Blog> getRelatedBlogRecent(int id) {
         List<Blog> listP = new ArrayList<>();
 
-        String sql = "select top 5 b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname from Blog b \n"
-                + "join Account a on b.marketer_id = a.account_id\n"
-                + "where a.role_id = 4\n"
-                + "and b.id <> ?\n"
-                + "order by created_date desc";
+        String sql = "SELECT TOP 5 b.id, b.title, b.content, b.description, b.image, b.link, b.created_date, b.status, b.marketer_id, b.tag, a.fullname FROM Blog b \n"
+                + "JOIN Account a on b.marketer_id = a.account_id\n"
+                + "WHERE a.role_id = 4\n"
+                + "AND b.id <> ?\n"
+                + "ORDER BY created_date DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                byte[] imageData = rs.getBytes("image");
-                String base64Image = new String(Base64.getEncoder().encode(imageData));
+                //byte[] imageData = rs.getBytes("image");
+                //String base64Image = new String(Base64.getEncoder().encode(imageData));
                 listP.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), base64Image, rs.getString(6),
+                        rs.getString(4), rs.getString("image"), rs.getString(6),
                         rs.getString(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getString(11)));
             }
         } catch (SQLException e) {

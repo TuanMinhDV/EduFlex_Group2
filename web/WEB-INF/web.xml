@@ -20,6 +20,14 @@
         <servlet-name>LessonManageController</servlet-name>
         <servlet-class>controller.common.LessonManageController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuizManageController</servlet-name>
+        <servlet-class>controller.common.QuizManageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionManageController</servlet-name>
+        <servlet-class>controller.common.QuestionManageController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CourseManageController</servlet-name>
         <url-pattern>/courseManage</url-pattern>
@@ -35,5 +43,13 @@
     <servlet-mapping>
         <servlet-name>LessonManageController</servlet-name>
         <url-pattern>/lessonManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizManageController</servlet-name>
+        <url-pattern>/quizManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionManageController</servlet-name>
+        <url-pattern>/questionManage</url-pattern>
     </servlet-mapping>
 </web-app>

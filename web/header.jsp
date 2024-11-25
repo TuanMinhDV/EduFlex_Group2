@@ -130,42 +130,16 @@
                                 <a href="home"><img src="EduChamp-Template/assets/images/logo.png" alt=""></a>
                             </div>
                             <ul class="nav navbar-nav">	
-                                <li><a href="home">Home</a>
-                                </li>
-                                <li><a href="javascript:;">Pages <i class="fa fa-chevron-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="javascript:;">About<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="about-1.html">About 1</a></li>
-                                                <li><a href="about-2.html">About 2</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="javascript:;">Event<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="event.html">Event</a></li>
-                                                <li><a href="events-details.html">Events Details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="javascript:;">FAQ's<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="faq-1.html">FAQ's 1</a></li>
-                                                <li><a href="faq-2.html">FAQ's 2</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="javascript:;">Contact Us<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="contact-1.html">Contact Us 1</a></li>
-                                                <li><a href="contact-2.html">Contact Us 2</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="portfolio.html">Portfolio</a></li>
-                                        <li><a href="profile.html">Profile</a></li>
-                                        <li><a href="membership.html">Membership</a></li>
-                                        <li><a href="error-404.html">404 Page</a></li>
-                                    </ul>
-                                </li>
+                                <c:if test="${sessionScope.account.role_id != 3}">
+                                    <li><a href="home">Home</a></li>
+                                    </c:if>
                                 <li>
-                                    <a href="courselist">Our Courses</a>
+                                    <c:if test="${sessionScope.account.role_id == 3}">
+                                        <a href="courseManage">Manage Courses</a>
+                                    </c:if>
+                                    <c:if test="${sessionScope.account.role_id != 3}">
+                                        <a href="courselist">Our Courses</a>
+                                    </c:if>
                                 </li>
                                 <li>
                                     <a href="bloglist">Blog</a>
@@ -175,30 +149,33 @@
                                         <a href="mycourse">My Course</a>
                                     </li>
                                 </c:if>
-                                <li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="admin/index.html">Dashboard</a></li>
-                                        <li><a href="admin/add-listing.html">Add Listing</a></li>
-                                        <li><a href="admin/bookmark.html">Bookmark</a></li>
-                                        <li><a href="admin/courses.html">Courses</a></li>
-                                        <li><a href="admin/review.html">Review</a></li>
-                                        <li><a href="admin/teacher-profile.html">Teacher Profile</a></li>
-                                        <li><a href="admin/user-profile.html">User Profile</a></li>
-                                        <li><a href="javascript:;">Calendar<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="admin/basic-calendar.html">Basic Calendar</a></li>
-                                                <li><a href="admin/list-view-calendar.html">List View Calendar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="javascript:;">Mailbox<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="admin/mailbox.html">Mailbox</a></li>
-                                                <li><a href="admin/mailbox-compose.html">Compose</a></li>
-                                                <li><a href="admin/mailbox-read.html">Mail Read</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
+                                <c:if test="${sessionScope.account.role_id != 3}">
+                                    <li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="admin/index.html">Dashboard</a></li>
+                                            <li><a href="admin/add-listing.html">Add Listing</a></li>
+                                            <li><a href="admin/bookmark.html">Bookmark</a></li>
+                                            <li><a href="admin/courses.html">Courses</a></li>
+                                            <li><a href="admin/review.html">Review</a></li>
+                                            <li><a href="admin/teacher-profile.html">Teacher Profile</a></li>
+                                            <li><a href="admin/user-profile.html">User Profile</a></li>
+                                            <li><a href="javascript:;">Calendar<i class="fa fa-angle-right"></i></a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="admin/basic-calendar.html">Basic Calendar</a></li>
+                                                    <li><a href="admin/list-view-calendar.html">List View Calendar</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="javascript:;">Mailbox<i class="fa fa-angle-right"></i></a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="admin/mailbox.html">Mailbox</a></li>
+                                                    <li><a href="admin/mailbox-compose.html">Compose</a></li>
+                                                    <li><a href="admin/mailbox-read.html">Mail Read</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </c:if>
+
                             </ul>
 
                         </div>

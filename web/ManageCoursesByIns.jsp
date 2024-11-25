@@ -149,7 +149,7 @@
                     <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
                         <div class="container">
                             <div class="page-banner-entry">
-                                <h1 class="text-white">Our Courses</h1>
+                                <h1 class="text-white">Manage Courses</h1>
                             </div>
                         </div>
                     </div>
@@ -157,7 +157,6 @@
                     <div class="breadcrumb-row">
                         <div class="container">
                             <ul class="list-inline">
-                                <li><a href="#">Home</a></li>
                                 <li>Manage Courses</li>
                             </ul>
                         </div>
@@ -175,7 +174,7 @@
                                                 <div class="input-group">
                                                     <form action="courseManage" method="POST" style="display: flex; align-items: center; gap: 10px;">
                                                         <input type="hidden" name="type" value="search">
-                                                        <input id="searchInput" name="searchName" type="text" required class="form-control" placeholder="Enter course name">
+                                                        <input id="searchInput" name="searchName" type="text" class="form-control" placeholder="Enter course name">
                                                         <button type="submit" class="btn btn-primary">Search</button>
                                                     </form>
                                                 </div>
@@ -205,7 +204,7 @@
                                                             <a href="detailCourseIns?cID=${course.id}" class="btn">Read More</a>
                                                         </div>
                                                         <div class="info-bx text-center">
-                                                            <h5><a href="#">${course.name}</a></h5>
+                                                            <h5><a href="detailCourseIns?cID=${course.id}">${course.name}</a></h5>
                                                             <span>${course.cate_name != null ? course.cate_name : 'Not classified yet'}</span>
                                                         </div>
                                                         <div class="cours-more-info">

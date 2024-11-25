@@ -79,7 +79,7 @@
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="video-file">Upload Video</label>
-                                            <input type="text" class="form-control" id="video-file" name="videoFile" accept="video/*"/>
+                                            <input type="text" class="form-control" id="video-file" name="videoFile" accept="video/*" required/>
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="document-file">Upload Document</label>
@@ -120,7 +120,7 @@
                                                             data-document="${lesson.document}">
                                                         Edit
                                                     </button>
-                                                    <form action="listLession" method="post" style="display:inline;">
+                                                    <form action="lessonManage" method="post" style="display:inline;">
                                                         <input type="hidden" name="type" value="delete">
                                                         <input type="hidden" name="lessonId" value="${lesson.id}">
                                                         <input type="hidden" name="chapterId" value="${chapter.id}"/>

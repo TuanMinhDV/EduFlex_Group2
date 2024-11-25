@@ -94,17 +94,17 @@
                         </a>
                     </li>
                     <li>
-                        <a href="accountcontrollerbyadmin" class="ttr-material-button">
+                        <a href="commentcontrollerbyadmin" class="ttr-material-button">
                             <span class="ttr-label">View Comment List</span>
                         </a>
                     </li>
                     <li>
-                        <a href="accountcontrollerbyadmin" class="ttr-material-button">
+                        <a href="viewordercourselistbyadmin" class="ttr-material-button">
                             <span class="ttr-label">View OrderCourse List</span>
                         </a>
                     </li>
                     <li>
-                        <a href="accountcontrollerbyadmin" class="ttr-material-button">
+                        <a href="viewrevenuestatisticsbyadmin" class="ttr-material-button">
                             <span class="ttr-label">View Revenue</span>
                         </a>
                     </li>

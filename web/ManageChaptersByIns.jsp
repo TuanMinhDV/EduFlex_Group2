@@ -123,7 +123,7 @@
                                                         <button type="submit" class="btn btn-danger" onclick="return confirmDelete();">Delete</button>
                                                     </form>
                                                     <button type="button" class="btn btn-primary btn-edit-chapter" data-id="${ch.id}" data-name="${ch.name}">Edit</button>
-                                                    <button type="button" class="btn btn-primary"><a style="color: white" href="listQuizz?chapID=${ch.id}">Manage Quizz</a></button>
+                                                    <button type="button" class="btn btn-primary"><a style="color: white" href="quizManage?chapID=${ch.id}">Manage Quizz</a></button>
                                                 </td>
                                             </tr>
                                         </c:if>
@@ -154,7 +154,7 @@
                             <input type="hidden" name="courseId" value="${course.id}"/>
                             <div class="form-group">
                                 <label for="chapter-name">Chapter Name</label>
-                                <input type="text" class="form-control" name="chapterName" id="chapter-name"/>
+                                <input type="text" class="form-control" name="chapterName" id="chapter-name" required/>
                             </div>
                         </div>
                         <div class="modal-footer">
