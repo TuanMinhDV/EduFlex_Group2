@@ -246,7 +246,8 @@ public class CourseDAO extends DBContext {
                 + "INNER JOIN Account a ON c.instructor_id = a.account_id \n"
                 + "LEFT JOIN CourseRatings cr ON c.course_id = cr.course_id \n"
                 + "LEFT JOIN ChapterCount cc ON c.course_id = cc.course_id \n"
-                + "LEFT JOIN LessonCount lc ON c.course_id = lc.course_id;";
+                + "LEFT JOIN LessonCount lc ON c.course_id = lc.course_id\n"
+                + "WHERE c.isDisable IS NULL;";
         try {
             PreparedStatement st = connection.prepareStatement(query);
             ResultSet rs = st.executeQuery();
