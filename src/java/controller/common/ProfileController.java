@@ -67,7 +67,8 @@ public class ProfileController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("account");
+        String status = null;
+        session.setAttribute("status", status);
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
 
@@ -84,11 +85,6 @@ public class ProfileController extends HttpServlet {
             throws ServletException, IOException {
         String status = null;
         String imageName = null;
-        String savePath = Constants.SAVE_PATH;
-        File file = new File(savePath);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
 
         HttpSession session = request.getSession();
         AccountDAO ad = new AccountDAO();
@@ -96,38 +92,25 @@ public class ProfileController extends HttpServlet {
         String fullname = request.getParameter("fullname");
         String birthday = request.getParameter("birthday");
         String phone = request.getParameter("phone");
-        Part filePart = request.getPart("image");
-        if (filePart.getSize() > 0) {
-            imageName = filePart.getSubmittedFileName();
-            file = new File(savePath + imageName);
-            try (InputStream fileContent = filePart.getInputStream(); FileOutputStream fos = new FileOutputStream(file)) {
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = fileContent.read(buffer)) != -1) {
-                    fos.write(buffer, 0, bytesRead);
-                }
-            }
-        }
-        boolean isSuceed = ad.updateProfile(fullname, birthday, phone, imageName, acc.getAccount_id());
+
+        int accId  = acc.getAccount_id();
+        boolean isSuceed = ad.updateProfile(fullname, birthday, phone, imageName, accId);
         if (isSuceed) {
             status = "success";
         } else {
             status = "failed";
         }
         if ("success".equals(status)) {
-            ad.updateProfile(fullname, birthday, phone, imageName, acc.getAccount_id());
+            ad.updateProfile(fullname, birthday, phone, imageName, accId);
+            Account newAcc = ad.getAccountById(accId);
             session.removeAttribute("account");
-            session.setAttribute("account", ad.getAccountById(acc.getAccount_id()));
-            Account profileAccount = ad.getAccountProfile(acc.getAccount_id());
-            Gson gson = new Gson();
-            String profile = gson.toJson(profileAccount);
-            status = gson.toJson(status);
-            JsonObject jsonobj = new JsonObject();
-            jsonobj.addProperty("profile", profile);
-            jsonobj.addProperty("status", status);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(jsonobj.toString());
+            session.setAttribute("account", newAcc);
+            Account profileAccount = ad.getAccountProfile(accId);
+
+            session.setAttribute("profile", profileAccount);
+            request.setAttribute("status", status);
+            request.getRequestDispatcher("profile.jsp").forward(request, response);
+            //response.sendRedirect("profile.jsp");
         }
 
     }

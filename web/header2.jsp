@@ -53,23 +53,26 @@
                     <ul class="ttr-header-navigation">
 
                         <li>
-                            <c:if test="${sessionScope.account.avatar == null}">
-                                <a class="ttr-material-button ttr-submenu-toggle">
-                                    <span class="ttr-user-avatar">
-                                        <img src="EduChamp-Template/assets/images/profile/default_profile_image.png" 
-                                             alt="profile picture" 
-                                             style="width:32px; height: 32px; border-radius: 50%">
-                                    </span>
+                            <c:if test="${sessionScope.account != null}">
+                                <c:if test="${sessionScope.account.avatar == null}">
+                                    <a class="ttr-material-button ttr-submenu-toggle">
+                                        <span class="ttr-user-avatar">
+                                            <img src="EduChamp-Template/assets/images/profile/default_profile_image.png" 
+                                                 alt="profile picture" 
+                                                 style="width:32px; height: 32px; border-radius: 50%">
+                                        </span>
 
-                                </a>
+                                    </a>
+                                </c:if>
+                                <c:if test="${sessionScope.account.avatar != null}">
+                                    <div class="ttr-material-button ttr-submenu-toggle" 
+                                         style="width: 32px; height: 32px;
+                                         border-radius: 50%;background-image:
+                                         url('data:image/jpeg;base64,${sessionScope.account.avatar}')">
+                                    </div>
+                                </c:if>
                             </c:if>
-                            <c:if test="${sessionScope.account.avatar != null}">
-                                <div class="ttr-material-button ttr-submenu-toggle" 
-                                     style="width: 32px; height: 32px;
-                                     border-radius: 50%;background-image:
-                                     url('data:image/jpeg;base64,${sessionScope.account.avatar}')">
-                                </div>
-                            </c:if>
+
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="profile">My profile</a></li>

@@ -283,7 +283,6 @@ public class AccountDAO extends DBContext {
                 + " WHERE account_id = ?";
         if (fileName != null) {
             String pathToFile = Constants.SAVE_PATH;
-            //String pathToFile = "";
             File avatarImage = new File(pathToFile + fileName);
             try (InputStream avatarStream = new FileInputStream(avatarImage)) {
                 PreparedStatement st = connection.prepareStatement(query1);
@@ -371,21 +370,42 @@ public class AccountDAO extends DBContext {
             st.setInt(1, account_id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                byte[] imageData = rs.getBytes("avatar");
-                String base64Avatar = new String(Base64.getEncoder().encode(imageData));
-                Account acc = new Account();
-                acc.setAccount_id(rs.getInt("account_id"));
-                acc.setUsername(rs.getString("username"));
-                acc.setPassword(rs.getString("password"));
-                acc.setFullname(rs.getString("fullname"));
-                acc.setEmail(rs.getString("email"));
-                acc.setDob(rs.getString("dob"));
-                acc.setPhone(rs.getString("phone"));
-                acc.setAvatar(base64Avatar);
-                acc.setOtp(rs.getString("otp"));
-                acc.setActive(rs.getInt("active"));
-                acc.setRole_id(rs.getInt("role_id"));
-                return acc;
+                //String image = rs.getString("avatar");
+                byte[] imageData = null;
+                String base64Avatar = "";
+                if (rs.getString("avatar") != null) {
+                    imageData = rs.getBytes("avatar");
+                    base64Avatar = new String(Base64.getEncoder().encode(imageData));
+                    Account acc = new Account();
+                    acc.setAccount_id(rs.getInt("account_id"));
+                    acc.setUsername(rs.getString("username"));
+                    acc.setPassword(rs.getString("password"));
+                    acc.setFullname(rs.getString("fullname"));
+                    acc.setEmail(rs.getString("email"));
+                    acc.setDob(rs.getString("dob"));
+                    acc.setPhone(rs.getString("phone"));
+                    acc.setAvatar(base64Avatar);
+                    acc.setOtp(rs.getString("otp"));
+                    acc.setActive(rs.getInt("active"));
+                    acc.setRole_id(rs.getInt("role_id"));
+                    return acc;
+                } else {
+                    Account acc = new Account();
+                    acc.setAccount_id(rs.getInt("account_id"));
+                    acc.setUsername(rs.getString("username"));
+                    acc.setPassword(rs.getString("password"));
+                    acc.setFullname(rs.getString("fullname"));
+                    acc.setEmail(rs.getString("email"));
+                    acc.setDob(rs.getString("dob"));
+                    acc.setPhone(rs.getString("phone"));
+                    acc.setAvatar(null);
+                    acc.setOtp(rs.getString("otp"));
+                    acc.setActive(rs.getInt("active"));
+                    acc.setRole_id(rs.getInt("role_id"));
+                    return acc;
+
+                }
+
             }
         } catch (SQLException e) {
         }
@@ -393,18 +413,22 @@ public class AccountDAO extends DBContext {
     }
 
     public Account getAccountProfile(Integer account_id) {
-        String query = "select a.account_id, a.username, a.[password], a.fullname,"
+        String query = "SELECT a.account_id, a.username, a.[password], a.fullname,"
                 + "a.email, a.dob, a.phone, a.avatar, "
-                + "r.role_name from Account a \n"
-                + "JOIN [Role] r on a.role_id = r.role_id\n"
-                + "where a.account_id = ?";
+                + "r.role_name FROM Account a \n"
+                + "JOIN [Role] r ON a.role_id = r.role_id\n"
+                + "WHERE a.account_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(query);
             st.setInt(1, account_id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                byte[] imageData = rs.getBytes("avatar");
-                String base64Avatar = new String(Base64.getEncoder().encode(imageData));
+                byte[] imageData = null;
+                String base64Avatar = "";
+                if (rs.getString("avatar") != null) {
+                    imageData = rs.getBytes("avatar");
+                    base64Avatar = new String(Base64.getEncoder().encode(imageData));
+                }
                 Account acc = new Account();
                 acc.setAccount_id(rs.getInt("account_id"));
                 acc.setUsername(rs.getString("username"));
