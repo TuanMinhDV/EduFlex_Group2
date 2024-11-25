@@ -69,7 +69,7 @@
                     <div class="breadcrumb-row">
                         <div class="container">
                             <ul class="list-inline">
-                                <li><a href="#">Home</a></li>
+                                <li><a href="courseManage">Courses</a></li>
                                 <li>Courses Details</li>
                             </ul>
                         </div>
@@ -121,7 +121,7 @@
                                                             <div class="curriculum-list-box">
                                                                 <span>Chapter ${status.index + 1}.</span> ${chapter.name}
                                                             </div>
-                                                            <span>120 minutes</span>
+<!--                                                            <span>120 minutes</span>-->
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
