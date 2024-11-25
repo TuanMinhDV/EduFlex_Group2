@@ -136,7 +136,7 @@
                         <div class="modal-body">
                             <input type="hidden" name="type" value="edit"/>
                             <input type="hidden" id="edit-quiz-id" name="quizId"/>
-                            <input type="text" name="chapterId" value="${chapter.id}"/>
+                            <input type="hidden" name="chapterId" value="${chapter.id}"/>
                             <div class="form-group mb-3">
                                 <label for="edit-quiz-title">Quizz Title</label>
                                 <input type="text" class="form-control" id="edit-quiz-title" name="quizTitle" required/>
