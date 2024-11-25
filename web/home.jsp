@@ -168,68 +168,7 @@
                         </div>
                     </div>
                     <!-- Form END -->
-                    <div class="section-area section-sp1">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-6 m-b30">
-                                    <h2 class="title-head ">Learn a new skill online<br> <span class="text-primary"> on your time</span></h2>
-                                    <h4><span class="counter">57,000</span> Online Courses</h4>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.</p>
-                                    <c:if test="${sessionScope.account == null}">
-                                        <a href="login" class="btn button-md">Join Now</a>
-                                    </c:if>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
-                                            <div class="feature-container">
-                                                <div class="feature-md text-white m-b20">
-                                                    <a href="#" class="icon-cell"><img src="assets/images/icon/icon1.png" alt=""></a> 
-                                                </div>
-                                                <div class="icon-content">
-                                                    <h5 class="ttr-tilte">Our Philosophy</h5>
-                                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
-                                            <div class="feature-container">
-                                                <div class="feature-md text-white m-b20">
-                                                    <a href="#" class="icon-cell"><img src="assets/images/icon/icon2.png" alt=""></a> 
-                                                </div>
-                                                <div class="icon-content">
-                                                    <h5 class="ttr-tilte">Kingster's Principle</h5>
-                                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
-                                            <div class="feature-container">
-                                                <div class="feature-md text-white m-b20">
-                                                    <a href="#" class="icon-cell"><img src="assets/images/icon/icon3.png" alt=""></a> 
-                                                </div>
-                                                <div class="icon-content">
-                                                    <h5 class="ttr-tilte">Key Of Success</h5>
-                                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
-                                            <div class="feature-container">
-                                                <div class="feature-md text-white m-b20">
-                                                    <a href="#" class="icon-cell"><img src="assets/images/icon/icon4.png" alt=""></a> 
-                                                </div>
-                                                <div class="icon-content">
-                                                    <h5 class="ttr-tilte">Our Philosophy</h5>
-                                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                      <!-- Popular Courses -->
                     <div class="section-area section-sp2 popular-courses-bx">
                         <div class="container">
