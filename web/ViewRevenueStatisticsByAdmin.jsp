@@ -40,7 +40,7 @@
         <jsp:include page="header3.jsp"></jsp:include>
 
             <!-- Sidebar -->
-        <jsp:include page="sidebarleft.jsp"></jsp:include>
+        <jsp:include page="sidebarleft2.jsp"></jsp:include>
 
             <!-- Main Content -->
             <div class="container" style="padding: 20px; margin-top: 20px;">

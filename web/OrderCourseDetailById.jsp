@@ -139,7 +139,7 @@
             
             <!-- Sidebar -->
             <div class="sidebar">
-                <jsp:include page="sidebarleft.jsp"></jsp:include>
+                <jsp:include page="sidebarleft2.jsp"></jsp:include>
             </div>
             
             <!-- Main Content -->
