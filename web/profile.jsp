@@ -79,7 +79,7 @@
                                     <h4>User Profile</h4>
                                 </div>
                                 <div class="widget-inner">
-                                    <form class="edit-profile m-b30">
+                                    <form action="profile" id="profileForm" method="post" class="edit-profile m-b30">
                                         <div class="">
                                             <div class="form-group row">
                                                 <div class="col-sm-10  ml-auto">
@@ -95,11 +95,13 @@
                                                          style="width:100px; height: 100px; border-radius: 50%">
                                                 </c:if>
                                                 <c:if test="${sessionScope.account.avatar != null}">
-                                                    <div class="avatar" 
-                                                         style="width: 100px; height: 100px;
-                                                         border-radius: 50%;background-image:
-                                                         url('data:image/jpeg;base64,${sessionScope.account.avatar}')">
-                                                    </div>
+                                                    <img 
+                                                        src="url('data:image/jpeg;base64,${sessionScope.account.avatar}')"
+                                                        class="avatar" 
+                                                        style="width: 100px; height: 100px;
+                                                        border-radius: 50%;" 
+                                                        id="image_profile"/>
+
                                                 </c:if>
                                             </label>
                                             <div class="col-sm-7">
@@ -110,35 +112,36 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Full Name</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control" name="fullname" type="text" value="${sessionScope.account.fullname}">
+                                                <input class="form-control" name="fullname" id="fullname" type="text" value="${sessionScope.account.fullname}">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">User Name</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control" name="username" type="text" value="${sessionScope.account.username}">
+                                                <input class="form-control" name="username" id="username" type="text" value="${sessionScope.account.username}" disabled="true">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Birthday</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control" name="dob" type="date" value="${sessionScope.account.dob}">
+                                                <input class="form-control" name="birthday" id="birthdate" type="date" value="${sessionScope.account.dob}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Email</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control" name="email" type="text" value="${sessionScope.account.email}">
+                                                <input class="form-control email" name="email" type="text" value="${sessionScope.account.email}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Phone No.</label>
                                             <div class="col-sm-7">
-                                                <input class="form-control" name="phone" type="text" value="${sessionScope.account.phone}">
+                                                <input class="form-control" name="phone" id="phone" type="text" value="${sessionScope.account.phone}">
                                             </div>
                                         </div>
+
 
                                     </div>
                                     <div class="">
@@ -147,7 +150,14 @@
                                                 <div class="col-sm-2">
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    <button type="reset" class="btn">Save changes</button>
+                                                    <c:if test="${status == 'success'}">
+                                                        <p style="color: green">Updated successfully</p>
+                                                    </c:if>
+                                                    <c:if test="${status == 'failed'}">
+                                                        <p style="color: red">Updated failed</p>
+                                                    </c:if>
+
+                                                    <button type="submit" class="btn" id="save_profile">Save changes</button>
                                                     <button type="reset" class="btn-secondry">Cancel</button>
                                                 </div>
                                             </div>

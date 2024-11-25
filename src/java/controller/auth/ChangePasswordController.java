@@ -7,11 +7,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Account;
 import model.Constants;
 
@@ -24,7 +21,7 @@ public class ChangePasswordController extends BaseRequiredAuthorizationControlle
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         if (acc == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("login");
         } else {
             response.sendRedirect("changepassword.jsp");
         }
@@ -66,11 +63,11 @@ public class ChangePasswordController extends BaseRequiredAuthorizationControlle
             request.setAttribute("errors", errors);
             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         } else {
-
             AccountDAO ad = new AccountDAO();
             ad.changePassword(username, newPass);
             request.setAttribute("mess", "Your password has been changed successfully");
-            request.getRequestDispatcher("login").forward(request, response);
+            response.sendRedirect("login");
+            //request.getRequestDispatcher("login.jsp").forward(request, response);
         }
 
     }
